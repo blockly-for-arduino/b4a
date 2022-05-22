@@ -1,0 +1,15 @@
+{
+    "kind": "category",
+    "name": "Blinker",
+    "colour": 60,
+    "contents": [
+        {
+            "kind": "block",
+            "type": "blinker_begin"
+        },
+        {
+            "kind": "block",
+            "type": "blinker_attachData"
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+[
+    {
+        "type": "blinker_begin",
+        "message0": "设置引脚 %1 为 %2 模式",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            },
+            {
+                "type": "input_value",
+                "name": "MODE"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "pinMode",
+        "helpUrl": ""
+    },
+    {
+        "type": "blinker_attachData",
+        "message0": "设置引脚 %1 为 %2 模式",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            },
+            {
+                "type": "input_value",
+                "name": "MODE"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "pinMode",
+        "helpUrl": ""
+    }
+]

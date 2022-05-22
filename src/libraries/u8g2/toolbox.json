@@ -1,0 +1,49 @@
+{
+    "kind": "category",
+    "name": "U8G2",
+    "colour": 60,
+    "contents": [
+        {
+            "kind": "block",
+            "type": "u8g2_begin",
+            "inputs": {
+                "CS": {
+                    "block": {
+                        "type": "math_number"
+                    }
+                },
+                "DC": {
+                    "block": {
+                        "type": "math_number"
+                    }
+                },
+                "RESET": {
+                    "block": {
+                        "type": "math_number"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "block",
+            "type": "u8g2_drawStr",
+            "inputs": {
+                "X": {
+                    "block": {
+                        "type": "math_number"
+                    }
+                },
+                "Y": {
+                    "block": {
+                        "type": "math_number"
+                    }
+                },
+                "TEXT": {
+                    "block": {
+                        "type": "text"
+                    }
+                }
+            }
+        }
+    ]
+}

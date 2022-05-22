@@ -1,0 +1,13 @@
+<div class="monitor-box">
+    <div class="info-box">
+        <div *ngFor="let data of dataList">{{data}}</div>
+    </div>
+    <div class="input-box">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="Serial Send Data" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <i nz-icon nzType="enter" nzTheme="outline" (click)="send()"></i>
+        </ng-template>
+    </div>
+</div>

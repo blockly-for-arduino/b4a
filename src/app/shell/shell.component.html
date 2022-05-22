@@ -1,0 +1,29 @@
+<div class="shell-box">
+    <div class="state-box">
+        <ng-container [ngSwitch]="state">
+            <i nz-icon *ngSwitchCase="11" nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+            <i nz-icon *ngSwitchCase="21" nzType="check-circle" nzTheme="outline" class="green"></i>
+            <i nz-icon *ngSwitchCase="31" nzType="close-circle" nzTheme="outline" class="red"></i>
+            <i nz-icon *ngSwitchCase="12" nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+            <i nz-icon *ngSwitchCase="22" nzType="check-circle" nzTheme="outline" class="green"></i>
+            <i nz-icon *ngSwitchCase="32" nzType="close-circle" nzTheme="outline" class="red"></i>
+        </ng-container>
+        <ng-container [ngSwitch]="state">
+            <div *ngSwitchCase="11">编译中...</div>
+            <div *ngSwitchCase="21">编译成功</div>
+            <div *ngSwitchCase="31">编译错误</div>
+            <div *ngSwitchCase="12">上传中...</div>
+            <div *ngSwitchCase="22">上传成功</div>
+            <div *ngSwitchCase="32">上传错误</div>
+        </ng-container>
+    </div>
+    <div class="info-box">
+        <div *ngFor="let data of dataList;index as i;trackBy:trackFunc"
+            class="animate__animated animate__fadeInLeft animate__faster" [ngClass]="{
+                'red': isErrorInfo_Build(data) || isErrorInfo_Upload(data),
+                'blue':isSystemInfo(data)
+            }">
+            {{data}}
+        </div>
+    </div>
+</div>

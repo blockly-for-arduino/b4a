@@ -1,0 +1,81 @@
+{
+    "kind": "category",
+    "name": "Input/Output",
+    "colour": 60,
+    "contents": [
+        {
+            "kind": "block",
+            "type": "io_pin_digi"
+        },
+        {
+            "kind": "block",
+            "type": "io_pin_adc"
+        },
+        {
+            "kind": "block",
+            "type": "io_pin_pwm"
+        },
+        {
+            "kind": "block",
+            "type": "io_mode"
+        },
+        {
+            "kind": "block",
+            "type": "io_state"
+        },
+        {
+            "kind": "block",
+            "type": "io_pinMode",
+            "inputs": {
+                "PIN": {
+                    "block": { "type": "io_pin_digi" }
+                },
+                "MODE": {
+                    "block": { "type": "io_mode" }
+                }
+            }
+        },
+        {
+            "kind": "block",
+            "type": "io_digitalWrite",
+            "inputs": {
+                "PIN": {
+                    "block": { "type": "io_pin_digi" }
+                },
+                "STATE": {
+                    "block": { "type": "io_state" }
+                }
+            }
+        },
+        {
+            "kind": "block",
+            "type": "io_digitalRead",
+            "inputs": {
+                "PIN": {
+                    "block": { "type": "io_pin_digi" }
+                }
+            }
+        },
+        {
+            "kind": "block",
+            "type": "io_analogWrite",
+            "inputs": {
+                "PIN": {
+                    "block": { "type": "io_pin_pwm" }
+                },
+                "PWM": {
+                    "block": { "type": "math_number" }
+                }
+            }
+        },
+        {
+            "kind": "block",
+            "type": "io_analogRead",
+            "inputs": {
+                "PIN": {
+                    "block": { "type": "io_pin_adc" }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,190 @@
+[
+    {
+        "type": "io_pinMode",
+        "message0": "设置引脚 %1 为 %2 模式",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            },
+            {
+                "type": "input_value",
+                "name": "MODE"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "pinMode",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_pin_digi",
+        "message0": "数字引脚 %1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "PIN",
+                "options": "${board.digitalPins}"
+            }
+        ],
+        "output": "String",
+        "colour": 230,
+        "tooltip": "mode",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_pin_adc",
+        "message0": "模拟引脚 %1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "PIN",
+                "options": "${board.analogPins}"
+            }
+        ],
+        "output": "String",
+        "colour": 230,
+        "tooltip": "mode",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_pin_pwm",
+        "message0": "PWM引脚 %1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "PIN",
+                "options": "${board.pwmPins}"
+            }
+        ],
+        "output": "String",
+        "colour": 230,
+        "tooltip": "mode",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_mode",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "MODE",
+                "options": [
+                    [
+                        "INPUT",
+                        "INPUT"
+                    ],
+                    [
+                        "OUTPUT",
+                        "OUTPUT"
+                    ],
+                    [
+                        "INPUT_PULLUP",
+                        "INPUT_PULLUP"
+                    ]
+                ]
+            }
+        ],
+        "output": "Any",
+        "colour": 230,
+        "tooltip": "mode",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_state",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "STATE",
+                "options": [
+                    [
+                        "LOW",
+                        "LOW"
+                    ],
+                    [
+                        "HIGH",
+                        "HIGH"
+                    ]
+                ]
+            }
+        ],
+        "output": "Any",
+        "colour": 230,
+        "tooltip": "state",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_digitalWrite",
+        "message0": "设置引脚 %1 输出 %2 电平",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            },
+            {
+                "type": "input_value",
+                "name": "STATE"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "digitalWrite",
+        "helpUrl": "",
+        "generator": "digitalWrite(${PIN},${STATE});\n"
+    },
+    {
+        "type": "io_digitalRead",
+        "message0": "读取引脚 %1 的数字信号",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            }
+        ],
+        "output": "Any",
+        "colour": 230,
+        "tooltip": "digitalRead",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_analogWrite",
+        "message0": "设置引脚 %1 输出占空比为 %2 的PWM",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN",
+                "check": "String"
+            },
+            {
+                "type": "input_value",
+                "name": "PWM",
+                "check": "Number"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "analogWrite",
+        "helpUrl": ""
+    },
+    {
+        "type": "io_analogRead",
+        "message0": "读取引脚 %1 的模拟信号",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "PIN"
+            }
+        ],
+        "output": "Number",
+        "colour": 230,
+        "tooltip": "analogRead",
+        "helpUrl": ""
+    }
+]

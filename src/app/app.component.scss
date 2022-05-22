@@ -1,0 +1,90 @@
+:host {
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    height: 55px;
+    background-color: #008184;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
+    button {
+        margin-right: 10px;
+        background-color: #48c2c4;
+        color: #008184;
+        border: none;
+
+        &:hover {
+            background-color: #05b0b3;
+            color: #ffffff;
+        }
+    }
+
+    nz-select {
+        margin-right: 20px;
+        color: #065f60;
+
+        ::ng-deep {
+            .ant-select-selector {
+                background-color: #48c2c4;
+                border: none;
+            }
+        }
+    }
+
+    nz-divider {
+        margin-right: 20px;
+    }
+
+    >div {
+        display: flex;
+        align-items: center;
+    }
+
+}
+
+.blockly-box {
+    height: calc(100% - 55px);
+}
+
+.right-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 500px;
+    height: 100%;
+    z-index: 999;
+    box-shadow: 0 0 20px #CCC;
+    background-color: #1f1f1f;
+    color: #FFF;
+    font-size: 16px;
+
+    .right-header {
+        height: 55px;
+        width: 100%;
+        background-color: #1f1f1f;
+        display: flex;
+        align-items: center;
+        z-index: 999;
+
+        i {
+            width: 60px;
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+
+    .right-content {
+        position: relative;
+        height: calc(100% - 55px);
+    }
+
+}

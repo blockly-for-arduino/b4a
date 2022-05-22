@@ -1,0 +1,26 @@
+[
+    {
+        "type": "time_delay",
+        "message0": "延迟 %1 ms",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "TIME"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 230,
+        "tooltip": "time_delay",
+        "helpUrl": ""
+    },
+    {
+        "type": "time_millis",
+        "message0": "设备运行时间",
+        "output": "Number",
+        "colour": 230,
+        "tooltip": "time_millis",
+        "helpUrl": ""
+    }
+]
