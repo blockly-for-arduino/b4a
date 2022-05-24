@@ -71,7 +71,8 @@ export class ArduinoCliService {
       })
       this.child_build.stderr.on('data', (dataBuffer: Buffer) => {
         let data = dataBuffer.toString();
-        if (state == ShellState.BUILDING)
+        console.log(data);
+        if (state == ShellState.BUILDING && data.includes('error:'))
           state = ShellState.BUILD_FAIL
         this.output.next(data)
       })

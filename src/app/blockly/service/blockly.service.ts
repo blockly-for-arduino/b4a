@@ -97,6 +97,10 @@ export class BlocklyService {
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
+          // 添加宏
+          if (blockJson.b4a.macro) {
+            Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
+          }
           // 添加库
           if (blockJson.b4a.library) {
             Arduino.addLibrary(blockJson.b4a.library, blockJson.b4a.library)
@@ -109,6 +113,11 @@ export class BlocklyService {
               b4aVars['${' + arg.name + '}'] = getValue(block, arg.name)
             });
           }
+          if (blockJson.args1) {
+            blockJson.args1.forEach(arg => {
+              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name)
+            });
+          }
 
           if (blockJson.b4a.object) {
             let primary
@@ -117,6 +126,12 @@ export class BlocklyService {
             b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
             let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
             Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
+          }
+          if (blockJson.b4a.function) {
+            let functionBody = processB4ACode(blockJson.b4a.function, b4aVars)
+            console.log(functionBody);
+
+            Arduino.addFunction(blockJson.b4a.function, functionBody)
           }
           if (blockJson.b4a.setup) {
             let setup_code = processB4ACode(blockJson.b4a.setup, b4aVars)
@@ -239,7 +254,8 @@ export class BlocklyService {
 
 function processB4ACode(code: string, vars: object): string {
   for (const varName in vars) {
-    code = code.replace(varName, vars[varName])
+    let reg = new RegExp('\\'+varName, 'g')
+    code = code.replace(reg, vars[varName])
   }
   return code
 }

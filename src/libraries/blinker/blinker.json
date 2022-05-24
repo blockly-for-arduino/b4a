@@ -1,42 +1,111 @@
 [
     {
-        "type": "blinker_begin",
-        "message0": "设置引脚 %1 为 %2 模式",
+        "inputsInline": true,
+        "message0": "点灯 WiFi接入 密钥%1 热点%2 密码%3",
+        "type": "blinker_begin_wifi",
+        "colour": "#48c2c4",
         "args0": [
             {
-                "type": "input_value",
-                "name": "PIN"
+                "type": "field_input",
+                "name": "AUTH",
+                "text": ""
             },
             {
-                "type": "input_value",
-                "name": "MODE"
+                "type": "field_input",
+                "name": "SSID",
+                "text": ""
+            },
+            {
+                "type": "field_input",
+                "name": "PSWD",
+                "text": ""
             }
         ],
-        "inputsInline": true,
+        "toolbox": {
+            "show": true,
+            "category": "Blinker"
+        },
+        "b4a": {
+            "code": "Blinker.begin(\"${AUTH}\", \"${SSID}\", \"${PSWD}\");",
+            "macro": "#define BLINKER_WIFI",
+            "library": "#include <Blinker.h>"
+        },
         "previousStatement": null,
-        "nextStatement": null,
-        "colour": 230,
-        "tooltip": "pinMode",
-        "helpUrl": ""
+        "nextStatement": null
     },
     {
-        "type": "blinker_attachData",
-        "message0": "设置引脚 %1 为 %2 模式",
+        "inputsInline": true,
+        "message0": "点灯 蓝牙BLE接入 RX%1 TX%2 波特率%3",
+        "type": "blinker_begin",
+        "colour": "#48c2c4",
         "args0": [
             {
-                "type": "input_value",
-                "name": "PIN"
+                "type": "field_number",
+                "name": "RX",
+                "value": 2
             },
             {
-                "type": "input_value",
-                "name": "MODE"
+                "type": "field_number",
+                "name": "TX",
+                "value": 3
+            },
+            {
+                "type": "field_number",
+                "name": "SPEED",
+                "value": 9600
             }
         ],
-        "inputsInline": true,
+        "toolbox": {
+            "show": true,
+            "category": "Blinker"
+        },
+        "b4a": {
+            "code": "Blinker.begin(${RX}, ${TX}, ${SPEED});",
+            "macro": "#define BLINKER_WIFI",
+            "library": "#include <Blinker.h>"
+        },
         "previousStatement": null,
-        "nextStatement": null,
-        "colour": 230,
-        "tooltip": "pinMode",
-        "helpUrl": ""
+        "nextStatement": null
+    },
+    {
+        "type": "blinker_button_callback",
+        "message0": "点灯 按键%1 Key%2 回调",
+        "args0": [
+            {
+                "type": "field_variable",
+                "name": "OBJECT",
+                "variable": "button1",
+                "variableTypes": [
+                    "WidgetButton"
+                ],
+                "defaultType": "WidgetButton"
+            },
+            {
+                "type": "field_input",
+                "name": "KEY",
+                "text": ""
+            }
+        ],
+        "message1": "%1",
+        "args1": [
+            {
+                "type": "input_statement",
+                "name": "FUNC_INNER"
+            }
+        ],
+        "b4a": {
+            "library": "#include <Blinker.h>",
+            "object": "BlinkerButton ${OBJECT}(\"${KEY}\");",
+            "setup": "${OBJECT}.attach(${OBJECT}_callback);",
+            "function": "void ${OBJECT}_callback(const String & state) {\r\n  ${FUNC_INNER}\r\n}",
+            "code": ""
+        },
+        "colour": "#1e88e5",
+        "tooltip": "arduino_setup",
+        "helpUrl": "",
+        "toolbox": {
+            "show": true,
+            "category": "Blinker"
+        }
     }
 ]
