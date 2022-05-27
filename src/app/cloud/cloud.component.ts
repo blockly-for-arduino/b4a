@@ -68,6 +68,8 @@ export class CloudComponent implements OnInit {
       this.blocklyService.loadXml(resp);
       this.message.success(`示例 ${item.name} 加载成功`);
       this.modal.close();
+    }, err => {
+      this.message.error(`示例 ${item.name} 加载失败`);
     })
 
   }
