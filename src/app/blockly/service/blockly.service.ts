@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../../core/services/config.service';
 import Blockly from 'blockly';
+import * as zhHans from 'blockly/msg/zh-hans';
 import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
 import { ToolBox } from '../arduino/toolbox';
@@ -250,14 +251,29 @@ export class BlocklyService {
     }
   }
 
+  updateToolbox(toolbox) {
+    this.workspace.updateToolbox(toolbox);
+  }
+
+  changeTheme(theme) {
+
+  }
+
+  changeLanguage(language) {
+    Blockly.setLocale(zhHans);
+    Blockly.Msg["VARIABLES_DEFAULT_NAME"] = "var1"; // 这句为啥没生效
+  }
+
 }
 
 function processB4ACode(code: string, vars: object): string {
   for (const varName in vars) {
-    let reg = new RegExp('\\'+varName, 'g')
+    let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
   }
   return code
 }
+
+
 
 

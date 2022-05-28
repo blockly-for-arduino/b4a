@@ -5,6 +5,7 @@ export let ToolBox = {
             "kind": "category",
             "name": "Logic",
             "categorystyle": "logic_category",
+            "css-icon": "customIcon fas fa-code-branch",
             "contents": [
                 {
                     "kind": "block",
@@ -68,21 +69,6 @@ export let ToolBox = {
                 {
                     "kind": "block",
                     "type": "controls_flow_statements"
-                }
-            ]
-        },
-        {
-            "kind": "category",
-            "name": "Variables",
-            "categorystyle": "variable_category",
-            "contents": [
-                {
-                    "kind": "block",
-                    "type": "variables_get"
-                },
-                {
-                    "kind": "block",
-                    "type": "variables_set"
                 }
             ]
         },
@@ -276,47 +262,59 @@ export let ToolBox = {
                 }
             ]
         },
-        {
-            "kind": "category",
-            "name": "Functions",
-            "categorystyle": "procedure_category",
-            "contents": [
-                {
-                    "kind": "block",
-                    "type": "procedures_defreturn"
-                },
-                {
-                    "kind": "block",
-                    "type": "procedures_defnoreturn"
-                },
-                {
-                    "kind": "block",
-                    "type": "procedures_callreturn"
-                },
-                {
-                    "kind": "block",
-                    "type": "procedures_callnoreturn"
-                },
-                {
-                    "kind": "block",
-                    "type": "procedures_ifreturn"
-                }
-            ]
-        },
         // {
         //     "kind": "category",
-        //     "name": "Button",
-        //     "colour": 60,
+        //     "name": "Functions",
+        //     "categorystyle": "procedure_category",
         //     "contents": [
         //         {
         //             "kind": "block",
-        //             "type": "blinker_begin"
+        //             "type": "procedures_defreturn"
         //         },
         //         {
         //             "kind": "block",
-        //             "type": "blinker_attachData"
+        //             "type": "procedures_defnoreturn"
+        //         },
+        //         {
+        //             "kind": "block",
+        //             "type": "procedures_callreturn"
+        //         },
+        //         {
+        //             "kind": "block",
+        //             "type": "procedures_callnoreturn"
+        //         },
+        //         {
+        //             "kind": "block",
+        //             "type": "procedures_ifreturn"
         //         }
         //     ]
-        // }
+        // },
+        {
+            "kind": "sep",
+            "cssConfig": {
+                "container": "toolbox-sep"
+            }
+        },
+        {
+            "kind": "category",
+            "name": "Variables",
+            "custom": "VARIABLE",
+            "categorystyle": "variable_category",
+            "contents": [
+                {
+                    "kind": "button",
+                    "text": "A button",
+                    "callbackKey": "CREATE_VARIABLE"
+                },
+                {
+                    "kind": "block",
+                    "type": "variables_get"
+                },
+                {
+                    "kind": "block",
+                    "type": "variables_set"
+                }
+            ]
+        },
     ]
 };

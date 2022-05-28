@@ -7,11 +7,14 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { PromptComponent } from './prompt/prompt.component';
+import { NewVarModalComponent } from './new-var-modal/new-var-modal.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [
     BlocklyComponent,
-    PromptComponent
+    PromptComponent,
+    NewVarModalComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +23,8 @@ import { PromptComponent } from './prompt/prompt.component';
     NzModalModule,
     NzInputModule,
     NzButtonModule,
-    FormsModule
+    FormsModule,
+    NzSelectModule
   ],
   exports: [
     BlocklyComponent

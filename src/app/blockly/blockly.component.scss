@@ -15,12 +15,20 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    > div {
+
+    >div {
         position: relative;
         flex-grow: 1;
-        textarea{
+
+        textarea {
             height: 100%;
             width: 100%;
         }
+    }
+}
+
+::ng-deep {
+    .toolbox-sep {
+        margin: 5px 0;
     }
 }

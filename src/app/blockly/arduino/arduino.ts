@@ -344,6 +344,17 @@ export function initArduinoGenerator() {
         }
     };
 
+    window['getVarType'] = function (varName) {
+        let variableMap=Arduino.nameDB_.variableMap_.variableMap_
+        for (const key in variableMap) {
+            for (let index = 0; index < variableMap[key].length; index++) {
+                let variableModel = variableMap[key][index];
+                if (variableModel && variableModel.name == varName) return variableModel.type
+            }
+        }
+        return 'int'
+    }
+
     window['getValue'] = function (block, name) {
         let code = '?'
         try {

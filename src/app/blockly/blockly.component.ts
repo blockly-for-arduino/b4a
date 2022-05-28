@@ -5,7 +5,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ConfigService } from '../core/services/config.service';
 import { initArduinoGenerator } from './arduino/arduino';
 import { PromptComponent } from './prompt/prompt.component';
+import { NewVarModalComponent } from './new-var-modal/new-var-modal.component';
 import { BlocklyService } from './service/blockly.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { VAR_TYPE } from './arduino/var.types';
 
 @Component({
   selector: 'clz-blockly',
@@ -16,7 +19,7 @@ export class BlocklyComponent implements OnInit {
 
   code: string;
 
-  workspace: Blockly.WorkspaceSvg;
+  workspace;
   generator: Blockly.Generator;
 
   @Output() public codeChange: EventEmitter<string> = new EventEmitter<string>();
@@ -24,7 +27,8 @@ export class BlocklyComponent implements OnInit {
   constructor(
     private blocklyService: BlocklyService,
     private configService: ConfigService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +48,7 @@ export class BlocklyComponent implements OnInit {
 
   async init() {
     const blocklyDiv = document.getElementById('blocklyDiv');
-
+    this.blocklyService.changeLanguage('zhHans')
     // 加载block和toolbox
     await this.blocklyService.init()
 
@@ -71,7 +75,9 @@ export class BlocklyComponent implements OnInit {
       toolbox: this.blocklyService.toolbox,
     });
     this.blocklyService.workspace = this.workspace
+
     this.workspace.addChangeListener(event => this.onWorkspaceChange(event))
+    this.rewtireFunc()
     this.loadTempData()
   }
 
@@ -140,6 +146,47 @@ export class BlocklyComponent implements OnInit {
         }
       })
     });
+  }
+
+  VARTYPE = VAR_TYPE
+  rewtireFunc() {
+    Blockly.Variables.createVariableButtonHandler = (workspace, opt_callback, opt_type) => {
+      this.modal.create({
+        nzTitle: '添加变量',
+        nzWidth: '350px',
+        nzContent: NewVarModalComponent
+      })
+    };
+    Blockly.Variables.flyoutCategoryBlocks = function (workspace) {
+      let variableModelList = []
+      VAR_TYPE.forEach(item => {
+        variableModelList = variableModelList.concat(workspace.getVariablesOfType(item.value))
+      })
+
+      let xmlList: any[] = [];
+      if (variableModelList.length > 0) {
+        // New variables are added to the end of the variableModelList.
+        const mostRecentVariable = variableModelList[variableModelList.length - 1];
+        // if (Blocks['variables_set']) {
+        const block = Blockly.utils.xml.createElement('block');
+        block.setAttribute('type', 'variables_set');
+        block.setAttribute('gap', 8);
+        block.appendChild(Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
+        xmlList.push(block);
+        // }
+        // if (Blocks['variables_get']) {
+        variableModelList.sort(Blockly.VariableModel.compareByName);
+        for (let i = 0, variable; (variable = variableModelList[i]); i++) {
+          const block = Blockly.utils.xml.createElement('block');
+          block.setAttribute('type', 'variables_get');
+          block.setAttribute('gap', 8);
+          block.appendChild(Blockly.Variables.generateVariableFieldDom(variable));
+          xmlList.push(block);
+        }
+        // }
+      }
+      return xmlList;
+    };
   }
 
 }

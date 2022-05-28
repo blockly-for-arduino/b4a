@@ -1,0 +1,11 @@
+<div class="modal-box">
+    <div>类型</div>
+    <nz-select nzSize="small" [(ngModel)]="varType">
+        <nz-option *ngFor="let item of VAR_TYPE" nzValue="{{item.value}}" nzLabel="{{item.name}}"></nz-option>
+    </nz-select>
+    <div style="margin-left:10px">变量名</div>
+    <input nz-input nzSize="small" [(ngModel)]="varName" />
+</div>
+<div *nzModalFooter>
+    <button nz-button nzSize="small" nzType="primary" (click)="addVar()">添加</button>
+</div>
