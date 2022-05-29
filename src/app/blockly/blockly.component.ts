@@ -104,6 +104,15 @@ export class BlocklyComponent implements OnInit {
     this.loadXml(temp);
   }
 
+  loadDefaultData() {
+    let temp = `
+    <xml xmlns="https://developers.google.com/blockly/xml">
+      <block type="arduino_setup" id="w%;fYz[)G_;{].azfgeM" x="30" y="30"></block>
+      <block type="arduino_loop" id="RBk!NG-d?N5UZD3=Fkjd" x="330" y="30"></block>
+    </xml>`
+    this.loadXml(temp);
+  }
+
   save() {
     let xmlText = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(this.workspace));
     localStorage.setItem('temp', xmlText)

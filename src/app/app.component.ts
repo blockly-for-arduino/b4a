@@ -80,7 +80,12 @@ export class AppComponent {
   }
 
   newFile() {
-    this.blocklyComponent.loadTempData()
+    this.modal.confirm({
+      nzTitle: '新建工程',
+      nzContent: '当前工程未保存，您确定要放弃该工程，并新建？',
+      nzOnOk: () =>
+        this.blocklyComponent.loadDefaultData()
+    })
   }
 
   saveFile() {
@@ -153,11 +158,11 @@ export class AppComponent {
   }
 
   gotoGithub() {
-    window.open("https://github.com/coloz/b4a", "_blank")
+    this.electronService.openUrl("https://github.com/coloz/b4a");
   }
 
   gotoWebsite() {
-    window.open("https://b4a.clz.me", "_blank")
+    this.electronService.openUrl("https://b4a.clz.me");
   }
 
 }

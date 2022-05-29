@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ipcRenderer, webFrame } from 'electron';
+import { ipcRenderer, webFrame, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import { dialog } from '@electron/remote';
@@ -13,6 +13,7 @@ export class ElectronService {
   childProcess: typeof childProcess;
   dialog: typeof dialog;
   fs: typeof fs;
+  shell: typeof shell;
 
   boards = []
   libraries = []
@@ -28,7 +29,7 @@ export class ElectronService {
       this.ipcRenderer = window.require('electron').ipcRenderer;
       this.webFrame = window.require('electron').webFrame;
       this.dialog = window.require('@electron/remote').dialog;
-
+      this.shell = window.require('electron').shell
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
@@ -88,6 +89,10 @@ export class ElectronService {
           resolve(this.fs.readFileSync(value.filePaths[0], { encoding: 'utf-8' }))
       })
     })
+  }
+
+  openUrl(url) {
+    this.shell.openExternal(url)
   }
 
 }
