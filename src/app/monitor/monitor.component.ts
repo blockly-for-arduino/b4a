@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../core/services/config.service';
 import { SerialService } from '../core/services/serial.service';
 
@@ -8,7 +8,7 @@ import { SerialService } from '../core/services/serial.service';
   styleUrls: ['./monitor.component.scss']
 })
 export class MonitorComponent implements OnInit {
-
+  @ViewChild("scrollContainer", { read: ElementRef, static: true }) scrollContainer: ElementRef;
   @Input() serial: string;
 
   dataList = ['']
@@ -28,7 +28,9 @@ export class MonitorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.serialService.init(this.configService.config.serial);
+    let speed = localStorage.getItem('monitor.speed')
+    if (speed != null) this.speed = speed
+    this.serialService.init(this.configService.config.serial, Number(this.speed));
     this.serialService.output.subscribe(str => {
       if (this.dataList.length > 999) this.clear()
       let dataArray = str.replace('\r', '').split(/\n/)
@@ -36,7 +38,8 @@ export class MonitorComponent implements OnInit {
       if (dataArray.length > 1) {
         for (let index = 1; index < dataArray.length; index++) {
           let data = dataArray[index];
-          this.dataList.push(data)
+          this.dataList.push(data);
+          this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
         }
       }
       this.cd.detectChanges()
@@ -44,8 +47,8 @@ export class MonitorComponent implements OnInit {
   }
 
   changeSpeed() {
-    console.log(this.speed);
-
+    this.serialService.changeSpeed(Number(this.speed))
+    localStorage.setItem('monitor.speed', this.speed)
   }
 
   ngOnDestroy(): void {

@@ -35,12 +35,12 @@ export class SerialService {
     }
   }
 
-  init(path) {
+  init(path, speed = 9600) {
     console.log('打开串口 ' + path);
 
     this.serial = new this.serialport({
       path: path,
-      baudRate: 9600,
+      baudRate: speed,
     })
     iconv['enableStreamingAPI'](this.stream)
     let converterStream = iconv.decodeStream('utf8')
@@ -60,7 +60,9 @@ export class SerialService {
   }
 
   changeSpeed(speed) {
-
+    this.serial.update({
+      baudRate: speed
+    })
   }
 
 }
