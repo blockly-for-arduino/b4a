@@ -17,6 +17,11 @@ header {
         color: #008184;
         border: none;
 
+        &.active {
+            background-color: #05b0b3;
+            color: #ffffff;
+        }
+
         &:hover {
             background-color: #05b0b3;
             color: #ffffff;

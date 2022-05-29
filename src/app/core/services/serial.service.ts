@@ -59,4 +59,8 @@ export class SerialService {
     this.serial.write(data)
   }
 
+  changeSpeed(speed) {
+
+  }
+
 }

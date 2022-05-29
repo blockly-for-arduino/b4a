@@ -79,17 +79,6 @@ export class AppComponent {
     this.code = code
   }
 
-  showShell = false;
-  check() {
-    this.showShell = true;
-    this.arduinoCli.build(this.code)
-  }
-
-  upload() {
-    this.showShell = true;
-    this.arduinoCli.upload(this.code)
-  }
-
   newFile() {
     this.blocklyComponent.loadTempData()
   }
@@ -102,21 +91,6 @@ export class AppComponent {
     this.electronService.openFile().then(fileContent => {
       this.blocklyComponent.loadXml(fileContent);
     })
-  }
-
-  showCode = false;
-  openCode(): void {
-    this.showCode = !this.showCode;
-  }
-
-  showMonitor = false;
-  openMonitor() {
-    this.showMonitor = !this.showMonitor
-  }
-
-  showSetting = false;
-  openSetting() {
-    this.showSetting = !this.showSetting
   }
 
   boardChange(e) {
@@ -134,40 +108,39 @@ export class AppComponent {
     await this.serialService.getSerialPortList()
   }
 
-  willClose = false
-  close(e) {
-    switch (e) {
-      case 'code':
-        this.willClose = true
-        setTimeout(() => {
-          this.showCode = false
-          this.willClose = false
-        }, 600);
-        break;
-      case 'setting':
-        this.willClose = true
-        setTimeout(() => {
-          this.showSetting = false
-          this.willClose = false
-        }, 600);
-        break;
-      case 'shell':
-        this.willClose = true
-        setTimeout(() => {
-          this.showShell = false
-          this.willClose = false
-        }, 600);
-        break;
-      case 'monitor':
-        this.willClose = true
-        setTimeout(() => {
-          this.showMonitor = false
-          this.willClose = false
-        }, 600);
-        break;
-      default:
-        break;
+  showSider = false;
+  mode = ''
+  action = ''
+  openSider(mode, action = '') {
+    if (this.mode == mode && this.action == action) {
+      this.closeSider()
+    } else if (this.showSider) {
+      this.closeSider()
+      setTimeout(() => {
+        this.mode = mode
+        this.action = action
+        this.showSider = true
+        if (mode == 'shell')
+          action == 'build' ? this.arduinoCli.build(this.code) : this.arduinoCli.upload(this.code)
+      }, 310);
+    } else {
+      this.mode = mode
+      this.action = action
+      this.showSider = true
+      if (mode == 'shell')
+        action == 'build' ? this.arduinoCli.build(this.code) : this.arduinoCli.upload(this.code)
     }
+  }
+
+  willClose = false
+  closeSider() {
+    this.willClose = true;
+    setTimeout(() => {
+      this.willClose = false
+      this.showSider = false
+      this.mode = ''
+      this.action = ''
+    }, 300);
   }
 
   openCloud() {
@@ -177,6 +150,14 @@ export class AppComponent {
       nzWidth: '60vw',
       nzFooter: null
     })
+  }
+
+  gotoGithub() {
+    window.open("https://github.com/coloz/b4a", "_blank")
+  }
+
+  gotoWebsite() {
+    window.open("https://b4a.clz.me", "_blank")
   }
 
 }

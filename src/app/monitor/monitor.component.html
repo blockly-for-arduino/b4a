@@ -3,11 +3,14 @@
         <div *ngFor="let data of dataList">{{data}}</div>
     </div>
     <div class="input-box">
+        <nz-select style="width: 100px;" [(ngModel)]="speed" (ngModelChange)="changeSpeed()">
+            <nz-option *ngFor="let speed of speedList" nzValue="{{speed[0]}}" nzLabel="{{speed[1]}}"></nz-option>
+        </nz-select>
         <nz-input-group [nzSuffix]="suffixIconSearch">
             <input type="text" nz-input placeholder="Serial Send Data" />
         </nz-input-group>
         <ng-template #suffixIconSearch>
-            <i nz-icon nzType="enter" nzTheme="outline" (click)="send()"></i>
+            <i style="cursor: pointer" nz-icon nzType="enter" nzTheme="outline" (click)="send()"></i>
         </ng-template>
     </div>
 </div>

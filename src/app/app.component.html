@@ -1,29 +1,45 @@
 <header>
     <div>
-        <button nz-button nzSize="large" (click)="newFile()">
+        <button nz-button nzSize="large" (click)="newFile()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="新工程">
             <i nz-icon nzType="file-add" nzTheme="outline"></i>
         </button>
-        <button nz-button nzSize="large" (click)="openFile()">
+        <button nz-button nzSize="large" (click)="openFile()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="打开工程">
             <i nz-icon nzType="folder-open" nzTheme="outline"></i>
         </button>
-        <button nz-button nzSize="large" (click)="saveFile()">
+        <button nz-button nzSize="large" (click)="saveFile()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="保存工程">
             <i nz-icon nzType="save" nzTheme="outline"></i>
         </button>
         <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzSize="large" (click)="check()">
+        <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='build'}"
+            (click)="openSider('shell','build')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译">
             <i nz-icon nzType="check"></i></button>
-        <button nz-button nzSize="large" (click)="upload()">
+        <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='upload'}"
+            (click)="openSider('shell','upload')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译并上传">
             <i nz-icon nzType="download"></i></button>
         <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzSize="large" (click)="openCode()">
+        <button nz-button nzSize="large" [ngClass]="{active: mode=='code'}" (click)="openSider('code')" nz-tooltip
+            nzTooltipPlacement="bottom" nzTooltipTitle="查看代码">
             <i nz-icon nzType="code" nzTheme="outline"></i>
         </button>
-        <button nz-button nzSize="large" (click)="openMonitor()">
+        <button nz-button nzSize="large" [ngClass]="{active: mode=='monitor'}" (click)="openSider('monitor')" nz-tooltip
+            nzTooltipPlacement="bottom" nzTooltipTitle="串口监视器">
             <i nz-icon nzType="monitor" nzTheme="outline"></i>
         </button>
         <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzSize="large" (click)="openCloud()">
+        <button nz-button nzSize="large" (click)="openCloud()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="云资源">
             <i nz-icon nzType="cloud" nzTheme="outline"></i>
+        </button>
+        <button nz-button nzSize="large" (click)="gotoGithub()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="Github" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="github" nzTheme="outline"></i>
+        </button>
+        <button nz-button nzSize="large" (click)="gotoWebsite()" nz-tooltip nzTooltipPlacement="bottom"
+            nzTooltipTitle="官网" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="global" nzTheme="outline"></i>
         </button>
     </div>
     <div>
@@ -31,59 +47,33 @@
             <nz-option *ngFor="let item of boardList;index as i" [nzValue]="item.name" [nzLabel]="item.name">
             </nz-option>
         </nz-select>
-        <nz-select style="width: 90px;" nzSize="large" [ngModel]="serialSelected" [nzPlaceHolder]="serialSelected"
+        <nz-select style="width: 100px;" nzSize="large" [ngModel]="serialSelected" [nzPlaceHolder]="serialSelected"
             (ngModelChange)="serialChange($event)" (nzOpenChange)="getSerialPortList()">
             <nz-option *ngFor="let item of serialList;index as i" [nzValue]="item" [nzLabel]="item">
             </nz-option>
         </nz-select>
-        <button nz-button nzSize="large" (click)="openSetting()"><i nz-icon nzType="setting"
-                nzTheme="outline"></i></button>
+        <button nz-button nzSize="large" [ngClass]="{active: mode=='setting'}" (click)="openSider('setting')">
+            <i nz-icon nzType="setting" nzTheme="outline"></i>
+        </button>
     </div>
 </header>
 <div class="blockly-box" [ngClass]="{'showCode': showCode}">
     <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
 </div>
 
-<div class="right-box animate__animated animate__fadeInRight" [ngClass]="{'animate__fadeOutRight': willClose}"
-    *ngIf="showShell">
-    <div class="right-header">
-        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="close('shell')"></i>
-        运行详情
-    </div>
-    <div class="right-content">
-        <app-shell></app-shell>
-    </div>
-</div>
-
 <div class="right-box animate__animated animate__fadeInRight animate__faster"
-    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showCode">
+    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider||showShell||showCode||showMonitor||showSetting">
     <div class="right-header">
-        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="close('code')"></i>
-        代码预览
+        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="closeSider()"></i>
+        <div *ngIf="mode=='shell'">运行详情</div>
+        <div *ngIf="mode=='code'">代码预览</div>
+        <div *ngIf="mode=='monitor'">串口监视器</div>
+        <div *ngIf="mode=='setting'">设置</div>
     </div>
     <div class="right-content">
-        <app-code [code]="code"></app-code>
-    </div>
-</div>
-
-<div class="right-box animate__animated animate__fadeInRight animate__faster"
-    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showMonitor">
-    <div class="right-header">
-        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="close('monitor')"></i>
-        串口监视器 {{serialSelected}}
-    </div>
-    <div class="right-content">
-        <app-monitor [serial]="serialSelected"></app-monitor>
-    </div>
-</div>
-
-<div class="right-box animate__animated animate__fadeInRight animate__faster"
-    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSetting">
-    <div class="right-header">
-        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="close('setting')"></i>
-        设置
-    </div>
-    <div class="right-content">
-        <app-setting></app-setting>
+        <app-shell *ngIf="mode=='shell'"></app-shell>
+        <app-code *ngIf="mode=='code'" [code]="code"></app-code>
+        <app-monitor *ngIf="mode=='monitor'" [serial]="serialSelected"></app-monitor>
+        <app-setting *ngIf="mode=='setting'"></app-setting>
     </div>
 </div>

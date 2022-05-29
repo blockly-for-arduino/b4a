@@ -13,6 +13,14 @@ export class MonitorComponent implements OnInit {
 
   dataList = ['']
 
+  get speedList() {
+    if (this.configService.config.board != null)
+      return this.configService.config.board['serialSpeed']
+    return ["9600", "9600"]
+  }
+
+  speed = '9600';
+
   constructor(
     private serialService: SerialService,
     private configService: ConfigService,
@@ -33,6 +41,11 @@ export class MonitorComponent implements OnInit {
       }
       this.cd.detectChanges()
     })
+  }
+
+  changeSpeed() {
+    console.log(this.speed);
+
   }
 
   ngOnDestroy(): void {

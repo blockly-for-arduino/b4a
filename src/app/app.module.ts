@@ -14,14 +14,14 @@ import { BlocklyModule } from './blockly/blockly.module';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {
   CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline,
   RightOutline, RightCircleOutline, LoadingOutline, CloudOutline,
   SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
-  LeftCircleOutline
+  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline
 } from '@ant-design/icons-angular/icons';
 import { SettingModule } from './setting/setting.module';
 import { MonitorModule } from './monitor/monitor.module';
@@ -32,7 +32,7 @@ import { CloudModule } from './cloud/cloud.module';
 const icons: IconDefinition[] = [CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline, RightOutline, RightCircleOutline,
   LoadingOutline, CloudOutline, SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
-  LeftCircleOutline
+  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline
 ];
 
 // AoT requires an exported function for factories
@@ -57,7 +57,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     BlocklyModule,
     NzButtonModule,
     NzIconModule.forRoot(icons),
-    NzDrawerModule,
     NzSelectModule,
     NzDividerModule,
     SettingModule,
@@ -65,7 +64,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     ShellModule,
     CodeModule,
     NzModalModule,
-    CloudModule
+    CloudModule,
+    NzToolTipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
