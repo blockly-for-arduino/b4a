@@ -16,6 +16,21 @@ header {
         background-color: #48c2c4;
         color: #008184;
         border: none;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin-left: 0 !important;
+        }
 
         &.active {
             background-color: #05b0b3;

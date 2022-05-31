@@ -6,6 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { ShellState } from '../../shell/shell.component';
 import { isErrorInfo_Upload } from '../../shell/info';
 import * as os from 'os';
+import * as fs from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class ArduinoCliService {
 
   childProcess: typeof childProcess;
   os: typeof os;
+  fs: typeof fs;
   cliPath = '.\\arduino\\arduino-cli.exe'
 
   get isElectron(): boolean {
@@ -33,6 +35,8 @@ export class ArduinoCliService {
     if (this.isElectron) {
       this.childProcess = window.require('child_process');
       this.os = window.require('os');
+      this.fs = window.require('fs');
+      this.cliPath = this.fs.existsSync('./resources/app') ? '.\\resources\\arduino\\arduino-cli.exe' : '.\\arduino\\arduino-cli.exe';
     }
   }
 

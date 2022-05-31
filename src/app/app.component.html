@@ -57,12 +57,12 @@
         </button>
     </div>
 </header>
-<div class="blockly-box" [ngClass]="{'showCode': showCode}">
+<div class="blockly-box">
     <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
 </div>
 
 <div class="right-box animate__animated animate__fadeInRight animate__faster"
-    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider||showShell||showCode||showMonitor||showSetting">
+    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider">
     <div class="right-header">
         <i nz-icon nzType="right-circle" nzTheme="outline" (click)="closeSider()"></i>
         <div *ngIf="mode=='shell'">运行详情</div>
