@@ -103,6 +103,7 @@
     "node": ">=14.0.0"
   },
   "browserslist": [
-    "chrome 100"
+    "> 1%",
+    "last 50 versions"
   ]
 }

@@ -17,3 +17,10 @@ export interface BoardConfig {
     "builtinLed": any[],
     "interrupt": any[],
 }
+
+export interface LibInfo {
+    name:string,
+    block?: string
+    generator?: string
+    toolbox?: string
+}

@@ -3,6 +3,7 @@ import { ipcRenderer, webFrame, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import { dialog } from '@electron/remote';
+import { LibInfo } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ElectronService {
   shell: typeof shell;
 
   boards = []
-  libraries = []
+  libraries: LibInfo[] = []
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
@@ -30,21 +31,58 @@ export class ElectronService {
       this.webFrame = window.require('electron').webFrame;
       this.dialog = window.require('@electron/remote').dialog;
       this.shell = window.require('electron').shell
-
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
-      // this.remote = window.require('@electron/remote')
-      this.basePath = this.fs.existsSync('./resources/app') ? './resources/app' : './src';
+      this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
     }
   }
 
   loadLibraries() {
-    return new Promise<String[]>((resolve, reject) => {
-      if (this.isElectron)
-        this.libraries = this.fs.readdirSync(this.basePath + '/libraries').filter(el => el != 'core')
+    return new Promise<LibInfo[]>((resolve, reject) => {
+      if (this.isElectron) {
+        let coreLibrariesPath, userLibrariesPath
+        coreLibrariesPath = this.basePath + '/core/'
+        userLibrariesPath = this.basePath + '/libraries/'
+        this.getLibFileList(coreLibrariesPath)
+        this.getLibFileList(userLibrariesPath)
+      }
       console.log('load libraries: ', this.libraries);
       resolve(this.libraries)
     })
+  }
+
+  getLibFileList(LibrariesPath) {
+    let corelibraries = this.fs.readdirSync(LibrariesPath)
+    corelibraries.forEach(libName => {
+      let libItem = this.getLibPathInfo(LibrariesPath + libName)
+      if (libItem != null) {
+        this.libraries.push(libItem)
+      }
+    })
+  }
+
+  getLibPathInfo(path: string): LibInfo {
+    // console.log(path);
+    let realPath = path.replace(this.basePath, '')
+    if (this.fs.statSync(path).isFile()) {
+      let libName = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
+      let libItem: LibInfo = { name: libName }
+      if (path.toLocaleLowerCase().includes(libName + '.json')) libItem['block'] = realPath
+      else if (path.toLocaleLowerCase().includes(libName + '.js')) libItem['generator'] = realPath
+      return libItem
+    } else {
+      let libFiles = this.fs.readdirSync(path)
+      let libName = path.substring(path.lastIndexOf('/') + 1, path.length);
+      if (libName == 'core') return null
+      let libItem: LibInfo = { name: libName }
+      libFiles.forEach(file => {
+        if (file.toLocaleLowerCase().includes(libName + '.json')) libItem['block'] = realPath + '/' + file
+        else if (file.toLocaleLowerCase().includes(libName + '.js')) libItem['generator'] = realPath + '/' + file
+        else if (file.toLocaleLowerCase().includes('toolbox.json')) libItem['toolbox'] = realPath + '/' + file
+      })
+      return libItem
+    }
+    return null
   }
 
   async getBoardList() {

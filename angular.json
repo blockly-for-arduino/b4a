@@ -32,6 +32,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/core",
               "src/boards",
               "src/libraries",
               {

@@ -6,6 +6,7 @@ import * as zhHans from 'blockly/msg/zh-hans';
 import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
 import { ToolBox } from '../arduino/toolbox';
+import { LibInfo } from '../../core/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,6 @@ export class BlocklyService {
     private http: HttpClient,
     private configService: ConfigService,
     private electronService: ElectronService,
-
   ) {
 
   }
@@ -35,12 +35,13 @@ export class BlocklyService {
     // 加载库
     this.blockList = []
     this.toolbox = ToolBox
-    this.loadCoreLib()
-    let Libraries = await this.electronService.loadLibraries()
-    for (let index = 0; index < Libraries.length; index++) {
-      const item = Libraries[index];
-      await this.loadLib(item);
+    let libraries = await this.electronService.loadLibraries()
+    for (let index = 0; index < libraries.length; index++) {
+      let libInfo = libraries[index];
+      await this.loadLib(libInfo);
     }
+    console.log(this.blockList);
+
 
     Blockly.defineBlocksWithJsonArray(this.blockList);
     this.loaded.next(true)
@@ -48,15 +49,15 @@ export class BlocklyService {
 
 
   // 加载核心库
-  loadCoreLib() {
-    this.loadCoreLibScript('logic')
-    this.loadCoreLibScript('loops')
-    this.loadCoreLibScript('variables')
-    this.loadCoreLibScript('text')
-    this.loadCoreLibScript('lists')
-    this.loadCoreLibScript('math')
-    this.loadCoreLibScript('procedures')
-  }
+  // loadCoreLib() {
+  //   this.loadCoreLibScript('logic')
+  //   this.loadCoreLibScript('loops')
+  //   this.loadCoreLibScript('variables')
+  //   this.loadCoreLibScript('text')
+  //   this.loadCoreLibScript('math')
+  //   // this.loadCoreLibScript('lists')
+  //   // this.loadCoreLibScript('procedures')
+  // }
 
   loadUrl(url) {
     return this.http.get(url, {
@@ -65,28 +66,33 @@ export class BlocklyService {
     })
   }
 
-  loadLib(libName) {
+  loadLib(libInfo: LibInfo) {
     return new Promise(async (resolve, reject) => {
       // 避免重复加载
-      if (!this.libList[libName] && libName != 'servo') {
-        await this.loadLibScript(libName)
-      }
-      this.blockList = this.blockList.concat(await this.loadLibJson(libName))
-      this.libList[libName] = true;
-      await this.loadToolboxJson(libName);
+      if (libInfo.block) await this.loadLibJson(libInfo.block)
+      if (libInfo.generator) await this.loadLibScript(libInfo.generator)
+      if (libInfo.toolbox) await this.loadToolboxJson(libInfo.toolbox)
+      // if (!this.libList[libName] && libName != 'servo') {
+      //   await this.loadLibScript(libName)
+      // }
+      // this.blockList = this.blockList.concat(await this.loadLibJson(libName))
+      // this.libList[libName] = true;
+      // await this.loadToolboxJson(libName);
       resolve(true)
     })
   }
 
-  async loadLibJson(libName) {
+  async loadLibJson(path) {
     return new Promise(async (resolve, reject) => {
-      this.loadUrl(`${this.libPath}/${libName}/${libName}.json`).subscribe(config => {
+      // this.loadUrl(`${this.libPath}/${libName}/${libName}.json`).subscribe(config => {
+      this.loadUrl(path).subscribe(config => {
         let sourceJson: any = config
         let blockJsons = this.processJsonVariable(sourceJson)
-
         // b4a 代码创建器
         this.b4a2js(blockJsons)
-        resolve(blockJsons)
+        // console.log(blockJsons);
+        this.blockList = this.blockList.concat(blockJsons)
+        resolve(true)
       })
     })
   }
@@ -170,9 +176,9 @@ export class BlocklyService {
     });
   }
 
-  async loadToolboxJson(libName) {
+  async loadToolboxJson(path) {
     return new Promise(async (resolve, reject) => {
-      this.loadUrl(`${this.libPath}/${libName}/toolbox.json`).subscribe(
+      this.loadUrl(path).subscribe(
         (config: any) => {
           // console.log(config);
           this.toolbox['contents'].push(config)
@@ -184,33 +190,33 @@ export class BlocklyService {
     })
   }
 
-  loadCoreLibScript(libName) {
-    return new Promise((resolve, reject) => {
-      if (this.libList[libName + '_core']) {
-        resolve(true);
-        return
-      }
-      let script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `${this.libPath}/core/${libName}.js`;
-      script.onload = () => {
-        this.libList[libName + '_core'] = true;
-        resolve(true);
-      };
-      script.onerror = (error: any) => resolve(false);
-      document.getElementsByTagName('head')[0].appendChild(script);
-    })
-  }
+  // loadCoreLibScript(libName) {
+  //   return new Promise((resolve, reject) => {
+  //     if (this.libList[libName + '_core']) {
+  //       resolve(true);
+  //       return
+  //     }
+  //     let script = document.createElement('script');
+  //     script.type = 'text/javascript';
+  //     script.src = `${this.libPath}/core/${libName}.js`;
+  //     script.onload = () => {
+  //       this.libList[libName + '_core'] = true;
+  //       resolve(true);
+  //     };
+  //     script.onerror = (error: any) => resolve(false);
+  //     document.getElementsByTagName('head')[0].appendChild(script);
+  //   })
+  // }
 
-  loadLibScript(libName) {
+  loadLibScript(path) {
     return new Promise((resolve, reject) => {
-      if (this.libList[libName]) {
-        resolve(true);
-        return
-      }
+      // if (this.libList[libName]) {
+      //   resolve(true);
+      //   return
+      // }
       let script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `${this.libPath}/${libName}/${libName}.js`;
+      script.src = path;
       script.onload = () => {
         resolve(true);
       };

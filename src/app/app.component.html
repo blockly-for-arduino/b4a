@@ -15,10 +15,12 @@
         <nz-divider nzType="vertical"></nz-divider>
         <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='build'}"
             (click)="openSider('shell','build')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译">
-            <i nz-icon nzType="check"></i></button>
+            <i nz-icon nzType="check"></i>
+        </button>
         <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='upload'}"
             (click)="openSider('shell','upload')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译并上传">
-            <i nz-icon nzType="download"></i></button>
+            <i nz-icon nzType="download"></i>
+        </button>
         <nz-divider nzType="vertical"></nz-divider>
         <button nz-button nzSize="large" [ngClass]="{active: mode=='code'}" (click)="openSider('code')" nz-tooltip
             nzTooltipPlacement="bottom" nzTooltipTitle="查看代码">
