@@ -52,11 +52,12 @@ export let ToolBox = {
                 },
                 {
                     "kind": "block",
-                    "type": "controls_repeat_ext"
-                },
-                {
-                    "kind": "block",
-                    "type": "controls_repeat"
+                    "type": "controls_repeat_ext",
+                    "inputs": {
+                        "TIMES": {
+                            "block": { "type": "math_number" }
+                        }
+                    }
                 },
                 {
                     "kind": "block",

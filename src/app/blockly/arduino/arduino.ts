@@ -176,7 +176,6 @@ export function initArduinoGenerator() {
             (functions.length > 0 ? `${functions.join('\n')}\n\n` : '') +
             `void setup() {\n${setups.join('\n')}\n${userSetups.join('\n')}\n}\n\n` +
             `void loop() {\n${loops.join('\n')}\n}`
-        // console.log(newcode);
 
         return newcode
     };
