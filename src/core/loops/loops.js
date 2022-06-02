@@ -64,14 +64,12 @@ Arduino['controls_whileUntil'] = function (block) {
 
 Arduino['controls_for'] = function (block) {
   // For loop.
-  const variable0 =
-    Arduino.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE');
-  const argument0 =
-    Arduino.valueToCode(block, 'FROM', Arduino.ORDER_ASSIGNMENT) || '0';
-  const argument1 =
-    Arduino.valueToCode(block, 'TO', Arduino.ORDER_ASSIGNMENT) || '0';
-  const increment =
-    Arduino.valueToCode(block, 'BY', Arduino.ORDER_ASSIGNMENT) || '1';
+  const variable0 = Arduino.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE');
+  // getValue(block,'VAR')
+
+  const argument0 = Arduino.valueToCode(block, 'FROM', Arduino.ORDER_ASSIGNMENT) || '0';
+  const argument1 = Arduino.valueToCode(block, 'TO', Arduino.ORDER_ASSIGNMENT) || '0';
+  const increment = Arduino.valueToCode(block, 'BY', Arduino.ORDER_ASSIGNMENT) || '1';
   let branch = Arduino.statementToCode(block, 'DO');
   branch = Arduino.addLoopTrap(branch, block);
   let code;
@@ -89,7 +87,7 @@ Arduino['controls_for'] = function (block) {
     code += (up ? ' += ' : ' -= ') + step;
   }
   code += ') {\n' + branch + '}\n';
-
+  Arduino.addVariable(variable0, 'int ' + variable0 + ';')
   return code;
 };
 

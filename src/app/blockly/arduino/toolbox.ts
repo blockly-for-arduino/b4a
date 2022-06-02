@@ -55,7 +55,12 @@ export let ToolBox = {
                     "type": "controls_repeat_ext",
                     "inputs": {
                         "TIMES": {
-                            "block": { "type": "math_number" }
+                            "block": {
+                                "type": "math_number",
+                                "fields": {
+                                    "NUM": 10
+                                }
+                            }
                         }
                     }
                 },
@@ -65,7 +70,31 @@ export let ToolBox = {
                 },
                 {
                     "kind": "block",
-                    "type": "controls_for"
+                    "type": "controls_for",
+                    "inputs": {
+                        "FROM": {
+                            "block": {
+                                "type": "math_number",
+                                "fields": {
+                                    "NUM": 1
+                                }
+                            }
+                        },
+                        "TO": {
+                            "block": {
+                                "type": "math_number", "fields": {
+                                    "NUM": 10
+                                }
+                            }
+                        },
+                        "BY": {
+                            "block": {
+                                "type": "math_number", "fields": {
+                                    "NUM": 1
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     "kind": "block",

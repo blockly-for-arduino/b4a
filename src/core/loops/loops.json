@@ -119,7 +119,11 @@
             {
                 "type": "field_variable",
                 "name": "VAR",
-                "variable": null
+                "variable": null,
+                "variableTypes": [
+                    "int"
+                ],
+                "defaultType": "int"
             },
             {
                 "type": "input_value",
