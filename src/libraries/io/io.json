@@ -17,7 +17,12 @@
         "nextStatement": null,
         "colour": 230,
         "tooltip": "pinMode",
-        "helpUrl": ""
+        "helpUrl": "",
+        "toolbox": {
+            "show": true,
+            "category": "EEPROM",
+            "icon":"fal fa-microchip"
+        }
     },
     {
         "type": "io_pin_digi",

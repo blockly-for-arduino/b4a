@@ -1,7 +1,9 @@
 [
     {
+        "inputsInline": true,
+        "message0": "初始化串口%1 设置波特率为%2",
         "type": "serial_begin",
-        "message0": "初始化串口 %1 设置波特率为 %2",
+        "colour": "#48c2c4",
         "args0": [
             {
                 "type": "field_dropdown",
@@ -9,21 +11,27 @@
                 "options": "${board.serialPort}"
             },
             {
-                "type": "field_dropdown",
+                "type": "field_number",
                 "name": "SPEED",
-                "options": "${board.serialSpeed}"
+                "value": 9600
             }
         ],
-        "inputsInline": true,
+        "toolbox": {
+            "show": true,
+            "category": "串口",
+            "icon":"fal fa-exchange-alt"
+        },
+        "b4a": {
+            "code": "${SERIAL}.begin(${SPEED});"
+        },
         "previousStatement": null,
-        "nextStatement": null,
-        "colour": 230,
-        "tooltip": "pinMode",
-        "helpUrl": ""
+        "nextStatement": null
     },
     {
-        "type": "serial_available",
+        "inputsInline": true,
         "message0": "串口%1缓冲区有数据",
+        "type": "serial_available",
+        "colour": "#48c2c4",
         "args0": [
             {
                 "type": "field_dropdown",
@@ -31,15 +39,20 @@
                 "options": "${board.serialPort}"
             }
         ],
-        "inputsInline": true,
-        "colour": 230,
-        "output": "Number",
-        "tooltip": "pinMode",
-        "helpUrl": ""
+        "toolbox": {
+            "show": true,
+            "category": "串口"
+        },
+        "b4a": {
+            "code": "${SERIAL}.available();"
+        },
+        "output": "Number"
     },
     {
+        "inputsInline": true,
+        "message0": "读取串口%1数据",
         "type": "serial_read",
-        "message0": "读取串口 %1 数据",
+        "colour": "#48c2c4",
         "args0": [
             {
                 "type": "field_dropdown",
@@ -47,15 +60,20 @@
                 "options": "${board.serialPort}"
             }
         ],
-        "inputsInline": true,
-        "output": "Any",
-        "colour": 230,
-        "tooltip": "pinMode",
-        "helpUrl": ""
+        "toolbox": {
+            "show": true,
+            "category": "串口"
+        },
+        "b4a": {
+            "code": "serial.read();"
+        },
+        "output": "Any"
     },
     {
-        "type": "serial_print",
+        "inputsInline": true,
         "message0": "串口%1输出%2",
+        "type": "serial_print",
+        "colour": "#48c2c4",
         "args0": [
             {
                 "type": "field_dropdown",
@@ -64,19 +82,24 @@
             },
             {
                 "type": "input_value",
-                "name": "TEXT"
+                "name": "VAR"
             }
         ],
-        "inputsInline": true,
+        "toolbox": {
+            "show": true,
+            "category": "串口"
+        },
+        "b4a": {
+            "code": "serial.print(${VAR});"
+        },
         "previousStatement": null,
-        "nextStatement": null,
-        "colour": 230,
-        "tooltip": "serial_print",
-        "helpUrl": ""
+        "nextStatement": null
     },
     {
-        "type": "serial_println",
+        "inputsInline": true,
         "message0": "串口%1输出%2并换行",
+        "type": "serial_println",
+        "colour": "#48c2c4",
         "args0": [
             {
                 "type": "field_dropdown",
@@ -85,14 +108,17 @@
             },
             {
                 "type": "input_value",
-                "name": "TEXT"
+                "name": "VAR"
             }
         ],
-        "inputsInline": true,
+        "toolbox": {
+            "show": true,
+            "category": "串口"
+        },
+        "b4a": {
+            "code": "serial.println(${VAR});"
+        },
         "previousStatement": null,
-        "nextStatement": null,
-        "colour": 230,
-        "tooltip": "serial_println",
-        "helpUrl": ""
+        "nextStatement": null
     }
 ]

@@ -9,6 +9,7 @@ import { NewVarModalComponent } from './new-var-modal/new-var-modal.component';
 import { BlocklyService } from './service/blockly.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { VAR_TYPE } from './arduino/var.types';
+import { CustomCategory } from './customCategory';
 
 @Component({
   selector: 'clz-blockly',
@@ -51,6 +52,11 @@ export class BlocklyComponent implements OnInit {
     this.blocklyService.changeLanguage('zhHans')
     // 加载block和toolbox
     await this.blocklyService.init()
+
+    Blockly.registry.register(
+      Blockly.registry.Type.TOOLBOX_ITEM,
+      Blockly.ToolboxCategory.registrationName,
+      CustomCategory, true);
 
     this.workspace = Blockly.inject(blocklyDiv, {
       readOnly: false,

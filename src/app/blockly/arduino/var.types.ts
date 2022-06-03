@@ -4,6 +4,6 @@ export const VAR_TYPE = [
     { name: 'float', value: 'float' },
     { name: 'double', value: 'double' },
     { name: 'char', value: 'char' },
-    { name: 'string', value: 'string' },
+    { name: 'String', value: 'String' },
     { name: 'boolean', value: 'boolean' }
 ]

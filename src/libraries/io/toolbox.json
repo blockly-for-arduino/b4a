@@ -28,10 +28,14 @@
             "type": "io_pinMode",
             "inputs": {
                 "PIN": {
-                    "block": { "type": "io_pin_digi" }
+                    "block": {
+                        "type": "io_pin_digi"
+                    }
                 },
                 "MODE": {
-                    "block": { "type": "io_mode" }
+                    "block": {
+                        "type": "io_mode"
+                    }
                 }
             }
         },
@@ -40,10 +44,14 @@
             "type": "io_digitalWrite",
             "inputs": {
                 "PIN": {
-                    "block": { "type": "io_pin_digi" }
+                    "block": {
+                        "type": "io_pin_digi"
+                    }
                 },
                 "STATE": {
-                    "block": { "type": "io_state" }
+                    "block": {
+                        "type": "io_state"
+                    }
                 }
             }
         },
@@ -52,7 +60,12 @@
             "type": "io_digitalRead",
             "inputs": {
                 "PIN": {
-                    "block": { "type": "io_pin_digi" }
+                    "block": {
+                        "type": "io_pin_digi",
+                        "fields": {
+                            "PIN": "13"
+                        }
+                    }
                 }
             }
         },
@@ -61,10 +74,14 @@
             "type": "io_analogWrite",
             "inputs": {
                 "PIN": {
-                    "block": { "type": "io_pin_pwm" }
+                    "block": {
+                        "type": "io_pin_pwm"
+                    }
                 },
                 "PWM": {
-                    "block": { "type": "math_number" }
+                    "block": {
+                        "type": "math_number"
+                    }
                 }
             }
         },
@@ -73,7 +90,9 @@
             "type": "io_analogRead",
             "inputs": {
                 "PIN": {
-                    "block": { "type": "io_pin_adc" }
+                    "block": {
+                        "type": "io_pin_adc"
+                    }
                 }
             }
         }

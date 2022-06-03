@@ -8,7 +8,12 @@
             "type": "time_delay",
             "inputs": {
                 "TIME": {
-                    "block": { "type": "math_number" }
+                    "block": {
+                        "type": "math_number",
+                        "fields": {
+                            "NUM": 1000
+                        }
+                    }
                 }
             }
         },

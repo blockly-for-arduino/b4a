@@ -163,14 +163,24 @@ export class BlocklyService {
           }
         });
         if (!categoryIsExist) {
-          this.toolbox['contents'].push({
+
+
+
+          let category = {
             "kind": "category",
             "name": blockJson.toolbox.category,
+            "colour": blockJson.colour,
             "contents": [{
               kind: 'block',
               type: blockJson.type
             }]
-          })
+          }
+          if (blockJson.toolbox.icon) {
+            category["cssConfig"] = {
+              "icon": blockJson.toolbox.icon
+            }
+          }
+          this.toolbox['contents'].push(category)
         }
       }
     });

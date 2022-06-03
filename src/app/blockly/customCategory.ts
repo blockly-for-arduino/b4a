@@ -1,12 +1,13 @@
 import Blockly from 'blockly';
 
 export class CustomCategory extends Blockly.ToolboxCategory {
+    cssConfig_
     /**
      * Constructor for a custom category.
      * @override
      */
-    constructor(categoryDef, toolbox, opt_parent) {
-        super(categoryDef, toolbox, opt_parent);
+    constructor(categoryDef, toolbox, opt_parent,parentToolbox_) {
+        super(categoryDef, toolbox, opt_parent,parentToolbox_);
     }
 
     // /** @override */
@@ -39,12 +40,10 @@ export class CustomCategory extends Blockly.ToolboxCategory {
     //         Blockly.utils.aria.State.SELECTED, isSelected);
     // }
 
-    // /** @override */
-    // createIconDom_() {
-    //     const img = document.createElement('img');
-    //     img.src = './logo_only.svg';
-    //     img.width = 15;
-    //     img.height = 15;
-    //     return img;
-    // }
+    /** @override */
+    createIconDom_() {
+        const toolboxIcon = document.createElement('i');
+        Blockly.utils.dom.addClass(toolboxIcon, this.cssConfig_['icon']);
+        return toolboxIcon;
+    }
 }

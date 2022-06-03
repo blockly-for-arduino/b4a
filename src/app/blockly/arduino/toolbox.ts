@@ -3,9 +3,11 @@ export let ToolBox = {
     "contents": [
         {
             "kind": "category",
-            "name": "Logic",
+            "name": "逻辑",
             "categorystyle": "logic_category",
-            "css-icon": "customIcon fas fa-code-branch",
+            "cssConfig": {
+                "icon": "fal fa-code-branch"
+            },
             "contents": [
                 {
                     "kind": "block",
@@ -39,8 +41,11 @@ export let ToolBox = {
         },
         {
             "kind": "category",
-            "name": "Loops",
+            "name": "循环",
             "categorystyle": "loop_category",
+            "cssConfig": {
+                "icon": "fal fa-repeat-alt"
+            },
             "contents": [
                 {
                     "kind": "block",
@@ -104,20 +109,15 @@ export let ToolBox = {
         },
         {
             "kind": "category",
-            "name": "String",
+            "name": "字符串",
             "categorystyle": "text_category",
+            "cssConfig": {
+                "icon": "fal fa-text"
+            },
             "contents": [
                 {
                     "kind": "block",
                     "type": "text"
-                },
-                {
-                    "kind": "block",
-                    "type": "text_multiline"
-                },
-                {
-                    "kind": "block",
-                    "type": "text_join"
                 },
                 {
                     "kind": "block",
@@ -167,17 +167,16 @@ export let ToolBox = {
                 {
                     "kind": "block",
                     "type": "text_replace"
-                },
-                {
-                    "kind": "block",
-                    "type": "text_reverse"
                 }
             ]
         },
         {
             "kind": "category",
-            "name": "List",
+            "name": "数组",
             "categorystyle": "list_category",
+            "cssConfig": {
+                "icon": "fal fa-brackets"
+            },
             "contents": [
                 {
                     "kind": "block",
@@ -231,8 +230,11 @@ export let ToolBox = {
         },
         {
             "kind": "category",
-            "name": "Math",
+            "name": "数学",
             "categorystyle": "math_category",
+            "cssConfig": {
+                "icon": "fal fa-calculator"
+            },
             "contents": [
                 {
                     "kind": "block",
@@ -292,44 +294,14 @@ export let ToolBox = {
                 }
             ]
         },
-        // {
-        //     "kind": "category",
-        //     "name": "Functions",
-        //     "categorystyle": "procedure_category",
-        //     "contents": [
-        //         {
-        //             "kind": "block",
-        //             "type": "procedures_defreturn"
-        //         },
-        //         {
-        //             "kind": "block",
-        //             "type": "procedures_defnoreturn"
-        //         },
-        //         {
-        //             "kind": "block",
-        //             "type": "procedures_callreturn"
-        //         },
-        //         {
-        //             "kind": "block",
-        //             "type": "procedures_callnoreturn"
-        //         },
-        //         {
-        //             "kind": "block",
-        //             "type": "procedures_ifreturn"
-        //         }
-        //     ]
-        // },
-        {
-            "kind": "sep",
-            "cssConfig": {
-                "container": "toolbox-sep"
-            }
-        },
         {
             "kind": "category",
-            "name": "Variables",
+            "name": "变量",
             "custom": "VARIABLE",
             "categorystyle": "variable_category",
+            "cssConfig": {
+                "icon": "fal fa-calculatorfal fa-subscript"
+            },
             "contents": [
                 {
                     "kind": "button",
@@ -345,6 +317,12 @@ export let ToolBox = {
                     "type": "variables_set"
                 }
             ]
+        },
+        {
+            "kind": "sep",
+            "cssConfig": {
+                "container": "toolbox-sep"
+            }
         },
     ]
 };
