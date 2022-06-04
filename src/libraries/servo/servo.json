@@ -29,7 +29,8 @@
         "colour": "#03a9f4",
         "toolbox": {
             "show": true,
-            "category": "舵机"
+            "category": "舵机",
+            "icon": "fal fa-undo"
         }
     },
     {

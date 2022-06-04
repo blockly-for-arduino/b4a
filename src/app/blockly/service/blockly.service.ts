@@ -14,9 +14,11 @@ import { LibInfo } from '../../core/interfaces';
 export class BlocklyService {
   libPath = './libraries';
 
-  libList = {}
+  libList = []
+  libDict = {}
   blockList = []
   toolbox = {}
+
 
   loaded = new BehaviorSubject(false)
 
@@ -30,40 +32,37 @@ export class BlocklyService {
 
   }
 
-
   async init() {
     // 加载库
     this.blockList = []
     this.toolbox = ToolBox
-    let libraries = await this.electronService.loadLibraries()
-    for (let index = 0; index < libraries.length; index++) {
-      let libInfo = libraries[index];
-      await this.loadLib(libInfo);
-    }
-    console.log(this.blockList);
 
+    this.processLibs(await this.electronService.loadLibraries())
+    await this.loadLibs()
 
     Blockly.defineBlocksWithJsonArray(this.blockList);
     this.loaded.next(true)
   }
 
-
-  // 加载核心库
-  // loadCoreLib() {
-  //   this.loadCoreLibScript('logic')
-  //   this.loadCoreLibScript('loops')
-  //   this.loadCoreLibScript('variables')
-  //   this.loadCoreLibScript('text')
-  //   this.loadCoreLibScript('math')
-  //   // this.loadCoreLibScript('lists')
-  //   // this.loadCoreLibScript('procedures')
-  // }
-
-  loadUrl(url) {
-    return this.http.get(url, {
-      responseType: 'json',
-      headers: { 'Cache-Control': 'public,max-age=600' }
+  processLibs(libraries: any[]) {
+    let libList = JSON.parse(localStorage.getItem('libList'))
+    if (libList == null) {
+      this.libList = libraries.map(lib => lib.name)
+      localStorage.setItem('libList', JSON.stringify(this.libList))
+    } else {
+      this.libList = libList
+    }
+    console.log('libList:', this.libList);
+    libraries.forEach(lib => {
+      this.libDict[lib.name] = lib
     })
+  }
+
+  async loadLibs() {
+    for (let index = 0; index < this.libList.length; index++) {
+      let libInfo = this.libDict[this.libList[index]];
+      await this.loadLib(libInfo);
+    }
   }
 
   loadLib(libInfo: LibInfo) {
@@ -72,35 +71,34 @@ export class BlocklyService {
       if (libInfo.block) await this.loadLibJson(libInfo.block)
       if (libInfo.generator) await this.loadLibScript(libInfo.generator)
       if (libInfo.toolbox) await this.loadToolboxJson(libInfo.toolbox)
-      // if (!this.libList[libName] && libName != 'servo') {
-      //   await this.loadLibScript(libName)
-      // }
-      // this.blockList = this.blockList.concat(await this.loadLibJson(libName))
-      // this.libList[libName] = true;
-      // await this.loadToolboxJson(libName);
       resolve(true)
     })
   }
 
   async loadLibJson(path) {
     return new Promise(async (resolve, reject) => {
-      // this.loadUrl(`${this.libPath}/${libName}/${libName}.json`).subscribe(config => {
       this.loadUrl(path).subscribe(config => {
         let sourceJson: any = config
         let blockJsons = this.processJsonVariable(sourceJson)
         // b4a 代码创建器
         this.b4a2js(blockJsons)
-        // console.log(blockJsons);
         this.blockList = this.blockList.concat(blockJsons)
         resolve(true)
       })
     })
   }
 
+  loadUrl(url) {
+    return this.http.get(url, {
+      responseType: 'json',
+      headers: { 'Cache-Control': 'public,max-age=600' }
+    })
+  }
+
   b4a2js(blockJsons) {
     blockJsons.forEach(blockJson => {
       if (blockJson.b4a) {
-        console.log('b4a代码创建器 >>> ' + blockJson.type);
+        // console.log('b4a代码创建器 >>> ' + blockJson.type);
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
@@ -144,8 +142,12 @@ export class BlocklyService {
             let setup_code = processB4ACode(blockJson.b4a.setup, b4aVars)
             Arduino.addSetup(b4aVars['${OBJECT_NAME}'], setup_code)
           }
-          let code = processB4ACode(blockJson.b4a.code, b4aVars) + '\n'
-          return code
+          let code = processB4ACode(blockJson.b4a.code, b4aVars)
+          // 如果当前代码是个B4A纯变量(${X})，则末尾不加\n
+          if (blockJson.b4a.code.replace(/\$\{(\S*?)\}/g, '') == "") {
+            return code
+          }
+          return code + '\n'
         }
       }
       // 添加到toolbox
@@ -155,26 +157,32 @@ export class BlocklyService {
         this.toolbox['contents'].forEach(category => {
           if (category.name == blockJson.toolbox.category) {
             categoryIsExist = true
-            category.contents.push({
+            let block = {
               kind: 'block',
               type: blockJson.type
-            })
+            }
+            if (blockJson.toolbox.inputs) {
+              block['inputs'] = blockJson.toolbox.inputs
+            }
+            category.contents.push(block)
             return
           }
         });
         if (!categoryIsExist) {
-
-
-
           let category = {
             "kind": "category",
             "name": blockJson.toolbox.category,
             "colour": blockJson.colour,
-            "contents": [{
-              kind: 'block',
-              type: blockJson.type
-            }]
+            "contents": []
           }
+          let block = {
+            kind: 'block',
+            type: blockJson.type
+          }
+          if (blockJson.toolbox.inputs) {
+            block['inputs'] = blockJson.toolbox.inputs
+          }
+          category.contents.push(block)
           if (blockJson.toolbox.icon) {
             category["cssConfig"] = {
               "icon": blockJson.toolbox.icon
@@ -199,24 +207,6 @@ export class BlocklyService {
         })
     })
   }
-
-  // loadCoreLibScript(libName) {
-  //   return new Promise((resolve, reject) => {
-  //     if (this.libList[libName + '_core']) {
-  //       resolve(true);
-  //       return
-  //     }
-  //     let script = document.createElement('script');
-  //     script.type = 'text/javascript';
-  //     script.src = `${this.libPath}/core/${libName}.js`;
-  //     script.onload = () => {
-  //       this.libList[libName + '_core'] = true;
-  //       resolve(true);
-  //     };
-  //     script.onerror = (error: any) => resolve(false);
-  //     document.getElementsByTagName('head')[0].appendChild(script);
-  //   })
-  // }
 
   loadLibScript(path) {
     return new Promise((resolve, reject) => {
