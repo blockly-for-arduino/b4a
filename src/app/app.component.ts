@@ -141,6 +141,7 @@ export class AppComponent {
     setTimeout(() => {
       this.willClose = false
       this.showSider = false
+      this.showManager = false
       this.mode = ''
       this.action = ''
     }, 300);
@@ -161,6 +162,11 @@ export class AppComponent {
 
   gotoWebsite() {
     this.electronService.openUrl("https://b4a.clz.me");
+  }
+
+  showManager = true
+  openManager() {
+    this.showManager = true
   }
 
 }

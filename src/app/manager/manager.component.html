@@ -1,0 +1,100 @@
+<header>
+    <div>
+        <button class="back" nz-button nzSize="large" (click)="back()">
+            <i nz-icon nzType="left-circle" nzTheme="outline"></i>
+        </button>
+        <button nz-button nzSize="large" (click)="newFile()">
+            <i class="fal fa-books"></i>
+            <div class="text">库管理</div>
+        </button>
+        <button nz-button nzSize="large" (click)="newFile()">
+            <i class="fal fa-microchip"></i>
+            <div class="text">开发板管理</div>
+        </button>
+        <button nz-button nzSize="large" (click)="newFile()">
+            <i class="fal fa-tools"></i>
+            <div class="text">软件设置</div>
+        </button>
+    </div>
+</header>
+<div class="content-box">
+    <div class="left-box animate__animated animate__fadeInLeft animate__fast">
+        <div class="table-header">
+            <div>已安装<span>（可拖拽排序）</span></div>
+            <div class="version">版本号</div>
+            <div class="show">可用</div>
+        </div>
+        <div class="lib-list">
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+            <div class="item">
+                <div class="kk"></div>
+                <div class="icon"><i class="fal fa-tools"></i></div>
+                <div class="name">库名称</div>
+                <div class="version">1.12.1</div>
+                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            </div>
+        </div>
+    </div>
+    <div class="right-box animate__animated animate__fadeInRight animate__fast">
+        <div>云资源</div>
+        <div class="cloud-lib-list">
+            <div item>
+                <div name>舵机控制</div>
+                <div desc>ESP32专用的舵机控制库</div>
+
+                <div>
+                    <div author>作者：奈何col</div>
+                    <div price>免费</div>
+                    <nz-select ngModel="lucy">
+                        <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                        <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                        <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                    </nz-select>
+                    <button nz-button nzType="primary" nzSize="small">加载</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

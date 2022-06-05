@@ -62,7 +62,14 @@
 <div class="blockly-box">
     <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
 </div>
-
+<div class="lib-manager-btn" (click)="openManager()">
+    <i class="fal fa-books-medical"></i>
+    库管理
+</div>
+<div class="manager-box animate__animated animate__fadeIn animate__faster"
+    [ngClass]="{'animate__fadeOut': willClose}" *ngIf="showManager">
+    <app-manager (backEvent)="closeSider()"></app-manager>
+</div>
 <div class="right-box animate__animated animate__fadeInRight animate__faster"
     [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider">
     <div class="right-header">
