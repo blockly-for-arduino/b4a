@@ -13,7 +13,25 @@
         "nextStatement": null,
         "colour": 230,
         "tooltip": "time_delay",
-        "helpUrl": ""
+        "helpUrl": "",
+        "b4a": {
+            "code": "delay(${TIME});"
+        },
+        "toolbox": {
+            "show": true,
+            "category": "时间控制",
+            "icon":"fal fa-clock",
+            "inputs": {
+                "TIME": {
+                    "block": {
+                        "type": "math_number",
+                        "fields": {
+                            "NUM": 1000
+                        }
+                    }
+                }
+            }
+        }
     },
     {
         "type": "time_millis",
@@ -21,6 +39,13 @@
         "output": "Number",
         "colour": 230,
         "tooltip": "time_millis",
-        "helpUrl": ""
+        "helpUrl": "",
+        "b4a": {
+            "code": "millis()"
+        },
+        "toolbox": {
+            "show": true,
+            "category": "时间控制"
+        }
     }
 ]

@@ -13,10 +13,20 @@
         "toolbox": {
             "show": true,
             "category": "EEPROM",
-            "icon":"fal fa-database"
+            "icon":"fal fa-database",
+            "inputs":{
+                "ADDRESS": {
+                    "block": {
+                        "type": "math_number",
+                        "fields": {
+                            "NUM": 1
+                        }
+                    }
+                }
+            }
         },
         "b4a": {
-            "code": "EEPROM.read(${ADDRESS});",
+            "code": "EEPROM.read(${ADDRESS})",
             "library": "#include <EEPROM.h>"
         },
         "output": "Any"

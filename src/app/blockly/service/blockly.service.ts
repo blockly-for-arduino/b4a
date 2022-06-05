@@ -143,11 +143,7 @@ export class BlocklyService {
             Arduino.addSetup(b4aVars['${OBJECT_NAME}'], setup_code)
           }
           let code = processB4ACode(blockJson.b4a.code, b4aVars)
-          // 如果当前代码是个B4A纯变量(${X})，则末尾不加\n
-          if (blockJson.b4a.code.replace(/\$\{(\S*?)\}/g, '') == "") {
-            return code
-          }
-          return code + '\n'
+          return blockJson.output ? code : code + '\n'
         }
       }
       // 添加到toolbox

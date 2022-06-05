@@ -36,7 +36,8 @@
         },
         "toolbox": {
             "show": true,
-            "category": "U8g2"
+            "category": "U8g2",
+            "icon":"fal fa-tablet-android"
         }
     },
     {
