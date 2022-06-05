@@ -63,7 +63,7 @@ export class ElectronService {
 
   getLibPathInfo(path: string): LibInfo {
     // console.log(path);
-    let realPath = path.replace(this.basePath, '')
+    let realPath = path.replace(this.basePath, '.')
     if (this.fs.statSync(path).isFile()) {
       let libName = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
       let libItem: LibInfo = { name: libName }

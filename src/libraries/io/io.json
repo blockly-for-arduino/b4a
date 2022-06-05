@@ -2,7 +2,7 @@
     {
         "inputsInline": true,
         "message0": "引脚 %1 模式设置为 %2",
-        "type": "pinmode",
+        "type": "io_pinmode",
         "colour": "#48c2c4",
         "args0": [
             {
@@ -47,7 +47,7 @@
     {
         "inputsInline": true,
         "message0": "引脚 %1输出数字信号 %2",
-        "type": "digitalwrite",
+        "type": "io_digitalwrite",
         "colour": "#48c2c4",
         "args0": [
             {
@@ -90,7 +90,7 @@
     {
         "inputsInline": true,
         "message0": "读取引脚 %1 的数字信号",
-        "type": "digitalread",
+        "type": "io_digitalread",
         "colour": "#48c2c4",
         "args0": [
             {
@@ -120,7 +120,7 @@
     {
         "inputsInline": true,
         "message0": "引脚 %1 输出PWM信号%2",
-        "type": "analogwrite",
+        "type": "io_analogwrite",
         "colour": "#48c2c4",
         "args0": [
             {
@@ -163,7 +163,7 @@
     {
         "inputsInline": true,
         "message0": "读取引脚 %1 的模拟信号",
-        "type": "analogread",
+        "type": "io_analogread",
         "colour": "#48c2c4",
         "args0": [
             {
