@@ -68,9 +68,12 @@ export class BlocklyService {
   loadLib(libInfo: LibInfo) {
     return new Promise(async (resolve, reject) => {
       // 避免重复加载
-      if (libInfo.block) await this.loadLibJson(libInfo.block)
-      if (libInfo.generator) await this.loadLibScript(libInfo.generator)
-      if (libInfo.toolbox) await this.loadToolboxJson(libInfo.toolbox)
+      if (libInfo) {
+        if (libInfo.block) await this.loadLibJson(libInfo.block)
+        if (libInfo.generator) await this.loadLibScript(libInfo.generator)
+        if (libInfo.toolbox) await this.loadToolboxJson(libInfo.toolbox)
+      }
+
       resolve(true)
     })
   }
@@ -79,10 +82,10 @@ export class BlocklyService {
     return new Promise(async (resolve, reject) => {
       this.loadUrl(path).subscribe(config => {
         let sourceJson: any = config
-        let blockJsons = this.processJsonVariable(sourceJson)
+        let libJson = this.processJsonVariable(sourceJson)
         // b4a 代码创建器
-        this.b4a2js(blockJsons)
-        this.blockList = this.blockList.concat(blockJsons)
+        this.b4a2js(libJson)
+        this.blockList = this.blockList.concat(libJson.blocks)
         resolve(true)
       })
     })
@@ -95,8 +98,8 @@ export class BlocklyService {
     })
   }
 
-  b4a2js(blockJsons) {
-    blockJsons.forEach(blockJson => {
+  b4a2js(libJson) {
+    libJson.blocks.forEach(blockJson => {
       if (blockJson.b4a) {
         // console.log('b4a代码创建器 >>> ' + blockJson.type);
         let Arduino: any = window['Arduino']
@@ -151,7 +154,7 @@ export class BlocklyService {
         if (!blockJson.toolbox.show) return
         let categoryIsExist = false;
         this.toolbox['contents'].forEach(category => {
-          if (category.name == blockJson.toolbox.category) {
+          if (category.name == libJson.category) { 
             categoryIsExist = true
             let block = {
               kind: 'block',
@@ -167,8 +170,8 @@ export class BlocklyService {
         if (!categoryIsExist) {
           let category = {
             "kind": "category",
-            "name": blockJson.toolbox.category,
-            "colour": blockJson.colour,
+            "name": libJson.category,
+            "colour": libJson.colour,
             "contents": []
           }
           let block = {
@@ -179,9 +182,9 @@ export class BlocklyService {
             block['inputs'] = blockJson.toolbox.inputs
           }
           category.contents.push(block)
-          if (blockJson.toolbox.icon) {
+          if (libJson.icon) {
             category["cssConfig"] = {
-              "icon": blockJson.toolbox.icon
+              "icon": libJson.icon
             }
           }
           this.toolbox['contents'].push(category)

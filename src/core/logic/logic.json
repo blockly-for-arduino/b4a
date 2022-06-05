@@ -1,109 +1,115 @@
-[
-    {
-        "type": "controls_if",
-        "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "IF0"
-            }
-        ],
-        "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
-        "args1": [
-            {
-                "type": "input_statement",
-                "name": "DO0"
-            }
-        ],
-        "previousStatement": null,
-        "nextStatement": null,
-        "style": "logic_blocks",
-        "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
-        "suppressPrefixSuffix": true,
-        "mutator": "controls_if_mutator",
-        "extensions": [
-            "controls_if_tooltip"
-        ]
-    },
-    {
-        "type": "controls_ifelse",
-        "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "IF0"
-            }
-        ],
-        "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
-        "args1": [
-            {
-                "type": "input_statement",
-                "name": "DO0"
-            }
-        ],
-        "message2": "%{BKY_CONTROLS_IF_MSG_ELSE} %1",
-        "args2": [
-            {
-                "type": "input_statement",
-                "name": "ELSE"
-            }
-        ],
-        "previousStatement": null,
-        "nextStatement": null,
-        "style": "logic_blocks",
-        "tooltip": "%{BKYCONTROLS_IF_TOOLTIP_2}",
-        "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
-        "suppressPrefixSuffix": true,
-        "extensions": [
-            "controls_if_tooltip"
-        ]
-    },
-    {
-        "type": "logic_compare",
-        "message0": "%1 %2 %3",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "A"
-            },
-            {
-                "type": "field_dropdown",
-                "name": "OP",
-                "options": [
-                    [
-                        "==",
-                        "=="
-                    ],
-                    [
-                        "!=",
-                        "!="
-                    ],
-                    [
-                        "<",
-                        "<"
-                    ],
-                    [
-                        ">",
-                        ">"
-                    ],
-                    [
-                        ">=",
-                        ">="
-                    ],
-                    [
-                        "<=",
-                        "<="
+{
+    "category": "逻辑",
+    "icon": "fal fa-microchip",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "blocks": [
+        {
+            "type": "controls_if",
+            "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "IF0"
+                }
+            ],
+            "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+            "args1": [
+                {
+                    "type": "input_statement",
+                    "name": "DO0"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "style": "logic_blocks",
+            "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
+            "suppressPrefixSuffix": true,
+            "mutator": "controls_if_mutator",
+            "extensions": [
+                "controls_if_tooltip"
+            ]
+        },
+        {
+            "type": "controls_ifelse",
+            "message0": "%{BKY_CONTROLS_IF_MSG_IF} %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "IF0"
+                }
+            ],
+            "message1": "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+            "args1": [
+                {
+                    "type": "input_statement",
+                    "name": "DO0"
+                }
+            ],
+            "message2": "%{BKY_CONTROLS_IF_MSG_ELSE} %1",
+            "args2": [
+                {
+                    "type": "input_statement",
+                    "name": "ELSE"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "style": "logic_blocks",
+            "tooltip": "%{BKYCONTROLS_IF_TOOLTIP_2}",
+            "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
+            "suppressPrefixSuffix": true,
+            "extensions": [
+                "controls_if_tooltip"
+            ]
+        },
+        {
+            "type": "logic_compare",
+            "message0": "%1 %2 %3",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "A"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "OP",
+                    "options": [
+                        [
+                            "==",
+                            "=="
+                        ],
+                        [
+                            "!=",
+                            "!="
+                        ],
+                        [
+                            "<",
+                            "<"
+                        ],
+                        [
+                            ">",
+                            ">"
+                        ],
+                        [
+                            ">=",
+                            ">="
+                        ],
+                        [
+                            "<=",
+                            "<="
+                        ]
                     ]
-                ]
-            },
-            {
-                "type": "input_value",
-                "name": "B"
-            }
-        ],
-        "inputsInline": true,
-        "output": "Boolean",
-        "style": "logic_blocks",
-        "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}"
-    }
-]
+                },
+                {
+                    "type": "input_value",
+                    "name": "B"
+                }
+            ],
+            "inputsInline": true,
+            "output": "Boolean",
+            "style": "logic_blocks",
+            "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}"
+        }
+    ]
+}

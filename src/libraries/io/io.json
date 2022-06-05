@@ -1,327 +1,322 @@
-[
-    {
-        "inputsInline": true,
-        "message0": "引脚 %1 模式设置为 %2",
-        "type": "io_pinmode",
-        "colour": "#48c2c4",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "PIN"
-            },
-            {
-                "type": "input_value",
-                "name": "MODE"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "icon": "fal fa-microchip",
-            "inputs": {
-                "PIN": {
-                    "block": {
-                        "type": "io_pin_digi",
-                        "fields": {
-                            "PIN": "0"
-                        }
-                    }
+{
+    "category": "I/O",
+    "icon": "fal fa-microchip",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "hardware": ["arduino:avr"],
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "引脚 %1 模式设置为 %2",
+            "type": "io_pinmode",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PIN"
                 },
-                "MODE": {
-                    "block": {
-                        "type": "io_mode",
-                        "fields": {
-                            "MODE": "INPUT"
+                {
+                    "type": "input_value",
+                    "name": "MODE"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "PIN": {
+                        "block": {
+                            "type": "io_pin_digi",
+                            "fields": {
+                                "PIN": "0"
+                            }
+                        }
+                    },
+                    "MODE": {
+                        "block": {
+                            "type": "io_mode",
+                            "fields": {
+                                "MODE": "INPUT"
+                            }
                         }
                     }
                 }
             },
-            "colour": "#48c2c4"
-        },
-        "b4a": {
-            "code": "pinMode(${PIN}, ${MODE});"
-        },
-        "previousStatement": null,
-        "nextStatement": null
-    },
-    {
-        "inputsInline": true,
-        "message0": "引脚 %1输出数字信号 %2",
-        "type": "io_digitalwrite",
-        "colour": "#48c2c4",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "PIN"
+            "b4a": {
+                "code": "pinMode(${PIN}, ${MODE});"
             },
-            {
-                "type": "input_value",
-                "name": "STATE"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": {
-                "PIN": {
-                    "block": {
-                        "type": "io_pin_digi",
-                        "fields": {
-                            "PIN": "0"
-                        }
-                    }
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "引脚 %1输出数字信号 %2",
+            "type": "io_digitalwrite",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PIN"
                 },
-                "STATE": {
-                    "block": {
-                        "type": "io_state",
-                        "fields": {
-                            "STATE": "LOW"
+                {
+                    "type": "input_value",
+                    "name": "STATE"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "PIN": {
+                        "block": {
+                            "type": "io_pin_digi",
+                            "fields": {
+                                "PIN": "0"
+                            }
+                        }
+                    },
+                    "STATE": {
+                        "block": {
+                            "type": "io_state",
+                            "fields": {
+                                "STATE": "LOW"
+                            }
                         }
                     }
                 }
-            }
-        },
-        "b4a": {
-            "code": "digitalWrite(${PIN}, ${STATE});"
-        },
-        "previousStatement": null,
-        "nextStatement": null
-    },
-    {
-        "inputsInline": true,
-        "message0": "读取引脚 %1 的数字信号",
-        "type": "io_digitalread",
-        "colour": "#48c2c4",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "PIN"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": {
-                "PIN": {
-                    "block": {
-                        "type": "io_pin_digi",
-                        "fields": {
-                            "PIN": "0"
-                        }
-                    }
-                }
-            }
-        },
-        "b4a": {
-            "code": "digitalRead(${PIN});"
-        },
-        "output": "Any"
-    },
-    {
-        "inputsInline": true,
-        "message0": "引脚 %1 输出PWM信号%2",
-        "type": "io_analogwrite",
-        "colour": "#48c2c4",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "PIN"
             },
-            {
-                "type": "input_value",
-                "name": "PWM"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": {
-                "PIN": {
-                    "block": {
-                        "type": "io_pin_pwm",
-                        "fields": {
-                            "PIN": "3"
+            "b4a": {
+                "code": "digitalWrite(${PIN}, ${STATE});"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "读取引脚 %1 的数字信号",
+            "type": "io_digitalread",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PIN"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "PIN": {
+                        "block": {
+                            "type": "io_pin_digi",
+                            "fields": {
+                                "PIN": "0"
+                            }
                         }
                     }
+                }
+            },
+            "b4a": {
+                "code": "digitalRead(${PIN});"
+            },
+            "output": "Any"
+        },
+        {
+            "inputsInline": true,
+            "message0": "引脚 %1 输出PWM信号%2",
+            "type": "io_analogwrite",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PIN"
                 },
-                "PWM": {
-                    "block": {
-                        "type": "math_number",
-                        "fields": {
-                            "NUM": 255
+                {
+                    "type": "input_value",
+                    "name": "PWM"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "PIN": {
+                        "block": {
+                            "type": "io_pin_pwm",
+                            "fields": {
+                                "PIN": "3"
+                            }
+                        }
+                    },
+                    "PWM": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 255
+                            }
                         }
                     }
                 }
-            }
+            },
+            "b4a": {
+                "code": "analogWrite(${PIN}, ${PWM});"
+            },
+            "previousStatement": null,
+            "nextStatement": null
         },
-        "b4a": {
-            "code": "analogWrite(${PIN}, ${PWM});"
-        },
-        "previousStatement": null,
-        "nextStatement": null
-    },
-    {
-        "inputsInline": true,
-        "message0": "读取引脚 %1 的模拟信号",
-        "type": "io_analogread",
-        "colour": "#48c2c4",
-        "args0": [
-            {
-                "type": "input_value",
-                "name": "PIN"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": {
-                "PIN": {
-                    "block": {
-                        "type": "io_pin_adc",
-                        "fields": {
-                            "PIN": "A0"
+        {
+            "inputsInline": true,
+            "message0": "读取引脚 %1 的模拟信号",
+            "type": "io_analogread",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "PIN"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "PIN": {
+                        "block": {
+                            "type": "io_pin_adc",
+                            "fields": {
+                                "PIN": "A0"
+                            }
                         }
                     }
                 }
-            }
+            },
+            "b4a": {
+                "code": "analogRead(${PIN});"
+            },
+            "output": "Any"
         },
-        "b4a": {
-            "code": "analogRead(${PIN});"
+        {
+            "inputsInline": true,
+            "message0": "数字引脚%1",
+            "type": "io_pin_digi",
+            "colour": "#66bb6a",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "PIN",
+                    "options": "${board.digitalPins}"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${PIN}"
+            },
+            "output": "Any"
         },
-        "output": "Any"
-    },
-    {
-        "inputsInline": true,
-        "message0": "数字引脚%1",
-        "type": "io_pin_digi",
-        "colour": "#66bb6a",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "PIN",
-                "options": "${board.digitalPins}"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": null
+        {
+            "inputsInline": true,
+            "message0": "模拟引脚%1",
+            "type": "io_pin_adc",
+            "colour": "#66bb6a",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "PIN",
+                    "options": "${board.analogPins}"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${PIN}"
+            },
+            "output": "Any"
         },
-        "b4a": {
-            "code": "${PIN}"
+        {
+            "inputsInline": true,
+            "message0": "PWM引脚%1",
+            "type": "io_pin_pwm",
+            "colour": "#66bb6a",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "PIN",
+                    "options": "${board.pwmPins}"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${PIN}"
+            },
+            "output": "Any"
         },
-        "output": "Any"
-    },
-    {
-        "inputsInline": true,
-        "message0": "模拟引脚%1",
-        "type": "io_pin_adc",
-        "colour": "#66bb6a",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "PIN",
-                "options": "${board.analogPins}"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": null
-        },
-        "b4a": {
-            "code": "${PIN}"
-        },
-        "output": "Any"
-    },
-    {
-        "inputsInline": true,
-        "message0": "PWM引脚%1",
-        "type": "io_pin_pwm",
-        "colour": "#66bb6a",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "PIN",
-                "options": "${board.pwmPins}"
-            }
-        ],
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": null
-        },
-        "b4a": {
-            "code": "${PIN}"
-        },
-        "output": "Any"
-    },
-    {
-        "type": "io_mode",
-        "message0": "%1模式",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "MODE",
-                "options": [
-                    [
-                        "INPUT",
-                        "INPUT"
-                    ],
-                    [
-                        "OUTPUT",
-                        "OUTPUT"
-                    ],
-                    [
-                        "INPUT_PULLUP",
-                        "INPUT_PULLUP"
+        {
+            "type": "io_mode",
+            "message0": "%1模式",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "MODE",
+                    "options": [
+                        [
+                            "INPUT",
+                            "INPUT"
+                        ],
+                        [
+                            "OUTPUT",
+                            "OUTPUT"
+                        ],
+                        [
+                            "INPUT_PULLUP",
+                            "INPUT_PULLUP"
+                        ]
                     ]
-                ]
+                }
+            ],
+            "output": "Any",
+            "colour": "#66bb6a",
+            "tooltip": "mode",
+            "helpUrl": "",
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${MODE}"
             }
-        ],
-        "output": "Any",
-        "colour": "#66bb6a",
-        "tooltip": "mode",
-        "helpUrl": "",
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": null
         },
-        "b4a": {
-            "code": "${MODE}"
-        }
-    },
-    {
-        "type": "io_state",
-        "message0": "%1电平",
-        "args0": [
-            {
-                "type": "field_dropdown",
-                "name": "STATE",
-                "options": [
-                    [
-                        "LOW",
-                        "LOW"
-                    ],
-                    [
-                        "HIGH",
-                        "HIGH"
+        {
+            "type": "io_state",
+            "message0": "%1电平",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "STATE",
+                    "options": [
+                        [
+                            "LOW",
+                            "LOW"
+                        ],
+                        [
+                            "HIGH",
+                            "HIGH"
+                        ]
                     ]
-                ]
+                }
+            ],
+            "output": "Any",
+            "colour": "#66bb6a",
+            "tooltip": "state",
+            "helpUrl": "",
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${MODE}"
             }
-        ],
-        "output": "Any",
-        "colour": "#66bb6a",
-        "tooltip": "state",
-        "helpUrl": "",
-        "toolbox": {
-            "show": true,
-            "category": "I/O",
-            "inputs": null
-        },
-        "b4a": {
-            "code": "${MODE}"
         }
-    }
-]
+    ]
+}

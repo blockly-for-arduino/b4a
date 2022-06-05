@@ -1,69 +1,73 @@
-[
-    {
-        "inputsInline": true,
-        "message0": "舵机%1移动到%2",
-        "type": "servo1_write",
-        "args0": [
-            {
-                "type": "field_variable",
-                "name": "OBJECT",
-                "variable": "servo1",
-                "variableTypes": [
-                    "Servo"
-                ],
-                "defaultType": "Servo"
+{
+    "category": "舵机",
+    "icon": "fal fa-undo",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "舵机%1移动到%2",
+            "type": "servo1_write",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "servo1",
+                    "variableTypes": [
+                        "Servo"
+                    ],
+                    "defaultType": "Servo"
+                },
+                {
+                    "type": "field_number",
+                    "name": "ANGLE",
+                    "value": 0
+                }
+            ],
+            "b4a": {
+                "code": "${OBJECT}.write(${ANGLE});",
+                "library": "#include <Servo.h>",
+                "object": "Servo ${OBJECT};"
             },
-            {
-                "type": "field_number",
-                "name": "ANGLE",
-                "value": 0
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": "#03a9f4",
+            "toolbox": {
+                "show": true
             }
-        ],
-        "b4a": {
-            "code": "${OBJECT}.write(${ANGLE});",
-            "library": "#include <Servo.h>",
-            "object": "Servo ${OBJECT};"
         },
-        "previousStatement": null,
-        "nextStatement": null,
-        "colour": "#03a9f4",
-        "toolbox": {
-            "show": true,
-            "category": "舵机",
-            "icon": "fal fa-undo"
-        }
-    },
-    {
-        "inputsInline": true,
-        "message0": "舵机%1连接到引脚%2",
-        "type": "servo1_attach",
-        "args0": [
-            {
-                "type": "field_variable",
-                "name": "OBJECT",
-                "variable": "servo1",
-                "variableTypes": [
-                    "Servo"
-                ],
-                "defaultType": "Servo"
+        {
+            "inputsInline": true,
+            "message0": "舵机%1连接到引脚%2",
+            "type": "servo1_attach",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "servo1",
+                    "variableTypes": [
+                        "Servo"
+                    ],
+                    "defaultType": "Servo"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "PIN1",
+                    "options": "${board.digitalPins}"
+                }
+            ],
+            "b4a": {
+                "code": "${OBJECT}.attach(${PIN1});",
+                "library": "#include <Servo.h>",
+                "object": "Servo ${OBJECT};"
             },
-            {
-                "type": "field_dropdown",
-                "name": "PIN1",
-                "options": "${board.digitalPins}"
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": "#03a9f4",
+            "toolbox": {
+                "show": true,
+                "category": "舵机"
             }
-        ],
-        "b4a": {
-            "code": "${OBJECT}.attach(${PIN1});",
-            "library": "#include <Servo.h>",
-            "object": "Servo ${OBJECT};"
-        },
-        "previousStatement": null,
-        "nextStatement": null,
-        "colour": "#03a9f4",
-        "toolbox": {
-            "show": true,
-            "category": "舵机"
         }
-    }
-]
+    ]
+}
