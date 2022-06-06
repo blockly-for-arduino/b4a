@@ -3,86 +3,50 @@
         <button class="back" nz-button nzSize="large" (click)="back()">
             <i nz-icon nzType="left-circle" nzTheme="outline"></i>
         </button>
-        <button nz-button nzSize="large" (click)="newFile()">
+        <button nz-button nzSize="large" [ngClass]="{active: selectedTab==0}" (click)="selectedTab=0">
             <i class="fal fa-books"></i>
             <div class="text">库管理</div>
         </button>
-        <button nz-button nzSize="large" (click)="newFile()">
+        <button nz-button nzSize="large" [ngClass]="{active: selectedTab==1}" (click)="selectedTab=1">
             <i class="fal fa-microchip"></i>
             <div class="text">开发板管理</div>
         </button>
-        <button nz-button nzSize="large" (click)="newFile()">
+        <button nz-button nzSize="large" [ngClass]="{active: selectedTab==2}" (click)="selectedTab=2">
             <i class="fal fa-tools"></i>
             <div class="text">软件设置</div>
         </button>
     </div>
 </header>
 <div class="content-box">
-    <div class="left-box animate__animated animate__fadeInLeft animate__fast">
-        <div class="table-header">
-            <div>已安装<span>（可拖拽排序）</span></div>
-            <div class="version">版本号</div>
-            <div class="show">可用</div>
-        </div>
-        <div class="lib-list">
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+    <ng-container *ngIf="selectedTab==0">
+        <div class="left-box animate__animated animate__fadeInLeft animate__fast">
+            <div class="table-header">
+                <div>已安装<span>（可拖拽排序）</span></div>
+                <div class="version">版本号</div>
+                <div class="show">可用</div>
             </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
-            </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
-            </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
-            </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
-            </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
-            </div>
-            <div class="item">
-                <div class="kk"></div>
-                <div class="icon"><i class="fal fa-tools"></i></div>
-                <div class="name">库名称</div>
-                <div class="version">1.12.1</div>
-                <div class="show"><label nz-checkbox [(ngModel)]="checked"></label></div>
+            <div class="lib-list" #libListBox *ngIf="libManagerLoaded">
+                <ng-container *ngFor="let libName of libList">
+                    <ng-container *ngIf="libDict[libName]">
+                        <div class="item" data-id="{{libName}}">
+                            <div class="kk" [ngStyle]="{background: libDict[libName].json.colour}"></div>
+                            <div class="icon"><i class="{{libDict[libName].json.icon}}"></i></div>
+                            <div class="name">{{libDict[libName].json.category}}</div>
+                            <div class="version">{{libDict[libName].json.version}}</div>
+                            <div class="show"><label nz-checkbox [(ngModel)]="libDict[libName].show" (ngModelChange)="libShowChange($event,libName)"></label></div>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </div>
         </div>
-    </div>
-    <div class="right-box animate__animated animate__fadeInRight animate__fast">
-        <div>云资源</div>
-        <div class="cloud-lib-list">
-            <div item>
+        <div class="right-box animate__animated animate__fadeInRight animate__fast">
+            <div>云资源</div>
+            <div class="cloud-lib-list">
+                加载失败
+                <!-- <div item>
                 <div name>舵机控制</div>
                 <div desc>ESP32专用的舵机控制库</div>
-
+                <div desc>适用设备：esp32c3、wifiduino、uno、mega</div>
                 <div>
                     <div author>作者：奈何col</div>
                     <div price>免费</div>
@@ -93,8 +57,8 @@
                     </nz-select>
                     <button nz-button nzType="primary" nzSize="small">加载</button>
                 </div>
-
+            </div> -->
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>

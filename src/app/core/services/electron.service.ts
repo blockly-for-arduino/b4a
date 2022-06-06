@@ -17,7 +17,8 @@ export class ElectronService {
   shell: typeof shell;
 
   boards = []
-  libraries: LibInfo[] = []
+  libraries_user: LibInfo[] = []
+  libraries_core: LibInfo[] = []
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
@@ -38,27 +39,31 @@ export class ElectronService {
   }
 
   loadLibraries() {
-    return new Promise<LibInfo[]>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       if (this.isElectron) {
         let coreLibrariesPath, userLibrariesPath
         coreLibrariesPath = this.basePath + '/core/'
         userLibrariesPath = this.basePath + '/libraries/'
-        this.getLibFileList(coreLibrariesPath)
-        this.getLibFileList(userLibrariesPath)
+        this.libraries_core = this.getLibFileList(coreLibrariesPath)
+        this.libraries_user = this.getLibFileList(userLibrariesPath)
       }
-      console.log('load libraries: ', this.libraries);
-      resolve(this.libraries)
+      resolve({
+        core: this.libraries_core,
+        user: this.libraries_user
+      })
     })
   }
 
-  getLibFileList(LibrariesPath) {
-    let corelibraries = this.fs.readdirSync(LibrariesPath)
-    corelibraries.forEach(libName => {
+  getLibFileList(LibrariesPath): any[] {
+    let libraries = []
+    let libraries_temp = this.fs.readdirSync(LibrariesPath)
+    libraries_temp.forEach(libName => {
       let libItem = this.getLibPathInfo(LibrariesPath + libName)
       if (libItem != null) {
-        this.libraries.push(libItem)
+        libraries.push(libItem)
       }
     })
+    return libraries
   }
 
   getLibPathInfo(path: string): LibInfo {

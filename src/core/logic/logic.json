@@ -1,6 +1,6 @@
 {
     "category": "逻辑",
-    "icon": "fal fa-microchip",
+    "icon": "fal fa-code-branch",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [
@@ -28,7 +28,10 @@
             "mutator": "controls_if_mutator",
             "extensions": [
                 "controls_if_tooltip"
-            ]
+            ],
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "controls_ifelse",
@@ -61,7 +64,10 @@
             "suppressPrefixSuffix": true,
             "extensions": [
                 "controls_if_tooltip"
-            ]
+            ],
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "logic_compare",
@@ -109,7 +115,130 @@
             "inputsInline": true,
             "output": "Boolean",
             "style": "logic_blocks",
-            "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}"
+            "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}",
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "logic_operation",
+            "message0": "%1 %2 %3",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "A",
+                    "check": "Boolean"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "OP",
+                    "options": [
+                        [
+                            "%{BKY_LOGIC_OPERATION_AND}",
+                            "AND"
+                        ],
+                        [
+                            "%{BKY_LOGIC_OPERATION_OR}",
+                            "OR"
+                        ]
+                    ]
+                },
+                {
+                    "type": "input_value",
+                    "name": "B",
+                    "check": "Boolean"
+                }
+            ],
+            "inputsInline": true,
+            "output": "Boolean",
+            "style": "logic_blocks",
+            "helpUrl": "%{BKY_LOGIC_OPERATION_HELPURL}",
+            "extensions": [
+                "logic_op_tooltip"
+            ],
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "logic_negate",
+            "message0": "%{BKY_LOGIC_NEGATE_TITLE}",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "BOOL",
+                    "check": "Boolean"
+                }
+            ],
+            "output": "Boolean",
+            "style": "logic_blocks",
+            "tooltip": "%{BKY_LOGIC_NEGATE_TOOLTIP}",
+            "helpUrl": "%{BKY_LOGIC_NEGATE_HELPURL}",
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "logic_boolean",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "BOOL",
+                    "options": [
+                        [
+                            "%{BKY_LOGIC_BOOLEAN_TRUE}",
+                            "TRUE"
+                        ],
+                        [
+                            "%{BKY_LOGIC_BOOLEAN_FALSE}",
+                            "FALSE"
+                        ]
+                    ]
+                }
+            ],
+            "output": "Boolean",
+            "style": "logic_blocks",
+            "tooltip": "%{BKY_LOGIC_BOOLEAN_TOOLTIP}",
+            "helpUrl": "%{BKY_LOGIC_BOOLEAN_HELPURL}",
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "logic_ternary",
+            "message0": "%{BKY_LOGIC_TERNARY_CONDITION} %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "IF",
+                    "check": "Boolean"
+                }
+            ],
+            "message1": "%{BKY_LOGIC_TERNARY_IF_TRUE} %1",
+            "args1": [
+                {
+                    "type": "input_value",
+                    "name": "THEN"
+                }
+            ],
+            "message2": "%{BKY_LOGIC_TERNARY_IF_FALSE} %1",
+            "args2": [
+                {
+                    "type": "input_value",
+                    "name": "ELSE"
+                }
+            ],
+            "output": null,
+            "style": "logic_blocks",
+            "tooltip": "%{BKY_LOGIC_TERNARY_TOOLTIP}",
+            "helpUrl": "%{BKY_LOGIC_TERNARY_HELPURL}",
+            "extensions": [
+                "logic_ternary"
+            ],
+            "toolbox": {
+                "show": true
+            }
         }
     ]
 }

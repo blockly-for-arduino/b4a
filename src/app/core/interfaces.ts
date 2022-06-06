@@ -19,8 +19,10 @@ export interface BoardConfig {
 }
 
 export interface LibInfo {
-    name:string,
+    name: string,
     block?: string
     generator?: string
-    toolbox?: string
+    toolbox?: string,
+    json?: any,
+    show?: boolean
 }

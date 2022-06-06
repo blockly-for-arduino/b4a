@@ -164,7 +164,7 @@ export class AppComponent {
     this.electronService.openUrl("https://b4a.clz.me");
   }
 
-  showManager = true
+  showManager = false
   openManager() {
     this.showManager = true
   }

@@ -1,6 +1,6 @@
 {
     "category": "循环",
-    "icon": "fal fa-microchip",
+    "icon": "fal fa-repeat-alt",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [
@@ -15,7 +15,10 @@
             ],
             "colour": 230,
             "tooltip": "arduino_setup",
-            "helpUrl": ""
+            "helpUrl": "",
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "arduino_loop",
@@ -28,7 +31,10 @@
             ],
             "colour": 230,
             "tooltip": "arduino_loop",
-            "helpUrl": ""
+            "helpUrl": "",
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "controls_repeat_ext",
@@ -51,7 +57,20 @@
             "nextStatement": null,
             "style": "loop_blocks",
             "tooltip": "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
-            "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}"
+            "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}",
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "TIMES": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 10
+                            }
+                        }
+                    }
+                }
+            }
         },
         {
             "type": "controls_repeat",
@@ -76,7 +95,10 @@
             "nextStatement": null,
             "style": "loop_blocks",
             "tooltip": "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
-            "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}"
+            "helpUrl": "%{BKY_CONTROLS_REPEAT_HELPURL}",
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "controls_whileUntil",
@@ -115,7 +137,10 @@
             "helpUrl": "%{BKY_CONTROLS_WHILEUNTIL_HELPURL}",
             "extensions": [
                 "controls_whileUntil_tooltip"
-            ]
+            ],
+            "toolbox": {
+                "show": true
+            }
         },
         {
             "type": "controls_for",
@@ -164,7 +189,36 @@
             "extensions": [
                 "contextMenu_newGetVariableBlock",
                 "controls_for_tooltip"
-            ]
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "FROM": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 1
+                            }
+                        }
+                    },
+                    "TO": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 10
+                            }
+                        }
+                    },
+                    "BY": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 1
+                            }
+                        }
+                    }
+                }
+            }
         },
         {
             "type": "controls_flow_statements",
@@ -192,7 +246,10 @@
             "extensions": [
                 "controls_flow_tooltip",
                 "controls_flow_in_loop_check"
-            ]
+            ],
+            "toolbox": {
+                "show": true
+            }
         }
     ]
 }

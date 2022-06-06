@@ -154,7 +154,11 @@ header {
         }
 
         .icon {
+            width: 22px;
             margin: 0 5px;
+            i.fa-code-branch {
+                transform: rotate(90deg);
+            }
         }
 
         .name {}

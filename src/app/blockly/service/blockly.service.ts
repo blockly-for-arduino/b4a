@@ -14,8 +14,11 @@ import { LibInfo } from '../../core/interfaces';
 export class BlocklyService {
   libPath = './libraries';
 
-  libList = []
+  coreLibList = ['lists', 'logic', 'loops', 'math', 'procedures', 'text', 'variables']
+  libList: string[] = []
   libDict = {}
+  // 用于存储lib在toolbox中是否可见
+  libDict_show = {}
   blockList = []
   toolbox = {}
 
@@ -36,28 +39,41 @@ export class BlocklyService {
     // 加载库
     this.blockList = []
     this.toolbox = ToolBox
+    let libs = await this.electronService.loadLibraries()
 
-    this.processLibs(await this.electronService.loadLibraries())
+    this.processLibs(libs.core)
+    this.processLibs(libs.user)
+
     await this.loadLibs()
 
     Blockly.defineBlocksWithJsonArray(this.blockList);
     this.loaded.next(true)
   }
 
+  // 预处理库
   processLibs(libraries: any[]) {
-    let libList = JSON.parse(localStorage.getItem('libList'))
+    let libList = localStorage.getItem('libList')
     if (libList == null) {
       this.libList = libraries.map(lib => lib.name)
       localStorage.setItem('libList', JSON.stringify(this.libList))
     } else {
-      this.libList = libList
+      this.libList = JSON.parse(libList)
     }
-    console.log('libList:', this.libList);
-    libraries.forEach(lib => {
-      this.libDict[lib.name] = lib
-    })
-  }
+    let libDict_show = localStorage.getItem('libDict_show')
+    if (libDict_show != null) {
+      this.libDict_show = JSON.parse(libDict_show)
+    }
 
+    libraries.forEach(lib => {
+      this.libDict[lib.name] = Object.assign(lib, this.libDict_show[lib.name])
+      if (typeof this.libDict[lib.name].show == 'undefined')
+        this.libDict[lib.name]['show'] = true
+    })
+
+    console.log('libList:', this.libList);
+    console.log('libDict:', this.libDict);
+  }
+  // 加载库
   async loadLibs() {
     for (let index = 0; index < this.libList.length; index++) {
       let libInfo = this.libDict[this.libList[index]];
@@ -69,22 +85,22 @@ export class BlocklyService {
     return new Promise(async (resolve, reject) => {
       // 避免重复加载
       if (libInfo) {
-        if (libInfo.block) await this.loadLibJson(libInfo.block)
+        if (libInfo.block) await this.loadLibJson(libInfo.block, libInfo.name)
         if (libInfo.generator) await this.loadLibScript(libInfo.generator)
-        if (libInfo.toolbox) await this.loadToolboxJson(libInfo.toolbox)
+        if (libInfo.toolbox && libInfo.show) await this.loadToolboxJson(libInfo.toolbox)
       }
 
       resolve(true)
     })
   }
 
-  async loadLibJson(path) {
+  async loadLibJson(path, name) {
     return new Promise(async (resolve, reject) => {
       this.loadUrl(path).subscribe(config => {
-        let sourceJson: any = config
-        let libJson = this.processJsonVariable(sourceJson)
+        let libJson = this.processJsonVariable(config)
+        this.libDict[name]['json'] = libJson
         // b4a 代码创建器
-        this.b4a2js(libJson)
+        this.b4a2js(libJson, name)
         this.blockList = this.blockList.concat(libJson.blocks)
         resolve(true)
       })
@@ -98,8 +114,14 @@ export class BlocklyService {
     })
   }
 
-  b4a2js(libJson) {
+  b4a2js(libJson, libName) {
     libJson.blocks.forEach(blockJson => {
+      // 如果是按键，直接添加到toolbox
+      if (blockJson.kind == 'button') {
+        let buttonJson = blockJson
+        this.addButtonToCategory(libJson, buttonJson)
+        return
+      }
       if (blockJson.b4a) {
         // console.log('b4a代码创建器 >>> ' + blockJson.type);
         let Arduino: any = window['Arduino']
@@ -149,48 +171,86 @@ export class BlocklyService {
           return blockJson.output ? code : code + '\n'
         }
       }
+      // 判断库是否被用户隐藏
+      if (this.libDict_show[libName])
+        if (!this.libDict_show[libName].show) {
+          return
+        }
       // 添加到toolbox
       if (blockJson.toolbox) {
         if (!blockJson.toolbox.show) return
-        let categoryIsExist = false;
-        this.toolbox['contents'].forEach(category => {
-          if (category.name == libJson.category) { 
-            categoryIsExist = true
-            let block = {
-              kind: 'block',
-              type: blockJson.type
-            }
-            if (blockJson.toolbox.inputs) {
-              block['inputs'] = blockJson.toolbox.inputs
-            }
-            category.contents.push(block)
-            return
-          }
-        });
-        if (!categoryIsExist) {
-          let category = {
-            "kind": "category",
-            "name": libJson.category,
-            "colour": libJson.colour,
-            "contents": []
-          }
-          let block = {
-            kind: 'block',
-            type: blockJson.type
-          }
-          if (blockJson.toolbox.inputs) {
-            block['inputs'] = blockJson.toolbox.inputs
-          }
-          category.contents.push(block)
-          if (libJson.icon) {
-            category["cssConfig"] = {
-              "icon": libJson.icon
-            }
-          }
-          this.toolbox['contents'].push(category)
-        }
+        this.addBlockToCategory(libJson, blockJson)
       }
     });
+  }
+
+  addButtonToCategory(libJson, buttonJson) {
+    let categoryIsExist = false;
+    for (let index = 0; index < this.toolbox['contents'].length; index++) {
+      const category = this.toolbox['contents'][index];
+      if (category.name == libJson.category) {
+        categoryIsExist = true
+        category.contents.push(buttonJson)
+        return
+      }
+    }
+    if (!categoryIsExist) {
+      let category = {
+        "kind": "category",
+        "name": libJson.category,
+        "colour": libJson.colour,
+        "contents": [],
+        "custom": libJson.custom
+      }
+      if (libJson.icon) {
+        category["cssConfig"] = {
+          "icon": libJson.icon
+        }
+      }
+      category.contents.push(buttonJson)
+      this.toolbox['contents'].push(category)
+    }
+  }
+
+  addBlockToCategory(libJson, blockJson) {
+    let categoryIsExist = false;
+    this.toolbox['contents'].forEach(category => {
+      if (category.name == libJson.category) {
+        categoryIsExist = true
+        let block = {
+          kind: 'block',
+          type: blockJson.type
+        }
+        if (blockJson.toolbox.inputs) {
+          block['inputs'] = blockJson.toolbox.inputs
+        }
+        category.contents.push(block)
+        return
+      }
+    });
+    if (!categoryIsExist) {
+      let category = {
+        "kind": "category",
+        "name": libJson.category,
+        "colour": libJson.colour,
+        "contents": []
+      }
+      let block = {
+        kind: 'block',
+        type: blockJson.type
+      }
+      if (blockJson.toolbox)
+        if (blockJson.toolbox.inputs) {
+          block['inputs'] = blockJson.toolbox.inputs
+        }
+      category.contents.push(block)
+      if (libJson.icon) {
+        category["cssConfig"] = {
+          "icon": libJson.icon
+        }
+      }
+      this.toolbox['contents'].push(category)
+    }
   }
 
   async loadToolboxJson(path) {
@@ -209,10 +269,6 @@ export class BlocklyService {
 
   loadLibScript(path) {
     return new Promise((resolve, reject) => {
-      // if (this.libList[libName]) {
-      //   resolve(true);
-      //   return
-      // }
       let script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = path;

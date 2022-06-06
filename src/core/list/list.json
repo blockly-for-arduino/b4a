@@ -1,0 +1,55 @@
+{
+    "category": "列表",
+    "icon": "fal fa-brackets",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "blocks": [
+        {
+            "kind": "button",
+            "text": "创建 列表",
+            "callbackKey": "CREATE_VARIABLE_LIST"
+        },
+        {
+            "type": "string_multiline",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_multilinetext",
+                    "name": "TEXT",
+                    "text": ""
+                }
+            ],
+            "output": "String",
+            "style": "text_blocks",
+            "helpUrl": "%{BKY_TEXT_TEXT_HELPURL}",
+            "tooltip": "%{BKY_TEXT_TEXT_TOOLTIP}",
+            "extensions": [
+                "parent_tooltip_when_inline"
+            ],
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "text_length",
+            "message0": "%{BKY_TEXT_LENGTH_TITLE}",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": [
+                        "String",
+                        "Array"
+                    ]
+                }
+            ],
+            "output": "Number",
+            "style": "text_blocks",
+            "tooltip": "%{BKY_TEXT_LENGTH_TOOLTIP}",
+            "helpUrl": "%{BKY_TEXT_LENGTH_HELPURL}",
+            "toolbox": {
+                "show": true
+            }
+        }
+    ]
+}

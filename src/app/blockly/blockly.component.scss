@@ -10,6 +10,9 @@
     width: 100%;
 
     ::ng-deep {
+        .blocklyToolboxDiv {
+            width: 125px;
+        }
         .blocklyToolboxCategory {
             .blocklyTreeRow {
                 height: 32px;

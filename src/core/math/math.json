@@ -1,0 +1,28 @@
+{
+    "category": "数学",
+    "icon": "fal fa-calculator-alt",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "blocks": [
+        {
+            "type": "math_number",
+            "message0": "%1",
+            "args0": [
+                {
+              "type": "field_number",
+              "name": "NUM",
+              "value": 0
+                }
+            ],
+            "output": "Number",
+            "helpUrl": "%{BKY_MATH_NUMBER_HELPURL}",
+            "style": "math_blocks",
+            "tooltip": "%{BKY_MATH_NUMBER_TOOLTIP}",
+            "extensions": ["parent_tooltip_when_inline"
+            ],
+            "toolbox": {
+                "show": true
+            }
+        }
+    ]
+}

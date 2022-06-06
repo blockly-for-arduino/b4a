@@ -165,6 +165,13 @@ export class BlocklyComponent implements OnInit {
 
   VARTYPE = VAR_TYPE
   rewtireFunc() {
+    this.workspace.registerButtonCallback('CREATE_VARIABLE_STRING', (button) => {
+      console.log('CREATE_VARIABLE_STRING');
+    });
+    this.workspace.registerButtonCallback('CREATE_VARIABLE_LIST', (button) => {
+      console.log('CREATE_VARIABLE_LIST');
+    });
+    
     Blockly.Variables.createVariableButtonHandler = (workspace, opt_callback, opt_type) => {
       this.modal.create({
         nzTitle: '添加变量',
