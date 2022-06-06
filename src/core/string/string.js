@@ -9,20 +9,14 @@
  */
 'use strict';
 
-Arduino['string_multiline'] = function(block) {
-  // Text value.
-  const code = Arduino.multiline_quote_(block.getFieldValue('TEXT'));
-  const order = code.indexOf('+') !== -1 ? Arduino.ORDER_ADDITION :
-      Arduino.ORDER_ATOMIC;
-  return [code, order];
+Arduino['string_multiline'] = function (block) {
+  let code = `"${getValue(block, 'TEXT').replace(/\n/g, '\\n')}"`;
+  return [code, Arduino.ORDER_ATOMIC];
 };
 
-Arduino['text_length'] = function(block) {
-  // Text value.
-  const code = Arduino.multiline_quote_(block.getFieldValue('TEXT'));
-  const order = code.indexOf('+') !== -1 ? Arduino.ORDER_ADDITION :
-      Arduino.ORDER_ATOMIC;
-  return [code, order];
+Arduino['string_length'] = function (block) {
+  let code = getValue(block, 'TEXT')+'.length()';
+  return [code, Arduino.ORDER_ATOMIC];
 };
 
 // /**

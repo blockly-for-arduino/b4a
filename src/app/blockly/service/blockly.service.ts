@@ -5,7 +5,6 @@ import Blockly from 'blockly';
 import * as zhHans from 'blockly/msg/zh-hans';
 import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
-import { ToolBox } from '../arduino/toolbox';
 import { LibInfo } from '../../core/interfaces';
 
 @Injectable({
@@ -14,7 +13,6 @@ import { LibInfo } from '../../core/interfaces';
 export class BlocklyService {
   libPath = './libraries';
 
-  coreLibList = ['lists', 'logic', 'loops', 'math', 'procedures', 'text', 'variables']
   libList: string[] = []
   libDict = {}
   // 用于存储lib在toolbox中是否可见
@@ -38,14 +36,14 @@ export class BlocklyService {
   async init() {
     // 加载库
     this.blockList = []
-    this.toolbox = ToolBox
+    this.toolbox = {
+      "kind": "categoryToolbox",
+      "contents": [
+      ]
+    }
     let libs = await this.electronService.loadLibraries()
-
-    this.processLibs(libs.core)
-    this.processLibs(libs.user)
-
+    this.processLibs(libs)
     await this.loadLibs()
-
     Blockly.defineBlocksWithJsonArray(this.blockList);
     this.loaded.next(true)
   }
@@ -116,12 +114,6 @@ export class BlocklyService {
 
   b4a2js(libJson, libName) {
     libJson.blocks.forEach(blockJson => {
-      // 如果是按键，直接添加到toolbox
-      if (blockJson.kind == 'button') {
-        let buttonJson = blockJson
-        this.addButtonToCategory(libJson, buttonJson)
-        return
-      }
       if (blockJson.b4a) {
         // console.log('b4a代码创建器 >>> ' + blockJson.type);
         let Arduino: any = window['Arduino']
@@ -176,6 +168,12 @@ export class BlocklyService {
         if (!this.libDict_show[libName].show) {
           return
         }
+      // 如果是按键，直接添加到toolbox
+      if (blockJson.kind == 'button') {
+        let buttonJson = blockJson
+        this.addButtonToCategory(libJson, buttonJson)
+        return
+      }
       // 添加到toolbox
       if (blockJson.toolbox) {
         if (!blockJson.toolbox.show) return

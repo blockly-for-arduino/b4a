@@ -5,11 +5,6 @@
     "version": "0.0.1",
     "blocks": [
         {
-            "kind": "button",
-            "text": "创建 字符串",
-            "callbackKey": "CREATE_VARIABLE_STRING"
-        },
-        {
             "type": "string_multiline",
             "message0": "%1",
             "args0": [
@@ -19,11 +14,12 @@
                     "text": ""
                 }
             ],
-            "output": "String",
+            "output": "Any",
             "style": "text_blocks",
             "helpUrl": "%{BKY_TEXT_TEXT_HELPURL}",
             "tooltip": "%{BKY_TEXT_TEXT_TOOLTIP}",
             "extensions": [
+                "text_quotes",
                 "parent_tooltip_when_inline"
             ],
             "toolbox": {
@@ -31,19 +27,19 @@
             }
         },
         {
-            "type": "text_length",
+            "type": "string_length",
             "message0": "%{BKY_TEXT_LENGTH_TITLE}",
             "args0": [
                 {
                     "type": "input_value",
-                    "name": "VALUE",
+                    "name": "TEXT",
                     "check": [
                         "String",
-                        "Array"
+                        "List"
                     ]
                 }
             ],
-            "output": "Number",
+            "output": "Any",
             "style": "text_blocks",
             "tooltip": "%{BKY_TEXT_LENGTH_TOOLTIP}",
             "helpUrl": "%{BKY_TEXT_LENGTH_HELPURL}",

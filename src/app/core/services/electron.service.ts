@@ -47,10 +47,7 @@ export class ElectronService {
         this.libraries_core = this.getLibFileList(coreLibrariesPath)
         this.libraries_user = this.getLibFileList(userLibrariesPath)
       }
-      resolve({
-        core: this.libraries_core,
-        user: this.libraries_user
-      })
+      resolve(this.libraries_core.concat(this.libraries_user))
     })
   }
 
