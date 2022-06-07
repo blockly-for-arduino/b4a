@@ -7,7 +7,6 @@ import { ConfigService } from './core/services/config.service';
 import { BlocklyService } from './blockly/service/blockly.service';
 import { ArduinoCliService } from './core/services/arduino-cli.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { CloudComponent } from './cloud/cloud.component'
 import { SerialService } from './core/services/serial.service';
 
 @Component({
@@ -148,12 +147,12 @@ export class AppComponent {
   }
 
   openCloud() {
-    this.modal.create({
-      nzTitle: '云资源',
-      nzContent: CloudComponent,
-      nzWidth: '60vw',
-      nzFooter: null
-    })
+    // this.modal.create({
+    //   nzTitle: '云资源',
+    //   nzContent: CloudComponent,
+    //   nzWidth: '60vw',
+    //   nzFooter: null
+    // })
   }
 
   gotoGithub() {
@@ -164,7 +163,7 @@ export class AppComponent {
     this.electronService.openUrl("https://b4a.clz.me");
   }
 
-  showManager = false
+  showManager = true
   openManager() {
     this.showManager = true
   }

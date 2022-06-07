@@ -33,7 +33,8 @@
                             <div class="icon"><i class="{{libDict[libName].json.icon}}"></i></div>
                             <div class="name">{{libDict[libName].json.category}}</div>
                             <div class="version">{{libDict[libName].json.version}}</div>
-                            <div class="show"><label nz-checkbox [(ngModel)]="libDict[libName].show" (ngModelChange)="libShowChange($event,libName)"></label></div>
+                            <div class="show"><label nz-checkbox [(ngModel)]="libDict[libName].show"
+                                    (ngModelChange)="libShowChange($event,libName)"></label></div>
                         </div>
                     </ng-container>
                 </ng-container>
@@ -42,22 +43,27 @@
         <div class="right-box animate__animated animate__fadeInRight animate__fast">
             <div>云资源</div>
             <div class="cloud-lib-list">
-                加载失败
-                <!-- <div item>
-                <div name>舵机控制</div>
-                <div desc>ESP32专用的舵机控制库</div>
-                <div desc>适用设备：esp32c3、wifiduino、uno、mega</div>
-                <div>
-                    <div author>作者：奈何col</div>
-                    <div price>免费</div>
-                    <nz-select ngModel="lucy">
-                        <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                        <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                        <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                    </nz-select>
-                    <button nz-button nzType="primary" nzSize="small">加载</button>
+                <!-- 加载失败 -->
+                <div item>
+                    <div name>舵机控制</div>
+                    <div desc>ESP32专用的舵机控制库</div>
+                    <div desc>适用设备：esp32c3、wifiduino、uno、mega</div>
+                    <div>
+                        <div author>作者：奈何col</div>
+                        <div price>免费</div>
+                        <nz-select ngModel="lucy">
+                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        </nz-select>
+                        <button nz-button nzType="primary" nzSize="small">加载</button>
+                    </div>
                 </div>
-            </div> -->
+                <div item></div>
+                <div item></div>
+                <div item></div>
+                <div item></div>
+                <div item></div>
             </div>
         </div>
     </ng-container>

@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { BlocklyService } from '../blockly/service/blockly.service';
+import { CloudService } from './cloud.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import Sortable from 'sortablejs';
 
 @Component({
@@ -25,7 +27,9 @@ export class ManagerComponent implements OnInit {
   }
 
   constructor(
-    private blocklyService: BlocklyService
+    private blocklyService: BlocklyService,
+    private cloudService: CloudService,
+    private message: NzMessageService,
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +65,24 @@ export class ManagerComponent implements OnInit {
       show: e
     }
     localStorage.setItem('libDict_show', JSON.stringify(this.blocklyService.libDict_show))
+  }
+
+  loadExample(item) {
+    this.cloudService.loadExample(item).subscribe(resp => {
+      this.blocklyService.loadXml(resp);
+      this.message.success(`示例 ${item.name} 加载成功`);
+    }, err => {
+      this.message.error(`示例 ${item.name} 加载失败`);
+    })
+
+  }
+
+  loadLibrary(item) {
+
+  }
+
+  loadBoard(item) {
+
   }
 
 }

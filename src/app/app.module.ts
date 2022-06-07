@@ -28,7 +28,6 @@ import { MonitorModule } from './monitor/monitor.module';
 import { ShellModule } from './shell/shell.module';
 import { CodeModule } from './code/code.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { CloudModule } from './cloud/cloud.module';
 import { ManagerModule } from './manager/manager.module';
 const icons: IconDefinition[] = [CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline, RightOutline, RightCircleOutline,
@@ -65,7 +64,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     ShellModule,
     CodeModule,
     NzModalModule,
-    CloudModule,
     NzToolTipModule,
     ManagerModule
   ],
