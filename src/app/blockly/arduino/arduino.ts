@@ -354,7 +354,7 @@ export function initArduinoGenerator() {
         return 'int'
     }
 
-    window['getValue'] = function (block, name: string) {
+    window['getValue'] = function (block, name: string, type = '') {
         let code = '?'
         try {
             // console.log('try statementToCode');
@@ -374,7 +374,8 @@ export function initArduinoGenerator() {
 
         }
         try {
-            if (name.includes('OBJECT') || name.includes('VARIABLE'))
+            // (name.includes('OBJECT') || name.includes('VARIABLE')) &&
+            if (type == 'field_variable')
                 code = Arduino.nameDB_.getName(block.getFieldValue(name), Blockly.Names.NameType.VARIABLE)
             else
                 code = block.getFieldValue(name)

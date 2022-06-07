@@ -132,12 +132,12 @@ export class BlocklyService {
 
           if (blockJson.args0) {
             blockJson.args0.forEach(arg => {
-              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name)
+              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }
           if (blockJson.args1) {
             blockJson.args1.forEach(arg => {
-              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name)
+              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }
 
