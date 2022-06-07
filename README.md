@@ -34,3 +34,9 @@ npm run electron:build
 本项目使用angular-electron作为模板构建  
 [ardublockly](https://github.com/carlosperate/ardublockly)  
 本人通过ardublockly源码学习了blockly如何进行Arduino适配  
+
+
+## TODO LIST  
+1. monaco-editor替换为mirrorcode（等mirrorcode next release）  
+2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组  
+3. 通过arduino cli安装b4a库所需的arduino依赖库  
