@@ -29,6 +29,12 @@ npm start
 npm run electron:build
 ```
 
+## 资源路径  
+核心库路径 /src/core/  
+库路径 /src/libraries/  
+开发板 /src/boards/  
+Arduino-Cli /arduino/  
+
 ## 特别鸣谢  
 [angular-electron](https://github.com/maximegris/angular-electron)  
 本项目使用angular-electron作为模板构建  
