@@ -9,20 +9,131 @@
             "message0": "%1",
             "args0": [
                 {
-              "type": "field_number",
-              "name": "NUM",
-              "value": 0
+                    "type": "field_number",
+                    "name": "NUM",
+                    "value": 0
                 }
             ],
             "output": "Number",
             "helpUrl": "%{BKY_MATH_NUMBER_HELPURL}",
             "style": "math_blocks",
             "tooltip": "%{BKY_MATH_NUMBER_TOOLTIP}",
-            "extensions": ["parent_tooltip_when_inline"
+            "extensions": [
+                "parent_tooltip_when_inline"
             ],
             "toolbox": {
                 "show": true
             }
+        },
+        {
+            "inputsInline": true,
+            "message0": "获取随机数 最小值%1 最大值%2",
+            "type": "math_random",
+            "colour": "#ff9800",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "MIN"
+                },
+                {
+                    "type": "input_value",
+                    "name": "MAX"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "MIN": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 0
+                            }
+                        }
+                    },
+                    "MAX": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 100
+                            }
+                        }
+                    }
+                }
+            },
+            "b4a": {
+                "code": "random(${MIN}, ${MAX})"
+            },
+            "output": "Any"
+        },
+        {
+            "inputsInline": true,
+            "message0": "缩放变量 %1 原范围%2 %3 目标范围%4 %5",
+            "type": "math_map",
+            "colour": "#FF9800",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VARIABLE",
+                    "variable": "var1",
+                    "variableTypes": [
+                        "int"
+                    ],
+                    "defaultType": "int"
+                },
+                {
+                    "type": "field_number",
+                    "name": "FROMLOW",
+                    "value": 0
+                },
+                {
+                    "type": "field_number",
+                    "name": "FROMHIGH",
+                    "value": 100
+                },
+                {
+                    "type": "field_number",
+                    "name": "TOLOW",
+                    "value": 0
+                },
+                {
+                    "type": "field_number",
+                    "name": "TOHIGH",
+                    "value": 1000
+                }
+            ],
+            "toolbox": {
+                "show": true
+            },
+            "b4a": {
+                "code": "map(${VARIABLE}, ${FROMLOW}, ${FROMHIGH}, ${TOLOW}, ${TOHIGH})"
+            },
+            "output": "Any"
+        },
+        {
+            "inputsInline": true,
+            "message0": "获取绝对值 %1",
+            "type": "math_abs",
+            "colour": "#FF9800",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VARIABLE",
+                    "variable": "var1",
+                    "variableTypes": [
+                        "int"
+                    ],
+                    "defaultType": "int"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "abs(${VARIABLE})"
+            },
+            "output": "Any"
         }
     ]
 }

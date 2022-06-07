@@ -344,7 +344,7 @@ export function initArduinoGenerator() {
     };
 
     window['getVarType'] = function (varName) {
-        let variableMap=Arduino.nameDB_.variableMap_.variableMap_
+        let variableMap = Arduino.nameDB_.variableMap_.variableMap_
         for (const key in variableMap) {
             for (let index = 0; index < variableMap[key].length; index++) {
                 let variableModel = variableMap[key][index];
@@ -354,7 +354,7 @@ export function initArduinoGenerator() {
         return 'int'
     }
 
-    window['getValue'] = function (block, name) {
+    window['getValue'] = function (block, name: string) {
         let code = '?'
         try {
             // console.log('try statementToCode');
@@ -374,7 +374,7 @@ export function initArduinoGenerator() {
 
         }
         try {
-            if (name == 'OBJECT')
+            if (name.includes('OBJECT') || name.includes('VARIABLE'))
                 code = Arduino.nameDB_.getName(block.getFieldValue(name), Blockly.Names.NameType.VARIABLE)
             else
                 code = block.getFieldValue(name)
