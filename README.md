@@ -46,3 +46,5 @@ Arduino-Cli /arduino/
 1. monaco-editor替换为mirrorcode（等mirrorcode next release）  
 2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组  
 3. 通过arduino cli安装b4a库所需的arduino依赖库  
+4. 主题切换功能，允许切换到blockly默认主题  
+5. 多语言支持  

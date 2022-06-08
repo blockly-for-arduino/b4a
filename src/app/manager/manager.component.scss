@@ -131,7 +131,7 @@ header {
     border-radius: 8px 0 0 8px;
     box-shadow: 0 0 10px #CCC;
     position: relative;
-    padding: 15px;
+    padding: 15px 0 15px 15px;
 }
 
 .lib-list {
@@ -185,55 +185,103 @@ header {
 .cloud-lib-list {
     display: flex;
     flex-wrap: wrap;
+    overflow-y: auto;
 
-    [item] {
+    .cloud-lib-item {
+        position: relative;
         flex-grow: 1;
         width: 30%;
-        box-shadow: 0 0 10px #CCC;
+        min-width: 300px;
+        // box-shadow: 0 0 10px #CCC;
+        border: 1px solid #CCC;
         border-radius: 8px;
         height: 230px;
-        margin-bottom: 10px;
         padding: 15px;
         display: flex;
         flex-direction: column;
         font-size: 16px;
-        position: relative;
         transition: all .5s;
         font-size: 12px;
-        margin-right: 15px;
+        margin: 0 15px 15px 0;
 
-        &:nth-child(3n+3) {
-            margin-right: 0;
+        .top {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            .img-box {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+
+            .name {
+                font-weight: 700;
+                font-size: 16px;
+            }
+
+            .author {
+                font-size: 12px;
+            }
+
+            .shehui {
+                position: absolute;
+                top: 0;
+                right: 15px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                >div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    i {
+                        font-size: 16px;
+                    }
+                }
+            }
         }
 
-        // &:hover {
-        //     border: 1px solid #FFF;
-        // }
+        .middle {
+            margin-top: 10px;
 
-        // &:first-child {
-        //     margin-top: 10px;
-        // }
-
-        [name] {
-            font-size: 16px;
-            line-height: 16px;
-            margin-bottom: 5px;
+            p {
+                margin-bottom: 3px
+            }
         }
 
-        [desc] {
-            padding-right: 15px;
-        }
-
-        [author] {
+        .bottom {
+            width: 100%;
             position: absolute;
-            bottom: 5px;
-        }
+            right: 15px;
+            bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            align-items: center;
 
-        button {
-            position: absolute;
-            bottom: 5px;
-            right: 10px;
-            font-size: 12px;
+            .website {
+                position: absolute;
+                left: 0;
+                margin-left: 30px;
+            }
+
+            nz-select {
+                margin-left: 5px;
+                width: 100px;
+            }
+
+            button {
+                margin-left: 5px;
+            }
         }
     }
 }

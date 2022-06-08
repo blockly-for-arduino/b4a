@@ -6,7 +6,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 @NgModule({
   declarations: [
     ManagerComponent
@@ -17,7 +17,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzCheckboxModule,
     NzButtonModule,
     FormsModule,
-    NzSelectModule
+    NzSelectModule,
+    NzDividerModule
   ],
   exports: [
     ManagerComponent
