@@ -310,8 +310,16 @@ export class BlocklyService {
     }
   }
 
-  updateToolbox(toolbox) {
-    this.workspace.updateToolbox(toolbox);
+  async updateToolbox() {
+    this.toolbox = {
+      "kind": "categoryToolbox",
+      "contents": [
+      ]
+    }
+    let libs = await this.electronService.loadLibraries()
+    this.processLibs(libs)
+    await this.loadLibs()
+    this.workspace.updateToolbox(this.toolbox);
   }
 
   changeTheme(theme) {

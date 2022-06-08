@@ -33,7 +33,7 @@ export class ManagerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.blocklyService.loaded.subscribe(state => {
+    let sub = this.blocklyService.loaded.subscribe(state => {
       this.libManagerLoaded = state
       if (state) {
         setTimeout(() => {
@@ -41,6 +41,10 @@ export class ManagerComponent implements OnInit {
         }, 1000);
       }
     })
+  }
+
+  async ngOnDestroy() {
+    await this.blocklyService.updateToolbox()
   }
 
   back() {
