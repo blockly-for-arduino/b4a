@@ -163,7 +163,7 @@ export class AppComponent {
     this.electronService.openUrl("https://b4a.clz.me");
   }
 
-  showManager = true
+  showManager = false
   selectedTab = 0
   openManager(e) {
     this.selectedTab = e
