@@ -31,8 +31,7 @@ npm start
 ```sh
 npm run electron:build
 ```
-
-## 资源路径  
+ 
 ## 资源路径设计  
 ### 库资源  
 库我分成了两部分，core里存放一些最基础的公共库，libraries里存放涉及硬件差异的。对最终用户来说，只建议他们操作libraries里的。  
