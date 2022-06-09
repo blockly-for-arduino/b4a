@@ -6,6 +6,7 @@ import * as zhHans from 'blockly/msg/zh-hans';
 import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
 import { LibInfo } from '../../core/interfaces';
+import { compareList } from '../../func/func';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,15 @@ export class BlocklyService {
       this.libList = libraries.map(lib => lib.name)
       localStorage.setItem('libList', JSON.stringify(this.libList))
     } else {
-      this.libList = JSON.parse(libList)
+      let libList_new: any[] = libraries.map(lib => lib.name)
+      let libList_old: any[] = JSON.parse(libList)
+      let result = compareList(libList_old, libList_new)
+      // 移除已删除的库
+      result.del.forEach(libName => {
+        libList_old.splice(libList_old.indexOf(libName), 1)
+      });
+      // 添加新增的库
+      this.libList = libList_old.concat(result.add)
     }
     let libDict_show = localStorage.getItem('libDict_show')
     if (libDict_show != null) {
