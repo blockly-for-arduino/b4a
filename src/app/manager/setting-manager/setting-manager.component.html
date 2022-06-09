@@ -1,1 +1,34 @@
-<p>setting-manager works!</p>
+<div class="setting-manager-box">
+    <div class="item">
+        <div class="name">
+            软件版本
+        </div>
+        <div>
+            0.0.2
+        </div>
+    </div>
+    <div class="item">
+        <div class="name">
+            主题设置
+        </div>
+        <nz-radio-group [(ngModel)]="config.theme" (ngModelChange)="themeChange()" nzButtonStyle="solid">
+            <label nz-radio-button nzValue="zelos">Zelos</label>
+            <label nz-radio-button nzValue="geras">Classic</label>
+        </nz-radio-group>
+    </div>
+    <div class="item">
+        <div class="name">
+            语言设置
+        </div>
+        <nz-radio-group [(ngModel)]="config.language" (ngModelChange)="languageChange()" nzButtonStyle="solid">
+            <label nz-radio-button nzValue="chinese">
+                <img src="assets/language/chinese.jpg" alt="">
+                中文
+            </label>
+            <!-- <label nz-radio-button nzValue="english">
+                <img src="assets/language/english.jpg" alt="">
+                English
+            </label> -->
+        </nz-radio-group>
+    </div>
+</div>

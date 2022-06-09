@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { BlocklyService } from '../../blockly/service/blockly.service'
 @Component({
   selector: 'app-setting-manager',
   templateUrl: './setting-manager.component.html',
@@ -7,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingManagerComponent implements OnInit {
 
-  constructor() { }
+  get theme() {
+    let theme = localStorage.getItem('theme')
+    if (theme == null)
+      theme = 'geras'
+    return theme
+  }
+
+  config = {
+    language: 'chinese',
+    theme: this.theme
+  }
+
+  constructor(
+    private blocklyService: BlocklyService
+  ) { }
 
   ngOnInit(): void {
+
+  }
+
+  themeChange() {
+    this.blocklyService.changeTheme(this.config.theme)
+  }
+
+  languageChange() {
+
   }
 
 }

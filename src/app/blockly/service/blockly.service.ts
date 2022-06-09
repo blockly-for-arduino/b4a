@@ -24,6 +24,8 @@ export class BlocklyService {
 
   loaded = new BehaviorSubject(false)
 
+  reinit = new BehaviorSubject(false)
+
   workspace: Blockly.WorkspaceSvg;
 
   constructor(
@@ -332,7 +334,8 @@ export class BlocklyService {
   }
 
   changeTheme(theme) {
-
+    localStorage.setItem('theme', theme)
+    this.reinit.next(true)
   }
 
   changeLanguage(language) {

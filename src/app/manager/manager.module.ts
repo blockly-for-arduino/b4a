@@ -10,6 +10,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { LibManagerComponent } from './lib-manager/lib-manager.component';
 import { BoardManagerComponent } from './board-manager/board-manager.component';
 import { SettingManagerComponent } from './setting-manager/setting-manager.component';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+
 @NgModule({
   declarations: [
     ManagerComponent,
@@ -24,7 +26,8 @@ import { SettingManagerComponent } from './setting-manager/setting-manager.compo
     NzButtonModule,
     FormsModule,
     NzSelectModule,
-    NzDividerModule
+    NzDividerModule,
+    NzRadioModule
   ],
   exports: [
     ManagerComponent

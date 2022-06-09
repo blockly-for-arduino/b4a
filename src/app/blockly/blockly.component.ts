@@ -23,6 +23,13 @@ export class BlocklyComponent implements OnInit {
   workspace;
   generator: Blockly.Generator;
 
+  get theme() {
+    let theme = localStorage.getItem('theme')
+    if (theme == null)
+      theme = 'geras'
+    return theme
+  }
+
   @Output() public codeChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
@@ -45,6 +52,11 @@ export class BlocklyComponent implements OnInit {
         this.init()
       }
     })
+    this.blocklyService.reinit.subscribe(async (state) => {
+      if (state) {
+        this.reinit()
+      }
+    })
   }
 
   async init() {
@@ -63,7 +75,7 @@ export class BlocklyComponent implements OnInit {
       media: 'media/',
       trashcan: true,
       theme: 'zelos',
-      renderer: 'zelos',
+      renderer: this.theme,
       move: {
         scrollbars: true,
         drag: true,
@@ -141,8 +153,7 @@ export class BlocklyComponent implements OnInit {
   }
 
   reinit() {
-    // this.save();
-    // this.workspace.clear();
+    this.workspace.dispose();
     this.init();
   }
 

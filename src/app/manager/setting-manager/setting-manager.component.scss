@@ -1,0 +1,29 @@
+.setting-manager-box {
+    padding: 15px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+
+    .name {
+        width: 90px;
+    }
+
+    nz-radio-group {
+        ::ng-deep {
+            label {
+                span:last-child {
+                    display: flex;
+                    align-items: center;
+                }
+
+                img {
+                    height: 15px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
