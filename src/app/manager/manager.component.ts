@@ -1,8 +1,7 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BlocklyService } from '../blockly/service/blockly.service';
 import { CloudService } from './cloud.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import Sortable from 'sortablejs';
 
 @Component({
   selector: 'app-manager',
@@ -10,13 +9,13 @@ import Sortable from 'sortablejs';
   styleUrls: ['./manager.component.scss']
 })
 export class ManagerComponent implements OnInit {
+  @Input() selectedTab = 0;
 
   @Output() backEvent = new EventEmitter()
 
   @ViewChild('libListBox', { static: false, read: ElementRef }) libListBox: ElementRef
 
   libManagerLoaded = false
-  selectedTab = 0;
 
   get libList() {
     return this.blocklyService.libList
@@ -33,12 +32,10 @@ export class ManagerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let sub = this.blocklyService.loaded.subscribe(state => {
+    this.blocklyService.loaded.subscribe(state => {
       this.libManagerLoaded = state
       if (state) {
-        setTimeout(() => {
-          this.initListSortable()
-        }, 1000);
+
       }
     })
   }
@@ -49,26 +46,6 @@ export class ManagerComponent implements OnInit {
 
   back() {
     this.backEvent.emit()
-  }
-
-  initListSortable() {
-    let sortable = new Sortable(this.libListBox.nativeElement, {
-      sort: true,
-      delay: 0,
-      animation: 150,
-      dataIdAttr: "id",
-      onEnd: () => {
-        localStorage.setItem('libList', JSON.stringify(sortable.toArray()))
-      }
-    })
-  }
-
-  libShowChange(e, libName) {
-    this.blocklyService.libDict_show[libName] = {
-      name: libName,
-      show: e
-    }
-    localStorage.setItem('libDict_show', JSON.stringify(this.blocklyService.libDict_show))
   }
 
   loadExample(item) {

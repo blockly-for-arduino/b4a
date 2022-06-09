@@ -7,9 +7,15 @@ import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { LibManagerComponent } from './lib-manager/lib-manager.component';
+import { BoardManagerComponent } from './board-manager/board-manager.component';
+import { SettingManagerComponent } from './setting-manager/setting-manager.component';
 @NgModule({
   declarations: [
-    ManagerComponent
+    ManagerComponent,
+    LibManagerComponent,
+    BoardManagerComponent,
+    SettingManagerComponent
   ],
   imports: [
     CommonModule,

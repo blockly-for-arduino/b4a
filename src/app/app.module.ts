@@ -23,7 +23,6 @@ import {
   SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
   LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline
 } from '@ant-design/icons-angular/icons';
-import { SettingModule } from './setting/setting.module';
 import { MonitorModule } from './monitor/monitor.module';
 import { ShellModule } from './shell/shell.module';
 import { CodeModule } from './code/code.module';
@@ -60,7 +59,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     NzIconModule.forRoot(icons),
     NzSelectModule,
     NzDividerModule,
-    SettingModule,
     MonitorModule,
     ShellModule,
     CodeModule,

@@ -164,7 +164,9 @@ export class AppComponent {
   }
 
   showManager = true
-  openManager() {
+  selectedTab = 0
+  openManager(e) {
+    this.selectedTab = e
     this.showManager = true
   }
 

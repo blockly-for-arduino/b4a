@@ -1,0 +1,206 @@
+.lib-manager-box {
+    display: flex;
+    height: 100%;
+}
+
+.left-box {
+    width: 300px;
+    height: calc(100% - 30px);
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 0 10px #CCC;
+    position: relative;
+
+    .table-header {
+        width: 100%;
+        position: relative;
+        display: flex;
+
+        span {
+            color: #999;
+        }
+
+        .version {
+            position: absolute;
+            right: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .show {
+            position: absolute;
+            right: 0;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+.right-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    width: calc(100% - 315px);
+    height: calc(100% - 30px);
+    margin: 15px 0 0 15px;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 0 10px #CCC;
+    position: relative;
+    padding: 15px 0 15px 15px;
+}
+
+.lib-list {
+
+    .item {
+        height: 30px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-grow: 0;
+        flex-shrink: 1;
+        font-size: 16px;
+        margin: 5px 0;
+        cursor: pointer;
+
+        .kk {
+            width: 6px;
+            height: 100%;
+            background-color: #008184;
+        }
+
+        .icon {
+            width: 22px;
+            margin: 0 5px;
+
+            i.fa-code-branch {
+                transform: rotate(90deg);
+            }
+        }
+
+        .name {}
+
+        .version {
+            position: absolute;
+            right: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .show {
+            position: absolute;
+            right: 0;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+.cloud-lib-list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+    .cloud-lib-item {
+        position: relative;
+        flex-grow: 1;
+        width: 30%;
+        min-width: 300px;
+        // box-shadow: 0 0 10px #CCC;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+        height: 230px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        transition: all .5s;
+        font-size: 12px;
+        margin: 0 15px 15px 0;
+
+        .top {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            .img-box {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+
+            .name {
+                font-weight: 700;
+                font-size: 16px;
+            }
+
+            .author {
+                font-size: 12px;
+            }
+
+            .shehui {
+                position: absolute;
+                top: 0;
+                right: 15px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                >div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    i {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        .middle {
+            margin-top: 10px;
+
+            p {
+                margin-bottom: 3px
+            }
+        }
+
+        .bottom {
+            width: 100%;
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            align-items: center;
+
+            .website {
+                position: absolute;
+                left: 0;
+                margin-left: 30px;
+            }
+
+            nz-select {
+                margin-left: 5px;
+                width: 100px;
+            }
+
+            button {
+                margin-left: 5px;
+            }
+        }
+    }
+}
