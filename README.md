@@ -7,6 +7,8 @@
 [B4A 库创建器](https://github.com/coloz/b4a-creator)  
 [开发板/类库/示例资源](https://github.com/coloz/b4a-cloud)  
 
+![](https://github.com/coloz/b4a/blob/master/doc/pic1.jpg?raw=true)
+
 ## 开发  
 ### 关键技术  
 Blockly 8  
