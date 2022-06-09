@@ -374,9 +374,8 @@ export function initArduinoGenerator() {
 
         }
         try {
-            // (name.includes('OBJECT') || name.includes('VARIABLE')) &&
             if (type == 'field_variable')
-                code = Arduino.nameDB_.getName(block.getFieldValue(name), Blockly.Names.NameType.VARIABLE)
+                code = Arduino.nameDB_.getName(block.getFieldValue(name), 'VARIABLE')
             else
                 code = block.getFieldValue(name)
             if (code != '') {

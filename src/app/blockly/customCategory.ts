@@ -6,8 +6,8 @@ export class CustomCategory extends Blockly.ToolboxCategory {
      * Constructor for a custom category.
      * @override
      */
-    constructor(categoryDef, toolbox, opt_parent,parentToolbox_) {
-        super(categoryDef, toolbox, opt_parent,parentToolbox_);
+    constructor(categoryDef, toolbox, opt_parent) {
+        super(categoryDef, toolbox, opt_parent);
     }
 
     // /** @override */

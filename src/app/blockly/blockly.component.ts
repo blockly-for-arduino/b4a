@@ -71,6 +71,7 @@ export class BlocklyComponent implements OnInit {
       CustomCategory, true);
 
     this.workspace = Blockly.inject(blocklyDiv, {
+      // @ts-ignore
       readOnly: false,
       media: 'media/',
       trashcan: true,
@@ -203,7 +204,7 @@ export class BlocklyComponent implements OnInit {
         // if (Blocks['variables_set']) {
         const block = Blockly.utils.xml.createElement('block');
         block.setAttribute('type', 'variables_set');
-        block.setAttribute('gap', 8);
+        block.setAttribute('gap', '8');
         block.appendChild(Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
         xmlList.push(block);
         // }
@@ -212,7 +213,7 @@ export class BlocklyComponent implements OnInit {
         for (let i = 0, variable; (variable = variableModelList[i]); i++) {
           const block = Blockly.utils.xml.createElement('block');
           block.setAttribute('type', 'variables_get');
-          block.setAttribute('gap', 8);
+          block.setAttribute('gap', '8');
           block.appendChild(Blockly.Variables.generateVariableFieldDom(variable));
           xmlList.push(block);
         }
@@ -221,63 +222,8 @@ export class BlocklyComponent implements OnInit {
       return xmlList;
     };
 
-    Blockly.FieldVariable.dropdownCreate = function () {
-      if (!this.variable_) {
-        throw Error(
-          'Tried to call dropdownCreate on a variable field with no' +
-          ' variable selected.');
-      }
-      const name = this.getText();
-      let variableModelList = [];
-      if (this.sourceBlock_ && this.sourceBlock_.workspace) {
-        const variableTypes = this.getVariableTypes_();
-        // Get a copy of the list, so that adding rename and new variable options
-        // doesn't modify the workspace's list.
-        for (let i = 0; i < variableTypes.length; i++) {
-          const variableType = variableTypes[i];
-          const variables =
-            this.sourceBlock_.workspace.getVariablesOfType(variableType);
-          variableModelList = variableModelList.concat(variables);
-        }
-      }
-      variableModelList.sort(Blockly.VariableModel.compareByName);
 
-      const options = [];
-      for (let i = 0; i < variableModelList.length; i++) {
-        // Set the UUID as the internal representation of the variable.
-        options[i] = [variableModelList[i].name, variableModelList[i].getId()];
-      }
-      options.push([Blockly.Msg['RENAME_VARIABLE'], 'RENAME_VARIABLE_ID']);
-      options.push(['新建变量', 'NEW_VARIABLE']);
-      if (Blockly.Msg['DELETE_VARIABLE']) {
-        options.push([Blockly.Msg['DELETE_VARIABLE'].replace('%1', name), 'DELETE_VARIABLE_ID']);
-      }
 
-      return options;
-    }
-
-    Blockly.FieldVariable.onItemSelected_ = function (menu, menuItem) {
-      const id = menuItem.getValue();
-      // Handle special cases.
-      if (this.sourceBlock_ && this.sourceBlock_.workspace) {
-        // 新建变量
-        if (id === 'NEW_VARIABLE') {
-
-        } else if (id === 'RENAME_VARIABLE_ID') {
-          // Rename variable.
-          Blockly.Variables.renameVariable(
-            this.sourceBlock_.workspace,
-              /** @type {!VariableModel} */(this.variable_));
-          return;
-        } else if (id === 'DELETE_VARIABLE_ID') {
-          // Delete variable.
-          this.sourceBlock_.workspace.deleteVariableById(this.variable_.getId());
-          return;
-        }
-      }
-      // Handle unspecial case.
-      this.setValue(id);
-    }
   }
 
 }

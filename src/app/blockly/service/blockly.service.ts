@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../../core/services/config.service';
 import Blockly from 'blockly';
+import { Toolbox } from "blockly";
 import * as zhHans from 'blockly/msg/zh-hans';
 import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
@@ -19,7 +20,11 @@ export class BlocklyService {
   // 用于存储lib在toolbox中是否可见
   libDict_show = {}
   blockList = []
-  toolbox = {}
+  toolbox: Blockly.utils.toolbox.ToolboxDefinition = {
+    "kind": "categoryToolbox",
+    "contents": [
+    ]
+  }
 
 
   loaded = new BehaviorSubject(false)
@@ -339,6 +344,7 @@ export class BlocklyService {
   }
 
   changeLanguage(language) {
+// @ts-ignore
     Blockly.setLocale(zhHans);
     Blockly.Msg["VARIABLES_DEFAULT_NAME"] = "var1"; // 这句为啥没生效
   }
