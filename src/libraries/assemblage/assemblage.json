@@ -1,0 +1,573 @@
+{
+  "category": "集合",
+  "icon": "fal fa-cubes",
+  "colour": "#48c2c4",
+  "version": "0.0.1",
+  "blocks": [
+    {
+      "inputsInline": true,
+      "message0": "全局变量定义 类型%1 变量名%2 初值%3",
+      "type": "variable_global_init",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [
+              "数字型",
+              "int"
+            ],
+            [
+              "长整型",
+              "long"
+            ],
+            [
+              "浮点型",
+              "float"
+            ],
+            [
+              "双精密浮点型",
+              "double"
+            ],
+            [
+              "字符型",
+              "char"
+            ],
+            [
+              "文本型",
+              "String"
+            ],
+            [
+              "布尔型",
+              "boolean"
+            ]
+          ]
+        },
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "variable_global_1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "",
+        "library": "",
+        "object": "${TYPE} ${OBJECT} = ${VALUE};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff8c1a",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "局部变量定义 类型%1 变量名%2 初值%3",
+      "type": "variable_init",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [
+              "数字型",
+              "int"
+            ],
+            [
+              "长整型",
+              "long"
+            ],
+            [
+              "浮点型",
+              "float"
+            ],
+            [
+              "双精密浮点型",
+              "double"
+            ],
+            [
+              "字符型",
+              "char"
+            ],
+            [
+              "文本型",
+              "String"
+            ],
+            [
+              "布尔型",
+              "boolean"
+            ]
+          ]
+        },
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "variable1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${TYPE} ${OBJECT} = ${VALUE};",
+        "library": "",
+        "object": ""
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff8c1a",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "变量赋值 变量名%1 值%2",
+      "type": "variable_set",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "variable1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT} = ${VALUE};",
+        "library": "",
+        "object": ""
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff8c1a",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "全局集合定义 类型%1 变量名%2",
+      "type": "assemblage_global_init",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [
+              "数字型",
+              "int"
+            ],
+            [
+              "长整型",
+              "long"
+            ],
+            [
+              "浮点型",
+              "float"
+            ],
+            [
+              "双精密浮点型",
+              "double"
+            ],
+            [
+              "字符型",
+              "char"
+            ],
+            [
+              "文本型",
+              "String"
+            ],
+            [
+              "布尔型",
+              "boolean"
+            ]
+          ]
+        },
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage_global_1"
+        }
+      ],
+      "b4a": {
+        "code": "",
+        "library": "#include <ListLib.h>",
+        "object": "List<${TYPE}> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#1fb7a2",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "局部集合定义 类型%1 变量名%2",
+      "type": "assemblage_init",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [
+              "数字型",
+              "int"
+            ],
+            [
+              "长整型",
+              "long"
+            ],
+            [
+              "浮点型",
+              "float"
+            ],
+            [
+              "双精密浮点型",
+              "double"
+            ],
+            [
+              "字符型",
+              "char"
+            ],
+            [
+              "文本型",
+              "String"
+            ],
+            [
+              "布尔型",
+              "boolean"
+            ]
+          ]
+        },
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        }
+      ],
+      "b4a": {
+        "code": "List<${TYPE}> ${OBJECT};",
+        "library": "#include <ListLib.h>",
+        "object": ""
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#1fb7a2",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合添加 变量名%1 值%2",
+      "type": "assemblage_add",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.Add(${VALUE});",
+        "library": "#include <ListLib.h>",
+        "object": ""
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合添加区间 变量名%1 值%2 长度%3",
+      "type": "assemblage_add_range",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_number",
+          "name": "LENGTH",
+          "value": 0
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.AddRange(${VALUE}, ${LENGTH});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合插入 变量名%1 索引%2 值%3",
+      "type": "assemblage_insert",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX",
+          "value": 0
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.Insert(${INDEX}, ${VALUE});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合插入区间 变量名%1 索引%2 值%3 长度%4",
+      "type": "assemblage_insert_range",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX",
+          "value": 0
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_number",
+          "name": "LENGTH",
+          "value": 0
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.InsertRange(${INDEX}, ${VALUE}, ${LENGTH});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合替换 变量名%1 索引%2 值%3",
+      "type": "assemblage_replace",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.Replace(${INDEX}, ${VALUE});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合替换区间 变量名%1 索引%2 值%3 长度%4",
+      "type": "assemblage_replace_range",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        },
+        {
+          "type": "field_number",
+          "name": "LENGTH"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.ReplaceRange(${INDEX}, ${VALUE}, ${LENGTH});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合移除 变量名%1 索引%2",
+      "type": "assemblage_remove",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.Remove(${INDEX});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合移除区间 变量名%1 索引%2 长度%3",
+      "type": "assemblage_remove_range",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "field_number",
+          "name": "INDEX"
+        },
+        {
+          "type": "field_number",
+          "name": "LENGTH"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.RemoveRange(${INDEX}, ${LENGTH});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合查找 变量名%1 值%2",
+      "type": "assemblage_indexOf",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.IndexOf(${VALUE});",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
+      "inputsInline": true,
+      "message0": "集合清空 变量名%1",
+      "type": "assemblage_trim",
+      "args0": [
+        {
+          "type": "field_variable",
+          "name": "OBJECT",
+          "variable": "assemblage1"
+        }
+      ],
+      "b4a": {
+        "code": "${OBJECT}.Trim();",
+        "library": "#include <ListLib.h>",
+        "object": "List<int> ${OBJECT};"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#3f96b7",
+      "toolbox": {
+        "show": true
+      }
+    }
+  ]
+}
