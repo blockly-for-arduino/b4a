@@ -1,5 +1,5 @@
 <div class="lib-manager-box">
-    <div class="left-box animate__animated animate__fadeInLeft animate__fast">
+    <div class="left-box animate__animated animate__fadeInLeft animate__faster">
         <div class="table-header">
             <div>已安装<span>（可拖拽排序）</span></div>
             <div class="version">版本号</div>
@@ -20,11 +20,11 @@
             </ng-container>
         </div>
     </div>
-    <div class="right-box animate__animated animate__fadeInRight animate__fast">
+    <div class="right-box animate__animated animate__fadeInRight animate__faster">
         <!-- <div>云资源</div> -->
         <div class="cloud-lib-list">
             <!-- 加载失败 -->
-            <div class="cloud-lib-item" *ngFor="let item of libList">
+            <div class="cloud-lib-item" *ngFor="let item of libList_cloud">
                 <div class="top">
                     <div class="img-box">
                         <img src="https://www.arduino.cn/template/sxp_jz_001/image/logo.png" alt="">

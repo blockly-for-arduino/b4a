@@ -1,5 +1,6 @@
 {
     "name": "WiFiduino",
+    "version":"1.0.0",
     "description": "WiFiduino",
     "compilerTool": "arduino-cli",
     "core": "esp8266:esp8266",

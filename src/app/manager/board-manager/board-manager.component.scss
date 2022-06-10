@@ -1,0 +1,11 @@
+@import "../lib-manager/lib-manager.component.scss";
+
+.left-box {
+    .name {
+        margin-left: 5px;
+    }
+
+    .version {
+        right: 30px !important;
+    }
+}

@@ -23,6 +23,8 @@ export class LibManagerComponent implements OnInit {
     return this.blocklyService.libDict
   }
 
+  libList_cloud = []
+
   constructor(
     private blocklyService: BlocklyService,
     private cloudService: CloudService,

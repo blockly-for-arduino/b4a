@@ -1,5 +1,6 @@
 {
     "name": "Arduino MEGA",
+    "version":"1.0.0",
     "description": "Arduino MEGA standard compatible board",
     "compilerTool": "arduino-cli",
     "core": "arduino:avr",

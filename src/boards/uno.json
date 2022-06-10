@@ -1,5 +1,6 @@
 {
     "name": "Arduino UNO",
+    "version":"1.0.0",
     "description": "Arduino UNO standard compatible board",
     "compilerTool": "arduino-cli",
     "core": "arduino:avr",

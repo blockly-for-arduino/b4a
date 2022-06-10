@@ -1,5 +1,6 @@
 {
     "name": "WiFiduino32",
+    "version":"1.0.0",
     "description": "WiFiduino32",
     "compilerTool": "arduino-cli",
     "core": "esp32:esp32",
