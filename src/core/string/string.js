@@ -10,12 +10,12 @@
 'use strict';
 
 Arduino['string_multiline'] = function (block) {
-  let code = `"${getValue(block, 'TEXT').replace(/\n/g, '\\n')}"`;
+  let code = `"${getValue(block, 'TEXT','field_multilinetext').replace(/\n/g, '\\n')}"`;
   return [code, Arduino.ORDER_ATOMIC];
 };
 
 Arduino['string_length'] = function (block) {
-  let code = getValue(block, 'TEXT')+'.length()';
+  let code = getValue(block, 'TEXT','input_value')+'.length()';
   return [code, Arduino.ORDER_ATOMIC];
 };
 
