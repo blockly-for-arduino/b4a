@@ -369,10 +369,10 @@ export function initArduinoGenerator() {
             code = Arduino.nameDB_.getName(block.getFieldValue(name), 'VARIABLE')
             return code
         }
-        if (type == 'field_dropdown' || type == 'field_number' || type == 'field_multilinetext') {
-            code = block.getFieldValue(name)
-            return code
-        }        
+        // if (type == 'field_dropdown' || type == 'field_number' || type == 'field_multilinetext') {
+        code = block.getFieldValue(name)
+        return code
+        // }        
         return code
     }
 
