@@ -125,7 +125,7 @@
                 "inputs": {
                     "TEXT0": {
                         "block": {
-                            "type": "string_multiline",
+                            "type": "text_multiline",
                             "fields": {
                                 "TEXT": ""
                             }

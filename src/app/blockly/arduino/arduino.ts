@@ -372,8 +372,6 @@ export function initArduinoGenerator() {
         // if (type == 'field_dropdown' || type == 'field_number' || type == 'field_multilinetext') {
         code = block.getFieldValue(name)
         return code
-        // }        
-        return code
     }
 
     return generator

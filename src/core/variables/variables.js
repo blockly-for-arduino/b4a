@@ -11,7 +11,7 @@ Arduino['variables_get'] = function (block) {
 
 Arduino['variables_set'] = function (block) {
   // Variable setter.
-  let argument0 = getValue(block, 'VALUE') || '0'
+  let argument0 = getValue(block, 'VALUE','input_value') || '0'
   let varName = Arduino.nameDB_.getName(block.getFieldValue('VAR'), 'VARIABLE')
   let varType = getVarType(varName)
   Arduino.addVariable(varName, `${varType} ${varName};\n`)
