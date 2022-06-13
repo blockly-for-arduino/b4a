@@ -7,6 +7,7 @@ import { ShellState } from '../../shell/shell.component';
 import { isErrorInfo_Upload } from '../../shell/info';
 import * as os from 'os';
 import * as fs from 'fs';
+import * as download from 'download';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ArduinoCliService {
   childProcess: typeof childProcess;
   os: typeof os;
   fs: typeof fs;
+  download: typeof download;
   cliPath = '.\\arduino\\arduino-cli.exe'
 
   get isElectron(): boolean {
@@ -36,6 +38,7 @@ export class ArduinoCliService {
       this.childProcess = window.require('child_process');
       this.os = window.require('os');
       this.fs = window.require('fs');
+      this.download = window.require('download');
       this.cliPath = this.fs.existsSync('./resources/app') ? '.\\resources\\arduino\\arduino-cli.exe' : '.\\arduino\\arduino-cli.exe';
     }
   }
@@ -157,6 +160,17 @@ export class ArduinoCliService {
       else
         this.child_upload.kill()
     }
+  }
+
+  async installLib(libJson) {
+    // \arduino-cli.exe config set library.enable_unsafe_install true
+
+    // download lib zip
+    await this.download('http://unicorn.com/foo.jpg', './/temp');
+
+    // \arduino-cli.exe lib install --zip-path .//temp/LiquidCrystal_I2C.zip
+
+
   }
 
 }

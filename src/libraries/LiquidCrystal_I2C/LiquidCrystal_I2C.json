@@ -1,8 +1,18 @@
 {
     "category": "IIC液晶显示屏",
     "icon": "fal fa-mobile-android-alt",
+    "introduction": "IIC接口1602/4004液晶显示屏驱动库，适配OPENJUMPER、YWROBOT的IIC液晶显示屏。",
     "colour": "#48c2c4",
     "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr"
+        ],
+        "voltage": [
+            "5v"
+        ]
+    },
     "source": "",
     "blocks": [
         {

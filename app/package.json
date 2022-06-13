@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@electron/remote": "^2.0.8",
+    "download": "^8.0.0",
     "serialport": "^10.4.0"
   }
 }
