@@ -20,6 +20,7 @@ export class BlocklyService {
   // 用于存储lib在toolbox中是否可见
   libDict_show = {}
   blockList = []
+  
   toolbox: Blockly.utils.toolbox.ToolboxDefinition = {
     "kind": "categoryToolbox",
     "contents": [

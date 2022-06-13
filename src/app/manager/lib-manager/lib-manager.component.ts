@@ -3,6 +3,7 @@ import { BlocklyService } from '../../blockly/service/blockly.service';
 import { CloudService } from '../cloud.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import Sortable from 'sortablejs';
+import { ArduinoCliService } from '../../core/services/arduino-cli.service';
 
 @Component({
   selector: 'app-lib-manager',
@@ -28,7 +29,8 @@ export class LibManagerComponent implements OnInit {
   constructor(
     private blocklyService: BlocklyService,
     private cloudService: CloudService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private arduinoCli: ArduinoCliService
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +62,10 @@ export class LibManagerComponent implements OnInit {
       show: e
     }
     localStorage.setItem('libDict_show', JSON.stringify(this.blocklyService.libDict_show))
+  }
+
+  async installLib(libName = 'LiquidCrystal_I2C') {
+    this.arduinoCli.installLib(libName)
   }
 
 }

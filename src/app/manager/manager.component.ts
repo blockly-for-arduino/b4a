@@ -58,12 +58,4 @@ export class ManagerComponent implements OnInit {
 
   }
 
-  loadLibrary(item) {
-
-  }
-
-  loadBoard(item) {
-
-  }
-
 }

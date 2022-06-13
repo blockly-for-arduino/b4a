@@ -1,5 +1,6 @@
 {
     "category": "IIC液晶显示屏",
+    "name": "LiquidCrystal_I2C",
     "icon": "fal fa-mobile-android-alt",
     "introduction": "IIC接口1602/4004液晶显示屏驱动库，适配OPENJUMPER、YWROBOT的IIC液晶显示屏。",
     "colour": "#48c2c4",
@@ -13,7 +14,13 @@
             "5v"
         ]
     },
-    "source": "",
+    "source": [
+        {
+            "name": "LiquidCrystal_I2C",
+            "type": "ArduinoLib",
+            "url": "https://b4a.clz.me/libraries/LiquidCrystal_I2C.zip"
+        }
+    ],
     "blocks": [
         {
             "inputsInline": true,

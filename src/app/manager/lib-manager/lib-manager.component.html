@@ -22,6 +22,7 @@
     </div>
     <div class="right-box animate__animated animate__fadeInRight animate__faster">
         <!-- <div>云资源</div> -->
+        <button nz-button (click)="installLib()">测试</button>
         <div class="cloud-lib-list">
             <!-- 加载失败 -->
             <div class="cloud-lib-item" *ngFor="let item of libList_cloud">

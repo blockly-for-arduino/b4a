@@ -162,14 +162,53 @@ export class ArduinoCliService {
     }
   }
 
-  async installLib(libJson) {
-    // \arduino-cli.exe config set library.enable_unsafe_install true
+  arduinoLibList;
+  checkArduinoLibList() {
+    this.arduinoLibList = []
+    return new Promise<string[]>((resolve, reject) => {
+      let child_arduinoLibList = this.childProcess.exec(this.cliPath + ' lib list')
+      child_arduinoLibList.stdout.on('data', (data: string) => {
+        if (data.includes('LIBRARY_LOCATION_USER')) {
+          let list = data.split('\n')
+          list.forEach((line, index) => {
+            if (index != 0) {
+              let libName = line.split(' ')[0]
+              if (libName != '')
+                this.arduinoLibList.push(line.split(' ')[0])
+            }
+          })
+        }
+      })
+      child_arduinoLibList.on('close', code => {
+        console.log(this.arduinoLibList);
+        resolve(this.arduinoLibList)
+      })
+    })
+  }
+  async installArduinoLib(arduinoLibName) {
+    return new Promise<boolean>(async (resolve, reject) => {
+      let filePath = './/temp/' + arduinoLibName + '.zip'
+      await this.download('https://b4a.clz.me/libraries/' + arduinoLibName + '.zip', './/temp/');
+      let child_install = this.childProcess.exec(this.cliPath + ' lib install --zip-path ' + filePath)
+      child_install.on('close', code => {
+        resolve(true)
+      })
+    })
+  }
 
-    // download lib zip
-    await this.download('http://unicorn.com/foo.jpg', './/temp');
-
-    // \arduino-cli.exe lib install --zip-path .//temp/LiquidCrystal_I2C.zip
-
+  async installLib(libName) {
+    let arduinoLibName = 'LiquidCrystal_I2C'
+    // 检查库是否已经安装
+    let arduinoLibList = await this.checkArduinoLibList()
+    if (!arduinoLibList.includes(arduinoLibName)) {
+      // 允许arduino cli安装zip文件
+      this.childProcess.exec(this.cliPath + ' set library.enable_unsafe_install true')
+      if (await this.installArduinoLib(arduinoLibName)) {
+        console.log(`arduino lib ${arduinoLibName} is loaded`);
+      }
+    } else {
+      console.log(`arduino lib ${arduinoLibName} is exists`);
+    }
 
   }
 
