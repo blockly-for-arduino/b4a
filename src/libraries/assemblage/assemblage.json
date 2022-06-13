@@ -5,10 +5,15 @@
   "version": "0.0.1",
   "blocks": [
     {
-      "inputsInline": true,
-      "message0": "全局变量定义 类型%1 变量名%2 初值%3",
-      "type": "variable_global_init",
+      "inputsInline": false,
+      "message0": "全局变量%1 定义 类型%2 变量名%3 初值%4",
+      "type": "variable_var_init",
       "args0": [
+        {
+          "type": "field_checkbox",
+          "name": "GLOBAL",
+          "check": true
+        },
         {
           "type": "field_dropdown",
           "name": "TYPE",
@@ -54,76 +59,25 @@
         }
       ],
       "b4a": {
-        "code": "",
+        "code": "{{ ${GLOBAL} ? '' : '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
         "library": "",
-        "object": "${TYPE} ${OBJECT} = ${VALUE};"
+        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#ff8c1a",
       "toolbox": {
-        "show": true
-      }
-    },
-    {
-      "inputsInline": true,
-      "message0": "局部变量定义 类型%1 变量名%2 初值%3",
-      "type": "variable_init",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "TYPE",
-          "options": [
-            [
-              "数字型",
-              "int"
-            ],
-            [
-              "长整型",
-              "long"
-            ],
-            [
-              "浮点型",
-              "float"
-            ],
-            [
-              "双精密浮点型",
-              "double"
-            ],
-            [
-              "字符型",
-              "char"
-            ],
-            [
-              "文本型",
-              "String"
-            ],
-            [
-              "布尔型",
-              "boolean"
-            ]
-          ]
-        },
-        {
-          "type": "field_variable",
-          "name": "OBJECT",
-          "variable": "variable1"
-        },
-        {
-          "type": "input_value",
-          "name": "VALUE"
+        "show": true,
+        "inputs": {
+          "VALUE": {
+            "block": {
+              "type": "math_number",
+              "fields": {
+                "NUM": 0
+              }
+            }
+          }
         }
-      ],
-      "b4a": {
-        "code": "${TYPE} ${OBJECT} = ${VALUE};",
-        "library": "",
-        "object": ""
-      },
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": "#ff8c1a",
-      "toolbox": {
-        "show": true
       }
     },
     {
@@ -154,10 +108,24 @@
       }
     },
     {
-      "inputsInline": true,
-      "message0": "全局集合定义 类型%1 变量名%2",
+      "inputsInline": false,
+      "message0": "集合%1定义 类型%2 变量名%3 初值%4",
       "type": "assemblage_global_init",
       "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "GLOBAL",
+          "options": [
+            [
+              "全局变量",
+              "true"
+            ],
+            [
+              "局部变量",
+              "false"
+            ]
+          ]
+        },
         {
           "type": "field_dropdown",
           "name": "TYPE",
@@ -196,18 +164,32 @@
           "type": "field_variable",
           "name": "OBJECT",
           "variable": "assemblage_global_1"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
         }
       ],
       "b4a": {
-        "code": "",
+        "code": "{{ ${GLOBAL} ? '' : '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
         "library": "#include <ListLib.h>",
-        "object": "List<${TYPE}> ${OBJECT};"
+        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#1fb7a2",
       "toolbox": {
-        "show": true
+        "show": true,
+        "inputs": {
+          "VALUE": {
+            "block": {
+              "type": "math_number",
+              "fields": {
+                "NUM": 0
+              }
+            }
+          }
+        }
       }
     },
     {

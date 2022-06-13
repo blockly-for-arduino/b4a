@@ -356,6 +356,15 @@ function processB4ACode(code: string, vars: object): string {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
   }
+  // console.log(code, vars)
+  let match = code.match(/(?<={{)([\s\S]*?)(?=}})/g);
+  if (match) match.map(str => {
+    str = str.replace('FALSE', 'false').replace('TRUE', 'true');
+    if (str.indexOf('return ') === -1) str = 'return ' + str;
+    str = (new Function(str))();
+    code = code.replace(/({{)([\s\S]*?)(}})/i, str);
+    return str;
+  });
   return code
 }
 
