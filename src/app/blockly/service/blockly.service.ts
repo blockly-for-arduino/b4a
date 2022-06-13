@@ -148,6 +148,8 @@ export class BlocklyService {
 
           if (blockJson.args0) {
             blockJson.args0.forEach(arg => {
+              // console.log(arg);
+              
               b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }

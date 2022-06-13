@@ -5,7 +5,7 @@
     "version": "0.0.1",
     "blocks": [
         {
-            "type": "string_multiline",
+            "type": "text_multiline",
             "message0": "%1",
             "args0": [
                 {
@@ -27,7 +27,7 @@
             }
         },
         {
-            "type": "string_length",
+            "type": "text_length",
             "message0": "%{BKY_TEXT_LENGTH_TITLE}",
             "args0": [
                 {

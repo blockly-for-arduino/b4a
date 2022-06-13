@@ -62,7 +62,7 @@
 <div class="blockly-box">
     <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
 </div>
-<div class="lib-manager-btn" (click)="openManager(0)">
+<div class="lib-manager-btn" *ngIf="libManagerWidth" [ngStyle]="{'width': libManagerWidth+'px'}" (click)="openManager(0)">
     <i class="fal fa-books-medical"></i>
     库管理
 </div>

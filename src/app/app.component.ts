@@ -31,6 +31,8 @@ export class AppComponent {
   serialSelected = '';
   boardSelected = '';
 
+  libManagerWidth;
+
   constructor(
     private electronService: ElectronService,
     private translate: TranslateService,
@@ -52,10 +54,15 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.configService.init();
-
     this.blocklyService.loaded.subscribe(state => {
       if (state) {
         // console.log('blocklyService loaded');
+        setTimeout(() => {
+          let el: any = document.querySelector('.blocklyToolboxDiv')
+          this.libManagerWidth = el.offsetWidth;
+        }, 100);
+
+
       }
     })
     this.configService.loaded.subscribe(state => {

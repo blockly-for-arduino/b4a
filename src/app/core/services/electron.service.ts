@@ -78,8 +78,8 @@ export class ElectronService {
       if (libName == 'core') return null
       let libItem: LibInfo = { name: libName }
       libFiles.forEach(file => {
-        if (file.toLocaleLowerCase().includes(libName + '.json')) libItem['block'] = realPath + '/' + file
-        else if (file.toLocaleLowerCase().includes(libName + '.js')) libItem['generator'] = realPath + '/' + file
+        if (file.toLocaleLowerCase().includes(libName.toLocaleLowerCase() + '.json')) libItem['block'] = realPath + '/' + file
+        else if (file.toLocaleLowerCase().includes(libName.toLocaleLowerCase() + '.js')) libItem['generator'] = realPath + '/' + file
         else if (file.toLocaleLowerCase().includes('toolbox.json')) libItem['toolbox'] = realPath + '/' + file
       })
       return libItem

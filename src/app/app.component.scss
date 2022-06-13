@@ -110,28 +110,27 @@ header {
 }
 
 .lib-manager-btn {
-    background: #aaa;
-    transition: all 0.5s;
+    transition: all 0.3s;
     color: #333;
+    background: #999;
     cursor: pointer;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 99;
-    width: 125px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 
     i {
-        margin-left: -2px;
+        margin-left: -3px;
         margin-right: 5px;
     }
 
     &:hover {
         color: #FFF;
-        background: #666;
+        background: #aaa;
     }
 }
 

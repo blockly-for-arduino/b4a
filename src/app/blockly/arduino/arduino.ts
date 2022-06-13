@@ -356,33 +356,21 @@ export function initArduinoGenerator() {
 
     window['getValue'] = function (block, name: string, type = '') {
         let code = '?'
-        try {
-            // console.log('try statementToCode');
-            code = Arduino.statementToCode(block, name);
-            if (code != '') {
+        if (type == 'input_statement' || type == 'input_value') {
+            try {
+                code = Arduino.statementToCode(block, name);
                 return code.replace(/(^\s*)/, "")
-            }
-        } catch (error) {
-        }
-        try {
-            // console.log('try valueToCode');
-            code = Arduino.valueToCode(block, name, Arduino.ORDER_ATOMIC)
-            if (code != '') {
+            } catch (error) {
+                code = Arduino.valueToCode(block, name, Arduino.ORDER_ATOMIC)
                 return code
             }
-        } catch (error) {
-
         }
-        try {
-            if (type == 'field_variable')
-                code = Arduino.nameDB_.getName(block.getFieldValue(name), 'VARIABLE')
-            else
-                code = block.getFieldValue(name)
-            if (code != '') {
-                return code
-            }
-        } catch (error) {
+        if (type == 'field_variable') {
+            code = Arduino.nameDB_.getName(block.getFieldValue(name), 'VARIABLE')
+            return code
         }
+        // if (type == 'field_dropdown' || type == 'field_number' || type == 'field_multilinetext') {
+        code = block.getFieldValue(name)
         return code
     }
 

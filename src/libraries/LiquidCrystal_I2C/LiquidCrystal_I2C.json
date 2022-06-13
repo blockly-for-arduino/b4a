@@ -1,0 +1,265 @@
+{
+    "category": "IIC液晶显示屏",
+    "icon": "fal fa-mobile-android-alt",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "source": "",
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 初始化 地址%2 列%3 行%4",
+            "type": "lcd_init",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                },
+                {
+                    "type": "field_input",
+                    "name": "ADDR",
+                    "text": "0x27"
+                },
+                {
+                    "type": "field_number",
+                    "name": "COLS",
+                    "value": 16
+                },
+                {
+                    "type": "field_number",
+                    "name": "ROWS",
+                    "value": 2
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.init();",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>",
+                "object": "LiquidCrystal_I2C ${OBJECT}(0x27,${COLS},${ROWS});"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1设置光标位置X%2Y%3",
+            "type": "lcd_setcursor",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                },
+                {
+                    "type": "input_value",
+                    "name": "NUM0"
+                },
+                {
+                    "type": "input_value",
+                    "name": "NUM1"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "NUM0": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 0
+                            }
+                        }
+                    },
+                    "NUM1": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 0
+                            }
+                        }
+                    }
+                }
+            },
+            "b4a": {
+                "code": "${OBJECT}.setCursor(${NUM0}, ${NUM1});",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 输出字符串 %2",
+            "type": "lcd_print",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                },
+                {
+                    "type": "input_value",
+                    "name": "TEXT0"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "TEXT0": {
+                        "block": {
+                            "type": "text_multiline",
+                            "fields": {
+                                "TEXT": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "b4a": {
+                "code": "${OBJECT}.print(${TEXT0});",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 输出字符 %2",
+            "type": "lcd_write",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                },
+                {
+                    "type": "input_value",
+                    "name": "CHAR"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": {
+                    "CHAR": {
+                        "block": {
+                            "type": "text",
+                            "fields": {
+                                "TEXT": ""
+                            }
+                        }
+                    }
+                }
+            },
+            "b4a": {
+                "code": "${OBJECT}.write(${CHAR});",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 打开背光",
+            "type": "lcd_backlight",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.backlight();",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 关闭背光",
+            "type": "lcd_nobacklight",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.noBacklight();",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "IIC液晶显示屏 %1 清屏",
+            "type": "lcd_clear",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "lcd",
+                    "variableTypes": [
+                        "LiquidCrystal_I2C"
+                    ],
+                    "defaultType": "LiquidCrystal_I2C"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.clear();",
+                "library": "#include <Wire.h> \r\n#include <LiquidCrystal_I2C.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        }
+    ]
+}
