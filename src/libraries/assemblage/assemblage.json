@@ -6,13 +6,22 @@
   "blocks": [
     {
       "inputsInline": false,
-      "message0": "全局变量%1 定义 类型%2 变量名%3 初值%4",
+      "message0": "变量定义%1 类型%2 变量名%3 初值%4",
       "type": "variable_var_init",
       "args0": [
         {
-          "type": "field_checkbox",
+          "type": "field_dropdown",
           "name": "GLOBAL",
-          "check": true
+          "options": [
+            [
+              "全局变量",
+              "true"
+            ],
+            [
+              "局部变量",
+              "false"
+            ]
+          ]
         },
         {
           "type": "field_dropdown",
@@ -59,9 +68,9 @@
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
+        "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
         "library": "",
-        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
+        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -109,8 +118,8 @@
     },
     {
       "inputsInline": false,
-      "message0": "集合%1定义 类型%2 变量名%3 初值%4",
-      "type": "assemblage_global_init",
+      "message0": "集合定义%1 类型%2 变量名%3 初值%4",
+      "type": "assemblage_var_init",
       "args0": [
         {
           "type": "field_dropdown",
@@ -171,9 +180,9 @@
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
+        "code": "{{ ${GLOBAL} ? '' : 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
         "library": "#include <ListLib.h>",
-        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
+        "object": "{{ ${GLOBAL} ? 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -190,63 +199,6 @@
             }
           }
         }
-      }
-    },
-    {
-      "inputsInline": true,
-      "message0": "局部集合定义 类型%1 变量名%2",
-      "type": "assemblage_init",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "TYPE",
-          "options": [
-            [
-              "数字型",
-              "int"
-            ],
-            [
-              "长整型",
-              "long"
-            ],
-            [
-              "浮点型",
-              "float"
-            ],
-            [
-              "双精密浮点型",
-              "double"
-            ],
-            [
-              "字符型",
-              "char"
-            ],
-            [
-              "文本型",
-              "String"
-            ],
-            [
-              "布尔型",
-              "boolean"
-            ]
-          ]
-        },
-        {
-          "type": "field_variable",
-          "name": "OBJECT",
-          "variable": "assemblage1"
-        }
-      ],
-      "b4a": {
-        "code": "List<${TYPE}> ${OBJECT};",
-        "library": "#include <ListLib.h>",
-        "object": ""
-      },
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": "#1fb7a2",
-      "toolbox": {
-        "show": true
       }
     },
     {

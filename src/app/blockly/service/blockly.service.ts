@@ -149,7 +149,7 @@ export class BlocklyService {
           if (blockJson.args0) {
             blockJson.args0.forEach(arg => {
               // console.log(arg);
-              
+
               b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }
@@ -358,15 +358,25 @@ function processB4ACode(code: string, vars: object): string {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
   }
-  // console.log(code, vars)
-  let match = code.match(/(?<={{)([\s\S]*?)(?=}})/g);
-  if (match) match.map(str => {
-    str = str.replace('FALSE', 'false').replace('TRUE', 'true');
-    if (str.indexOf('return ') === -1) str = 'return ' + str;
-    str = (new Function(str))();
-    code = code.replace(/({{)([\s\S]*?)(}})/i, str);
-    return str;
-  });
+  console.log(code, vars)
+  try {
+    let match = code.match(/(?<={{)([\s\S]*?)(?=}})/g);
+    if (match) match.map(str => {
+      str = str.replace('FALSE', 'false').replace('TRUE', 'true');
+      str = str.replace(/(\${([\s\S]*?)}(?=[\s;]))/g, (word) => {
+        console.log(word);
+        word = word.replace(/\${([\s\S]*?)}(?=|["\s;])/g, "$1");
+        return JSON.stringify(word);
+      })
+      if (str.indexOf('return ') === -1) str = 'return ' + str;
+      str = (new Function(str))();
+      code = code.replace(/({{)([\s\S]*?)(}})/i, str);
+      // code = code.replace(/"/g, ''); // TODO 还有点问题
+      return str;
+    });
+  } catch (e) {
+
+  }
   return code
 }
 
