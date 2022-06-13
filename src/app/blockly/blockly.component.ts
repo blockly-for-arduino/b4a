@@ -42,7 +42,7 @@ export class BlocklyComponent implements OnInit {
   ngOnInit(): void {
     // 初始化代码生成器
     this.generator = initArduinoGenerator()
-    // 
+    //
     this.replacePrompt()
   }
 
@@ -103,7 +103,8 @@ export class BlocklyComponent implements OnInit {
   onWorkspaceChange(event) {
     if (event instanceof Blockly.Events.BlockMove ||
       event instanceof Blockly.Events.BlockDelete ||
-      event instanceof Blockly.Events.BlockChange
+      event instanceof Blockly.Events.BlockChange ||
+      event instanceof Blockly.Events.VarRename
     ) {
       this.code = this.generator.workspaceToCode(this.workspace);
       this.codeChange.emit(this.code);
