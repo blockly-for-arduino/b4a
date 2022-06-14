@@ -14,7 +14,7 @@
                     "text": ""
                 }
             ],
-            "output": "Any",
+            "output": "String",
             "style": "text_blocks",
             "helpUrl": "%{BKY_TEXT_TEXT_HELPURL}",
             "tooltip": "%{BKY_TEXT_TEXT_TOOLTIP}",

@@ -20,7 +20,7 @@ export class BlocklyService {
   // 用于存储lib在toolbox中是否可见
   libDict_show = {}
   blockList = []
-  
+
   toolbox: Blockly.utils.toolbox.ToolboxDefinition = {
     "kind": "categoryToolbox",
     "contents": [
@@ -136,6 +136,7 @@ export class BlocklyService {
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
+          if (Arduino[blockJson.type].prototype.processB4ACodeBefore) Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson.b4a);
           // 添加宏
           if (blockJson.b4a.macro) {
             Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
@@ -356,6 +357,7 @@ export class BlocklyService {
 
 // 替换json中的变量
 function processB4ACode(code: string, vars: object): string {
+  // console.log(code, vars)
   for (const varName in vars) {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
