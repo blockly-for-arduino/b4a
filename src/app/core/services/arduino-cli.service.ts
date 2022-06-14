@@ -185,7 +185,7 @@ export class ArduinoCliService {
       })
     })
   }
-  async installArduinoLib(arduinoLibName) {
+  async downloadArduinoLib(arduinoLibName) {
     return new Promise<boolean>(async (resolve, reject) => {
       let filePath = './/temp/' + arduinoLibName + '.zip'
       await this.download('https://b4a.clz.me/libraries/' + arduinoLibName + '.zip', './/temp/');
@@ -196,14 +196,13 @@ export class ArduinoCliService {
     })
   }
 
-  async installLib(libName) {
-    let arduinoLibName = 'LiquidCrystal_I2C'
+  async installArduinoLib(arduinoLibName) {
     // 检查库是否已经安装
     let arduinoLibList = await this.checkArduinoLibList()
     if (!arduinoLibList.includes(arduinoLibName)) {
       // 允许arduino cli安装zip文件
       this.childProcess.exec(this.cliPath + ' set library.enable_unsafe_install true')
-      if (await this.installArduinoLib(arduinoLibName)) {
+      if (await this.downloadArduinoLib(arduinoLibName)) {
         console.log(`arduino lib ${arduinoLibName} is loaded`);
       }
     } else {

@@ -27,4 +27,8 @@ export class CloudService {
   loadExample(item) {
     return this.http.get(APP.website + item.url, { responseType: 'text' })
   }
+
+  getLibJson(libName) {
+    return this.http.get(`http://b4a.clz.me/libraries/${libName}.json`)
+  }
 }
