@@ -45,7 +45,7 @@
                 "category": "EEPROM"
             },
             "b4a": {
-                "code": "EEPROM.length();",
+                "code": "EEPROM.length()",
                 "library": "#include <EEPROM.h>"
             },
             "output": "Any"

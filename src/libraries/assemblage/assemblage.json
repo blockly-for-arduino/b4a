@@ -68,7 +68,7 @@
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
+        "code": "{{ !${GLOBAL} ? ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) :'' }}",
         "library": "",
         "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
       },
@@ -180,9 +180,9 @@
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
+        "code": "{{ !${GLOBAL} ? 'List<${TYPE}> ${OBJECT}' +  (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}",
         "library": "#include <ListLib.h>",
-        "object": "{{ ${GLOBAL} ? 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
+        "object": "{{ ${GLOBAL} ? 'List<${TYPE}> ${OBJECT}' +  (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -251,7 +251,7 @@
       "b4a": {
         "code": "${OBJECT}.AddRange(${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -283,7 +283,7 @@
       "b4a": {
         "code": "${OBJECT}.Insert(${INDEX}, ${VALUE});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -320,7 +320,7 @@
       "b4a": {
         "code": "${OBJECT}.InsertRange(${INDEX}, ${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -351,7 +351,7 @@
       "b4a": {
         "code": "${OBJECT}.Replace(${INDEX}, ${VALUE});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -386,7 +386,7 @@
       "b4a": {
         "code": "${OBJECT}.ReplaceRange(${INDEX}, ${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -413,7 +413,7 @@
       "b4a": {
         "code": "${OBJECT}.Remove(${INDEX});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -444,7 +444,7 @@
       "b4a": {
         "code": "${OBJECT}.RemoveRange(${INDEX}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -471,8 +471,9 @@
       "b4a": {
         "code": "${OBJECT}.IndexOf(${VALUE});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
+      "output": "Any",
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#3f96b7",
@@ -494,7 +495,7 @@
       "b4a": {
         "code": "${OBJECT}.Trim();",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
