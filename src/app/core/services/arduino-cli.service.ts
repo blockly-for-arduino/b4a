@@ -196,19 +196,28 @@ export class ArduinoCliService {
     })
   }
 
+  async uninstallArduinoLib(arduinoLibName) {
+    return new Promise<boolean>(async (resolve, reject) => {
+      let arduinoLibList = await this.checkArduinoLibList()
+      if (arduinoLibList.includes(arduinoLibName)) {
+        let child_uninstall = this.childProcess.exec(this.cliPath + ' lib uninstall ' + arduinoLibName)
+        child_uninstall.on('close', code => {
+          resolve(true)
+        })
+      } else {
+        resolve(true)
+      }
+    })
+  }
+
   async installArduinoLib(arduinoLibName) {
     // 检查库是否已经安装
-    let arduinoLibList = await this.checkArduinoLibList()
-    if (!arduinoLibList.includes(arduinoLibName)) {
-      // 允许arduino cli安装zip文件
-      this.childProcess.exec(this.cliPath + ' set library.enable_unsafe_install true')
-      if (await this.downloadArduinoLib(arduinoLibName)) {
-        console.log(`arduino lib ${arduinoLibName} is loaded`);
-      }
-    } else {
-      console.log(`arduino lib ${arduinoLibName} is exists`);
+    await this.uninstallArduinoLib(arduinoLibName)
+    // 允许arduino cli安装zip文件
+    this.childProcess.exec(this.cliPath + ' set library.enable_unsafe_install true')
+    if (await this.downloadArduinoLib(arduinoLibName)) {
+      console.log(`arduino lib ${arduinoLibName} is loaded`);
     }
-
   }
 
 }

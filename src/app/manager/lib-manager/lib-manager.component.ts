@@ -6,6 +6,7 @@ import Sortable from 'sortablejs';
 import { ArduinoCliService } from '../../core/services/arduino-cli.service';
 import { ElectronService } from '../../core/services/electron.service';
 import { lastValueFrom } from 'rxjs';
+import compareVersions from 'compare-versions';
 
 @Component({
   selector: 'app-lib-manager',
@@ -97,21 +98,44 @@ export class LibManagerComponent implements OnInit {
   }
 
   async installLib(libJson_cloud) {
-    // 推到libList_install中，用于左侧显示lib正在安装
-    this.libList_install.push(libJson_cloud)
-    let libName = libJson_cloud.name
-    // this.cloudService.getLibJson(libName).subscribe(async (libJson: any) => {
-    //   // 安装B4a lib
-    //   this.electronService.saveLibJson2LibraryPath(libName, libJson)
-    //   // 安装arduino lib
+    try {
+      libJson_cloud['loading'] = true
+      // 推到libList_install中，用于左侧显示lib正在安装
+      this.libList_install.push(libJson_cloud)
+      let libName = libJson_cloud.name
+      let libJson = await lastValueFrom(this.cloudService.getLibJson(libName))
+      // 安装B4a lib
+      this.electronService.saveLibJson(libName, libJson)
+      // 安装arduino lib
+      await this.arduinoCli.installArduinoLib(libName)
+      this.libList_install.splice(this.libList_install.indexOf(libName), 1)
+      libJson_cloud['state'] = true
+      this.blocklyService.init()
+      libJson_cloud['loading'] = false
+      this.message.success('B4A库 ' + libJson_cloud.category + ' 安装成功')
+    } catch (error) {
+      this.message.error('B4A库 ' + libJson_cloud.category + '  安装出错：' + error)
+    }
+  }
 
-    // })
-    let libJson = await lastValueFrom(this.cloudService.getLibJson(libName))
-    console.log(libJson);
-    this.electronService.saveLibJson2LibraryPath(libName, libJson)
-    await this.arduinoCli.installArduinoLib(libName)
-    this.libList_install.splice(this.libList_install.indexOf(libName), 1)
-    this.blocklyService.init()
+  uninstallLib(libJson_cloud) {
+    try {
+      libJson_cloud['loading'] = true
+      let libName = libJson_cloud.name
+      // 移除B4a lib
+      this.electronService.delLibJson(libName)
+      libJson_cloud['state'] = false
+      this.blocklyService.init()
+      libJson_cloud['loading'] = false
+      this.message.success('B4A库 ' + libJson_cloud.category + ' 移除成功')
+    } catch (error) {
+      this.message.error('B4A库 ' + libJson_cloud.category + ' 移除出错：' + error)
+    }
+
+  }
+
+  updateLib(libJson_cloud) {
+
   }
 
   openUrl(url) {
@@ -121,6 +145,10 @@ export class LibManagerComponent implements OnInit {
   initLibVersionSelected() {
     this.libList_cloud.map(lib => {
       lib['verisonSelected'] = lib.version[0]
+      lib['state'] = this.libList.includes(lib.name)
+      lib['loading'] = false
+      if (lib['state'])
+        lib['newer'] = compareVersions(lib.version[0], this.libDict[lib.name].json.version) == 1
     })
   }
 

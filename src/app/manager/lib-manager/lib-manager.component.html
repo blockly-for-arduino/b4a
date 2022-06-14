@@ -5,6 +5,7 @@
             <div class="version">版本号</div>
             <div class="show">可用</div>
         </div>
+        <!-- 已安装的库 -->
         <div class="lib-list" #libListBox *ngIf="libManagerLoaded">
             <ng-container *ngFor="let libName of libList;trackBy:libName">
                 <ng-container *ngIf="libDict[libName]">
@@ -92,7 +93,12 @@
                         <nz-option *ngFor="let version of lib_cloud.version" [nzValue]="version" [nzLabel]="version">
                         </nz-option>
                     </nz-select>
-                    <button nz-button nzType="primary" nzSize="small" (click)="installLib(lib_cloud)">加载</button>
+                    <button nz-button nzType="primary" nzSize="small" *ngIf="!lib_cloud['state']"
+                        (click)="installLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">安装</button>
+                    <button nz-button nzType="primary" nzSize="small" *ngIf="lib_cloud['state']"
+                        (click)="uninstallLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">移除</button>
+                    <button nz-button nzType="primary" nzSize="small" *ngIf="lib_cloud['newer']"
+                        (click)="updateLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">更新</button>
                 </div>
             </div>
         </div>
