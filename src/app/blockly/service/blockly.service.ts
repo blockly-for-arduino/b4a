@@ -358,22 +358,19 @@ function processB4ACode(code: string, vars: object): string {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
   }
-  console.log(code, vars)
   try {
-    let match = code.match(/(?<={{)([\s\S]*?)(?=}})/g);
-    if (match) match.map(str => {
-      str = str.replace('FALSE', 'false').replace('TRUE', 'true');
-      str = str.replace(/(\${([\s\S]*?)}(?=[\s;]))/g, (word) => {
-        console.log(word);
-        word = word.replace(/\${([\s\S]*?)}(?=|["\s;])/g, "$1");
-        return JSON.stringify(word);
-      })
+    code = code.replace(/{{([\s\S]*?)}}/g, function () {
+      let str = arguments[1].replace(/\${([\s\S]*?)}(?=|[\s;])/g, function () {
+        if (arguments[1] === '') return JSON.stringify(arguments[1]);
+        return JSON.stringify(arguments[0]);
+      });
       if (str.indexOf('return ') === -1) str = 'return ' + str;
       str = (new Function(str))();
-      code = code.replace(/({{)([\s\S]*?)(}})/i, str);
-      // code = code.replace(/"/g, ''); // TODO 还有点问题
+      str = str.replace(/"\${([\s\S]*?)}"(?=|[\s;])/g, function () {
+        return arguments[1];
+      })
       return str;
-    });
+    })
   } catch (e) {
 
   }
