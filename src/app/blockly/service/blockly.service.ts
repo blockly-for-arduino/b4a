@@ -354,6 +354,7 @@ export class BlocklyService {
 
 }
 
+// 替换json中的变量
 function processB4ACode(code: string, vars: object): string {
   for (const varName in vars) {
     let reg = new RegExp('\\' + varName, 'g')
