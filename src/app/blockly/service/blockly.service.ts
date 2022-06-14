@@ -150,7 +150,7 @@ export class BlocklyService {
           if (blockJson.args0) {
             blockJson.args0.forEach(arg => {
               // console.log(arg);
-              
+
               b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }
@@ -358,6 +358,22 @@ function processB4ACode(code: string, vars: object): string {
   for (const varName in vars) {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])
+  }
+  try {
+    code = code.replace(/{{([\s\S]*?)}}/g, function () {
+      let str = arguments[1].replace(/\${([\s\S]*?)}(?=|[\s;])/g, function () {
+        if (arguments[1] === '') return JSON.stringify(arguments[1]);
+        return JSON.stringify(arguments[0]);
+      });
+      if (str.indexOf('return ') === -1) str = 'return ' + str;
+      str = (new Function(str))();
+      str = str.replace(/"\${([\s\S]*?)}"(?=|[\s;])/g, function () {
+        return arguments[1];
+      })
+      return str;
+    })
+  } catch (e) {
+
   }
   return code
 }
