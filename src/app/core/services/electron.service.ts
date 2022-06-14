@@ -135,4 +135,10 @@ export class ElectronService {
     this.shell.openExternal(url)
   }
 
+  saveLibJson2LibraryPath(libName, libJson) {
+    if (!this.fs.existsSync(`${this.basePath}/libraries/${libName}`))
+      this.fs.mkdirSync(`${this.basePath}/libraries/${libName}`)
+    this.fs.writeFileSync(`${this.basePath}/libraries/${libName}/${libName}.json`, JSON.stringify(libJson))
+  }
+
 }

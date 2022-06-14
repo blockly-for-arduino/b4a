@@ -11,6 +11,8 @@ import { LibManagerComponent } from './lib-manager/lib-manager.component';
 import { BoardManagerComponent } from './board-manager/board-manager.component';
 import { SettingManagerComponent } from './setting-manager/setting-manager.component';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     FormsModule,
     NzSelectModule,
     NzDividerModule,
-    NzRadioModule
+    NzRadioModule,
+    NzInputModule,
+    NzTagModule
   ],
   exports: [
     ManagerComponent

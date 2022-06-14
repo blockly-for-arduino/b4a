@@ -79,6 +79,9 @@
         .icon {
             width: 22px;
             margin: 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             i.fa-code-branch {
                 transform: rotate(90deg);
@@ -101,6 +104,26 @@
             width: 30px;
             display: flex;
             justify-content: center;
+            color: #40a9ff;
+        }
+
+        &.install {
+            .kk {
+                background: #999;
+                opacity: 0.5;
+            }
+
+            .icon {
+                opacity: 0.5;
+            }
+
+            .name {
+                opacity: 0.5;
+            }
+
+            .version {
+                opacity: 0.5;
+            }
         }
     }
 }
@@ -113,8 +136,8 @@
     .cloud-lib-item {
         position: relative;
         flex-grow: 1;
-        width: 30%;
-        min-width: 300px;
+        max-width: 30%;
+        min-width: 350px;
         // box-shadow: 0 0 10px #CCC;
         border: 1px solid #CCC;
         border-radius: 8px;
@@ -136,10 +159,17 @@
                 width: 60px;
                 height: 60px;
                 margin-right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
                 img {
                     width: 60px;
                     height: 60px;
+                }
+
+                i {
+                    font-size: 48px;
                 }
             }
 
@@ -195,6 +225,8 @@
                 position: absolute;
                 left: 0;
                 margin-left: 30px;
+                cursor: pointer;
+                color: rgb(0, 100, 255);
             }
 
             nz-select {
@@ -206,5 +238,18 @@
                 margin-left: 5px;
             }
         }
+    }
+}
+
+.search-box {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+
+    .tag-box {}
+
+    nz-input-group {
+        width: 210px;
+        margin-right: 15px;
     }
 }
