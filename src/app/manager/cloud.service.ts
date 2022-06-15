@@ -16,6 +16,10 @@ export class CloudService {
     return this.http.get(APP.libraryUrl)
   }
 
+  getLibrariesTags(){
+    return this.http.get('https://b4a.clz.me/libraries-tags.json')
+  }
+
   getBoards() {
     return this.http.get(APP.boardUrl)
   }

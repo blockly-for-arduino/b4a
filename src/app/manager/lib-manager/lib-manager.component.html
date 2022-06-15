@@ -45,10 +45,7 @@
             </ng-template>
             <div class="tag-box">
                 热门标签：
-                <nz-tag [nzColor]="'#f50'">传感器</nz-tag>
-                <nz-tag [nzColor]="'#2db7f5'">显示屏</nz-tag>
-                <nz-tag [nzColor]="'#87d068'">电机驱动</nz-tag>
-                <nz-tag [nzColor]="'#108ee9'">通信</nz-tag>
+                <nz-tag *ngFor="let tag of libList_cloud_tags" [nzColor]="tag.color">{{tag.name}}</nz-tag>
             </div>
 
         </div>
