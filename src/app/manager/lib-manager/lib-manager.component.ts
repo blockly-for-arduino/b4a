@@ -27,9 +27,9 @@ export class LibManagerComponent implements OnInit {
     return this.blocklyService.libDict
   }
 
-  libList_cloud = []
+  libList_cloud: any[] = []
 
-  libList_install = [
+  libList_install: any[] = [
     // {
     // "category": "IIC液晶显示屏",
     // "name": "LiquidCrystal_I2C",
@@ -83,18 +83,10 @@ export class LibManagerComponent implements OnInit {
   }
 
   getCloudData() {
-    this.libList_cloud = [{
-      "category": "IIC液晶显示屏",
-      "name": "LiquidCrystal_I2C",
-      "icon": "fal fa-mobile-android-alt",
-      "introduction": "IIC接口1602/4004液晶显示屏驱动库，适配OPENJUMPER、YWROBOT的IIC液晶显示屏。",
-      "colour": "#48c2c4",
-      "version": ["0.0.1"],
-      "author": "奈何col",
-      "url": "https://arduino.cn"
-    }]
-    // 让版本选中下拉框显示最新版本
-    this.initLibVersionSelected()
+    this.cloudService.getLibraries().subscribe((resp: any) => {
+      this.libList_cloud = resp.data;
+      this.initLibVersionSelected()
+    })
   }
 
   async installLib(libJson_cloud) {

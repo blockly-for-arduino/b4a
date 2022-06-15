@@ -1,8 +1,19 @@
 {
     "category": "舵机",
+    "name": "servo",
     "icon": "fal fa-undo",
+    "introduction": "舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板",
     "colour": "#48c2c4",
     "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
     "blocks": [
         {
             "inputsInline": true,

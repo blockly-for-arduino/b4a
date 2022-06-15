@@ -56,13 +56,10 @@ export class AppComponent {
     this.configService.init();
     this.blocklyService.loaded.subscribe(state => {
       if (state) {
-        // console.log('blocklyService loaded');
         setTimeout(() => {
           let el: any = document.querySelector('.blocklyToolboxDiv')
           this.libManagerWidth = el.offsetWidth;
         }, 100);
-
-
       }
     })
     this.configService.loaded.subscribe(state => {

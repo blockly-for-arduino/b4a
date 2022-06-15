@@ -59,7 +59,7 @@
                         <img *ngIf="lib_cloud.icon.indexOf('http')>-1;else icon"
                             src="https://www.arduino.cn/template/sxp_jz_001/image/logo.png" alt="">
                         <ng-template #icon>
-                            <i class="fal fa-mobile-android-alt"></i>
+                            <i class="{{lib_cloud.icon}}"></i>
                         </ng-template>
                     </div>
                     <div style="margin-left: 7px">
