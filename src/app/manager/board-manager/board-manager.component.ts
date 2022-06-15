@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../../core/services/config.service';
 import Sortable from 'sortablejs';
+import { CloudService } from '../cloud.service';
 
 @Component({
   selector: 'app-board-manager',
@@ -11,18 +12,27 @@ export class BoardManagerComponent implements OnInit {
   @ViewChild('boardListBox', { static: false, read: ElementRef }) boardListBox: ElementRef
   boardManagerLoaded = false
 
-  boardList_cloud=[]
+  viewMode = '1';
+
+  boardList_cloud = []
 
   get boardList() {
     return this.configService.boardList
   }
 
   constructor(
-    private configService: ConfigService
+    private configService: ConfigService,
+    private cloudService: CloudService
   ) { }
 
   ngOnInit(): void {
 
+  }
+
+  getData() {
+    this.cloudService.getBoards().subscribe((resp: any) => {
+      this.boardList_cloud = resp.data
+    })
   }
 
   initListSortable() {
