@@ -9,3 +9,38 @@
         right: 30px !important;
     }
 }
+
+.vender-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #CCC;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+
+    .vender {
+        width: 160px;
+        height: 160px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
+
+        img {
+            width: 80%;
+        }
+    }
+
+    .board-list {
+        display: flex;
+
+        .board {
+            width: 180px;
+            height: 180px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+    }
+}

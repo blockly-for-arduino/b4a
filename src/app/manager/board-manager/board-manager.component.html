@@ -24,13 +24,49 @@
             <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
             </ng-template>
-            <nz-radio-group [(ngModel)]="viewMode" nzButtonStyle="solid">
+            <nz-radio-group [(ngModel)]="viewMode" nzButtonStyle="solid" (ngModelChange)="viewModeChange()">
                 <label nz-radio-button nzValue="1">按厂家</label>
                 <label nz-radio-button nzValue="2">按核心</label>
             </nz-radio-group>
         </div>
-        <div class="cloud-lib-list">
-            <div class="cloud-lib-item" *ngFor="let lib_cloud of libList_cloud">
+        <div class="cloud-board-list">
+            <ng-container *ngIf="viewMode==1">
+                <div class="vender-box" *ngFor="let vender of venderList">
+                    <div class="vender">
+                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="" srcset="">
+                        <!-- <div>
+                            {{vender.name}}
+                        </div> -->
+                    </div>
+                    <div class="board-list">
+                        <div class="board" *ngFor="let board of vender.boards">
+                            {{board.img}}
+                            {{board.name}}
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="viewMode==2">
+                <div class="vender-box" *ngFor="let vender of coreList">
+                    <div class="vender">
+                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="" srcset="">
+                        <div>
+                            {{vender.name}}
+                        </div>
+                    </div>
+                    <div class="board-list">
+                        <div class="board" *ngFor="let board of vender.boards">
+                            {{board.img}}
+                            {{board.name}}
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="viewMode==3">
+
+            </ng-container>
+
+            <!-- <div class="cloud-lib-item" *ngFor="let lib_cloud of libList_cloud">
                 <div class="top">
                     <div class="img-box">
                         <img *ngIf="lib_cloud.icon.indexOf('http')>-1;else icon"
@@ -43,20 +79,6 @@
                         <div class="name">{{lib_cloud.category}}</div>
                         <div class="author">提供者: {{lib_cloud.author}}</div>
                         <div class="shehui">
-                            <!-- <div>
-                                <i class="fal fa-arrow-alt-to-bottom"></i>
-                                <div>5221</div>
-                            </div>
-                            <nz-divider nzType="vertical"></nz-divider>
-                            <div>
-                                <i class="fal fa-thumbs-up"></i>
-                                <div>5221</div>
-                            </div>
-                            <nz-divider nzType="vertical"></nz-divider>
-                            <div>
-                                <i class="fal fa-comment-alt-dots"></i>
-                                <div>5221</div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -77,7 +99,7 @@
                     <button nz-button nzType="primary" nzSize="small" *ngIf="lib_cloud['newer']"
                         (click)="updateLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">更新</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
