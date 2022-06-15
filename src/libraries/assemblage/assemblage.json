@@ -60,7 +60,7 @@
         {
           "type": "field_variable",
           "name": "OBJECT",
-          "variable": "variable_global_1"
+          "variable": "variable1"
         },
         {
           "type": "input_value",
@@ -175,7 +175,7 @@
         {
           "type": "field_variable",
           "name": "OBJECT",
-          "variable": "assemblage_global_1"
+          "variable": "assemblage1"
         },
         {
           "type": "input_value",
@@ -212,7 +212,8 @@
         {
           "type": "field_variable",
           "name": "OBJECT",
-          "variable": "assemblage1"
+          "variable": "assemblage1",
+          "defaultType": "int"
         },
         {
           "type": "input_value",

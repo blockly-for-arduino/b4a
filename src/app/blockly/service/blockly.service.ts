@@ -136,7 +136,8 @@ export class BlocklyService {
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
-          if (Arduino[blockJson.type].prototype.processB4ACodeBefore) Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson.b4a);
+          // 前置钩子函数
+          if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
           // 添加宏
           if (blockJson.b4a.macro) {
             Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)

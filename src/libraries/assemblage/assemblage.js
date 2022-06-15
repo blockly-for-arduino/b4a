@@ -1,101 +1,90 @@
 'use strict';
 
-// Arduino['variable_var_init'] = {
-//   init: function () {
-//     console.log(2222, this);
-//     this.setOutput(true, 'Number');
-//   }
-// };
-
-console.log(Arduino['variable_var_init']);
-
-Arduino['variable_var_init'].prototype.processB4ACodeBefore = function (block, blockJson) { // TODO blockJson 值传递
-  let code = '';
+Arduino['variable_var_init'].prototype.processB4ACodeBefore = function (block, blockJson) {
+  // console.log(block, blockJson);
+  let code = blockJson.b4a;
 
   // block.setEnabled(false);
 
-  let type = block.getFieldValue('TYPE');
-  const valueInput = block.getInput('VALUE');
+  let TYPE = block.getFieldValue('TYPE');
+  const OBJECT = block.getField('OBJECT');
+  const VALUE = block.getInput('VALUE');
 
-  console.log(type);
+  // console.log(block, OBJECT.getVariable())
 
-  switch (type) {
+  if (!OBJECT.getVariable().type) {
+    OBJECT.getVariable().type = TYPE;
+    block.workspace.createVariable('variable' + Math.random(), TYPE); // TODO 临时自动创建随机变量，后期可更改为弹窗输入创建
+  }
+  if (TYPE !== OBJECT.getVariable().type) {
+    let variable = block.workspace.getVariableById(OBJECT.getOptions()[0][1]);
+    if (variable) OBJECT.setValue(variable.getId());
+    else {
+      block.workspace.createVariable('variable' + Math.random(), TYPE);
+      variable = block.workspace.getVariableById(OBJECT.getOptions()[0][1]);
+      OBJECT.setValue(variable.getId());
+    }
+
+    // block.setTooltip(`please create and choose a new variable typeof ${TYPE}!`);
+    // block.getField('OBJECT').setVisible(block.workspace.getVariableById(block.getField('OBJECT').getOptions()[0][1]));
+    // block.getField('OBJECT').setValue(block.getField('OBJECT').getOptions()[0][1]);
+  }
+  // console.log(block.getField('OBJECT').getOptions())
+
+  switch (TYPE) {
     case 'boolean':
-      valueInput.setCheck('Boolean');
+      VALUE.setCheck('Boolean');
       break;
     case 'char':
     case 'String':
-      valueInput.setCheck('String');
+      VALUE.setCheck('String');
       break;
     case 'int':
     case 'long':
     case 'float':
     case 'double':
-      valueInput.setCheck('Number');
+      VALUE.setCheck('Number');
       break;
     default:
-      valueInput.setCheck('Number');
+      VALUE.setCheck('Number');
       break;
   }
 
   return code;
 }
-//
-// Arduino['variable_var_init'] = function (block) {
-//   console.log(1111, this);
-//   // console.log(3333, block.prototype.b4a);
-//   let code = '';
-//
-//   // block.setEnabled(false);
-//
-//   let type = block.getFieldValue('TYPE');
-//   const valueInput = block.getInput('VALUE');
-//
-//   console.log(type);
-//
-//   switch (type) {
-//     case 'boolean':
-//       valueInput.setCheck('Boolean');
-//       break;
-//     case 'char':
-//     case 'String':
-//       valueInput.setCheck('String');
-//       break;
-//     case 'int':
-//     case 'long':
-//     case 'float':
-//     case 'double':
-//       valueInput.setCheck('Number');
-//       break;
-//     default:
-//       valueInput.setCheck('Number');
-//       break;
-//   }
-//
-//
-//   // console.log(block.getField());
-//   // const check = block.getFieldValue('GLOBAL');
-//   // console.log(check);
-//   //
-//   // console.log(block.b4a);
-//   // //
-//   // console.log(block.getSourceCode());
-//
-//   // return check;
-//   return code;
-// }
 
-// Arduino['text_len'] = function(block) {
-//   // String or array length.
-//   var argument0 = Arduino.valueToCode(block, 'VALUE',
-//     Arduino.ORDER_FUNCTION_CALL) || '\'\'';
-//   return [argument0 + '.length', Arduino.ORDER_MEMBER];
-// };
-//
-// Arduino['text_length'] = function (block) {
-//   let code = getValue(block, 'VALUE')+'.length()';
-//   return [code, Arduino.ORDER_ATOMIC];
-// };
+Arduino['assemblage_var_init'].prototype.processB4ACodeBefore = Arduino['variable_var_init'].prototype.processB4ACodeBefore;
+
+Arduino['assemblage_add'].prototype.processB4ACodeBefore = function (block, blockJson) {
+  let code = blockJson.b4a;
+
+  // block.setEnabled(false);
+
+  // let type = Arduino['assemblage_var_init'].getFieldValue('TYPE');
+  // console.log(222).type;
+  // const VALUE = block.getInput('VALUE');
+  //
+  // switch (type) {
+  //   case 'boolean':
+  //     VALUE.setCheck('Boolean');
+  //     break;
+  //   case 'char':
+  //   case 'String':
+  //     VALUE.setCheck('String');
+  //     break;
+  //   case 'int':
+  //   case 'long':
+  //   case 'float':
+  //   case 'double':
+  //     VALUE.setCheck('Number');
+  //     break;
+  //   default:
+  //     VALUE.setCheck('Number');
+  //     break;
+  // }
+
+  return code;
+}
 
 //
 // // Arduino['assemblage_set_value'] = function (block) {
