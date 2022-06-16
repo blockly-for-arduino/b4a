@@ -23,25 +23,48 @@
     display: flex;
     align-items: center;
     border: 1px solid #CCC;
-    border-radius: 8px;
+    border-radius: 15px;
     margin-bottom: 15px;
     padding: 15px;
 
     .vender {
-        width: 160px;
-        height: 160px;
+        width: 120px;
+        height: 120px;
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         margin-right: 30px;
         border-right: 1px solid #CCC;
         padding-right: 15px;
 
-        img {
-            width: 70%;
-            margin-top: 30px;
+        .img-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            img {
+                width: 75%;
+            }
+        }
+
+        .text {
+            position: absolute;
+            // height: 35px;
+            bottom: -5px;
+            font-weight: 700;
+        }
+
+        .vender-bg {
+            background: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 
@@ -49,18 +72,29 @@
         display: flex;
 
         .board {
-            width: 160px;
-            height: 160px;
+            width: 120px;
+            height: 120px;
             margin-right: 15px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            transition: all 0.5s;
+            position: relative;
 
             img {
-                width: 150px;
-                height: 150px;
+                width: 120px;
+                height: 120px;
+            }
+
+            .text {
+                position: absolute;
+                bottom: -5px;
+            }
+
+            &:hover {
+                transform: scale(1.05);
             }
         }
     }

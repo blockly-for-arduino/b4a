@@ -33,13 +33,15 @@
             <ng-container *ngIf="viewMode==1">
                 <div class="vender-box" *ngFor="let vender of venderList">
                     <div class="vender">
-                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="">
-                        <!-- <div>{{vender.name}}</div> -->
+                        <div class="img-box">
+                            <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="">
+                        </div>
+                        <div class="text vender-bg">{{vender.name}}</div>
                     </div>
                     <div class="board-list">
                         <div class="board" *ngFor="let board of vender.boards">
                             <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
-                            <div>{{board.name}}</div>
+                            <div class="text">{{board.name}}</div>
                         </div>
                     </div>
                 </div>
@@ -47,13 +49,15 @@
             <ng-container *ngIf="viewMode==2">
                 <div class="vender-box" *ngFor="let vender of coreList">
                     <div class="vender">
-                        <img src="https://b4a.clz.me/assets/core/{{vender.name}}.png" alt="{{vender.name}}" />
-                        <div>{{vender.name}}</div>
+                        <div class="img-box">
+                            <img src="https://b4a.clz.me/assets/core/{{vender.name}}.png" alt="{{vender.name}}" />
+                        </div>
+                        <div class="text vender-bg">{{vender.name}}</div>
                     </div>
                     <div class="board-list">
                         <div class="board" *ngFor="let board of vender.boards">
                             <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
-                            <div>{{board.name}}</div>
+                            <div class="text">{{board.name}}</div>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
     height: calc(100% - 30px);
     padding: 15px;
     margin-top: 15px;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 15px 15px 0;
     box-shadow: 0 0 10px #CCC;
     position: relative;
 
@@ -51,15 +51,10 @@
     width: calc(100% - 315px);
     height: calc(100% - 30px);
     margin: 15px 0 0 15px;
-    border-radius: 8px 0 0 8px;
+    border-radius: 15px 0 0 15px;
     box-shadow: 0 0 10px #CCC;
     position: relative;
     padding: 15px 0 15px 15px;
-
-    .cloud-lib-list {
-        height: calc(100% - 50px);
-        overflow-y: scroll;
-    }
 }
 
 .lib-list {
@@ -137,6 +132,7 @@
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
+    max-height: calc(100% - 50px);
 
     .cloud-lib-item {
         position: relative;
@@ -145,7 +141,7 @@
         min-width: 350px;
         // box-shadow: 0 0 10px #CCC;
         border: 1px solid #CCC;
-        border-radius: 8px;
+        border-radius: 15px;
         height: 230px;
         padding: 15px;
         display: flex;
