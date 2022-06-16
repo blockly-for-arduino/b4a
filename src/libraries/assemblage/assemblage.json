@@ -70,7 +70,7 @@
       "b4a": {
         "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
         "library": "",
-        "object": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
+        "variable": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
       },
       "previousStatement": null,
       "nextStatement": null,

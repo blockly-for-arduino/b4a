@@ -36,7 +36,8 @@ export class NewVarModalComponent implements OnInit {
       this.message.warning('变量名已存在');
     } else {
       this.blocklyService.workspace.createVariable(this.varName, this.varType);
-      this.modal.close({ varType: this.varType, varName: this.varName })
+      this.modal.triggerOk()
+      // this.modal.close({ varType: this.varType, varName: this.varName })
     }
   }
 

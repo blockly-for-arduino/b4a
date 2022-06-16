@@ -186,11 +186,18 @@ export class BlocklyComponent implements OnInit {
     });
 
     Blockly.Variables.createVariableButtonHandler = (workspace, opt_callback, opt_type) => {
-      this.modal.create({
+      let modal = this.modal.create({
         nzTitle: '添加变量',
         nzWidth: '350px',
-        nzContent: NewVarModalComponent
+        nzContent: NewVarModalComponent,
+        nzComponentParams: {
+          varType: opt_type
+        },
+        nzOnOk: (e) => {
+          opt_callback(e.varName);
+        }
       })
+      modal.triggerOk
     };
     Blockly.Variables.flyoutCategoryBlocks = function (workspace) {
       let variableModelList = []
@@ -271,15 +278,17 @@ export class BlocklyComponent implements OnInit {
           this.sourceBlock_.workspace.deleteVariableById(this.variable_.getId());
           return;
         } else if (id === 'CREATE_VARIABLE_ID') {
-          console.log('CREATE_VARIABLE_ID');
-          // Create a variable.
-          var that = this;
-          var workspace = this.sourceBlock_.workspace;
-          var selectedValueType = workspace.getVariableById(this.getValue()).type;
-          Blockly.Variables.createVariableButtonHandler(workspace, function (text) {
-            var variable = workspace.getVariable(text, selectedValueType);
-            that.setValue(variable.getId());
-          }, selectedValueType);
+          // console.log('CREATE_VARIABLE_ID');
+          let workspace = this.sourceBlock_.workspace;
+          let selectedValueType = workspace.getVariableById(this.getValue()).type;
+          console.log(selectedValueType);
+
+          Blockly.Variables.createVariableButtonHandler(workspace,
+            (text) => {
+              let variable = workspace.getVariable(text, selectedValueType);
+              console.log(variable, variable.getId());
+              this.setValue(variable.getId());
+            }, selectedValueType);
           return;
         }
       }
