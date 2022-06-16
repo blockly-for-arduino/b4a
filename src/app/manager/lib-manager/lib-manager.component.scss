@@ -55,6 +55,11 @@
     box-shadow: 0 0 10px #CCC;
     position: relative;
     padding: 15px 0 15px 15px;
+
+    .cloud-lib-list {
+        height: calc(100% - 50px);
+        overflow-y: scroll;
+    }
 }
 
 .lib-list {

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../../core/services/config.service';
 import Sortable from 'sortablejs';
 import { CloudService } from '../cloud.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-board-manager',
@@ -25,11 +26,13 @@ export class BoardManagerComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private cloudService: CloudService
+    private cloudService: CloudService,
+    private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
     this.getCloudData()
+    this.message.warning('开发板加载功能正在开发中...')
   }
 
   getCloudData() {
@@ -85,7 +88,7 @@ export class BoardManagerComponent implements OnInit {
         coreDict[board.core].boards.push(board)
       } else {
         let coreInfo = {
-          name: board.core,
+          name: board.core.split(':')[1],
           img: "",
           boards: [board]
         }

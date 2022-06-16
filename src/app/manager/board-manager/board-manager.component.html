@@ -18,12 +18,12 @@
     </div>
     <div class="right-box animate__animated animate__fadeInRight animate__faster">
         <div class="search-box">
-            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <!-- <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
                 <input type="text" nz-input placeholder="搜索" />
             </nz-input-group>
             <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
-            </ng-template>
+            </ng-template> -->
             <nz-radio-group [(ngModel)]="viewMode" nzButtonStyle="solid" (ngModelChange)="viewModeChange()">
                 <label nz-radio-button nzValue="1">按厂家</label>
                 <label nz-radio-button nzValue="2">按核心</label>
@@ -33,15 +33,13 @@
             <ng-container *ngIf="viewMode==1">
                 <div class="vender-box" *ngFor="let vender of venderList">
                     <div class="vender">
-                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="" srcset="">
-                        <!-- <div>
-                            {{vender.name}}
-                        </div> -->
+                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="">
+                        <!-- <div>{{vender.name}}</div> -->
                     </div>
                     <div class="board-list">
                         <div class="board" *ngFor="let board of vender.boards">
-                            {{board.img}}
-                            {{board.name}}
+                            <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
+                            <div>{{board.name}}</div>
                         </div>
                     </div>
                 </div>
@@ -49,15 +47,13 @@
             <ng-container *ngIf="viewMode==2">
                 <div class="vender-box" *ngFor="let vender of coreList">
                     <div class="vender">
-                        <img src="https://b4a.clz.me/assets/vender/{{vender.name}}.png" alt="" srcset="">
-                        <div>
-                            {{vender.name}}
-                        </div>
+                        <img src="https://b4a.clz.me/assets/core/{{vender.name}}.png" alt="{{vender.name}}" />
+                        <div>{{vender.name}}</div>
                     </div>
                     <div class="board-list">
                         <div class="board" *ngFor="let board of vender.boards">
-                            {{board.img}}
-                            {{board.name}}
+                            <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
+                            <div>{{board.name}}</div>
                         </div>
                     </div>
                 </div>
@@ -65,41 +61,6 @@
             <ng-container *ngIf="viewMode==3">
 
             </ng-container>
-
-            <!-- <div class="cloud-lib-item" *ngFor="let lib_cloud of libList_cloud">
-                <div class="top">
-                    <div class="img-box">
-                        <img *ngIf="lib_cloud.icon.indexOf('http')>-1;else icon"
-                            src="https://www.arduino.cn/template/sxp_jz_001/image/logo.png" alt="">
-                        <ng-template #icon>
-                            <i class="{{lib_cloud.icon}}"></i>
-                        </ng-template>
-                    </div>
-                    <div style="margin-left: 7px">
-                        <div class="name">{{lib_cloud.category}}</div>
-                        <div class="author">提供者: {{lib_cloud.author}}</div>
-                        <div class="shehui">
-                        </div>
-                    </div>
-                </div>
-                <div class="middle">
-                    <p>{{lib_cloud.introduction}}</p>
-                </div>
-                <div class="bottom">
-                    <div class="website" (click)="openUrl(lib_cloud.url)">了解更多</div>
-                    <div>版本</div>
-                    <nz-select nzSize="small" [ngModel]="lib_cloud.verisonSelected">
-                        <nz-option *ngFor="let version of lib_cloud.version" [nzValue]="version" [nzLabel]="version">
-                        </nz-option>
-                    </nz-select>
-                    <button nz-button nzType="primary" nzSize="small" *ngIf="!lib_cloud['state']"
-                        (click)="installLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">安装</button>
-                    <button nz-button nzType="primary" nzSize="small" *ngIf="lib_cloud['state']"
-                        (click)="uninstallLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">移除</button>
-                    <button nz-button nzType="primary" nzSize="small" *ngIf="lib_cloud['newer']"
-                        (click)="updateLib(lib_cloud)" [nzLoading]="lib_cloud['loading']">更新</button>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
