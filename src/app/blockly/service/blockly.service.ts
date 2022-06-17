@@ -170,6 +170,14 @@ export class BlocklyService {
             let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
             Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
           }
+          if (blockJson.b4a.global && !block.parentBlock_) {
+            let primary
+            if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
+            let className: string = blockJson.b4a.global.split(' ')[0]
+            b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
+            let object_code = processB4ACode(blockJson.b4a.global, b4aVars)
+            Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
+          }
           if (blockJson.b4a.function) {
             let functionBody = processB4ACode(blockJson.b4a.function, b4aVars)
             console.log(functionBody);

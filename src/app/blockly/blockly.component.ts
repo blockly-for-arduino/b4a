@@ -230,7 +230,7 @@ export class BlocklyComponent implements OnInit {
           ' variable selected.');
       }
       const name = this.getText();
-      const TYPE = this.sourceBlock_.getFieldValue('TYPE');
+      const TYPE = this.sourceBlock_?.parentBlock_?.getFieldValue('TYPE') || this.sourceBlock_.getFieldValue('TYPE');
       let variableModelList = [];
       if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         const variableTypes = this.getVariableTypes_();

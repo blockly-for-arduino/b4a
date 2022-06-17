@@ -1,35 +1,36 @@
 'use strict';
 
-Arduino['variable_var_init'].prototype.processB4ACodeBefore = function (block, blockJson) {
-  // console.log(block, blockJson);
-  let code = blockJson.b4a;
-
-  // block.setEnabled(false);
+Arduino['variable_var_type'].prototype.processB4ACodeBefore = function (block, blockJson) {
+  // console.log(block);
+  blockJson.b4a.primary = 'variable_var_type_' + Math.random();
 
   let TYPE = block.getFieldValue('TYPE');
-  const OBJECT = block.getField('OBJECT');
-  const VALUE = block.getInput('VALUE');
+  if (block.childBlocks_.length === 0) return;
 
-  // console.log(block, OBJECT.getVariable())
+  const OBJECT = block.childBlocks_[0].getField('OBJECT');
+  if (!OBJECT) return;
 
   if (!OBJECT.getVariable().type) {
     OBJECT.getVariable().type = TYPE;
     block.workspace.createVariable('variable' + Math.random(), TYPE); // TODO 临时自动创建随机变量，后期可更改为弹窗输入创建
   }
+
   if (TYPE !== OBJECT.getVariable().type) {
     let variable = block.workspace.getVariableById(OBJECT.getOptions()[0][1]);
-    if (variable) OBJECT.setValue(variable.getId());
-    else {
+    if (!variable) {
       block.workspace.createVariable('variable' + Math.random(), TYPE);
       variable = block.workspace.getVariableById(OBJECT.getOptions()[0][1]);
-      OBJECT.setValue(variable.getId());
     }
-
-    // block.setTooltip(`please create and choose a new variable typeof ${TYPE}!`);
-    // block.getField('OBJECT').setVisible(block.workspace.getVariableById(block.getField('OBJECT').getOptions()[0][1]));
-    // block.getField('OBJECT').setValue(block.getField('OBJECT').getOptions()[0][1]);
+    OBJECT.setValue(variable.getId());
   }
-  // console.log(block.getField('OBJECT').getOptions())
+}
+
+Arduino['variable_var_name'].prototype.processB4ACodeBefore = function (block, blockJson) {
+  blockJson.b4a.primary = 'variable_var_name_' + Math.random();
+  let code = blockJson.b4a;
+
+  let TYPE = block.workspace.getVariableById(block.getFieldValue('OBJECT')).type;
+  const VALUE = block.getInput('VALUE');
 
   switch (TYPE) {
     case 'boolean':
@@ -53,35 +54,32 @@ Arduino['variable_var_init'].prototype.processB4ACodeBefore = function (block, b
   return code;
 }
 
-Arduino['assemblage_var_init'].prototype.processB4ACodeBefore = Arduino['variable_var_init'].prototype.processB4ACodeBefore;
+Arduino['assemblage_var_type'].prototype.processB4ACodeBefore = Arduino['variable_var_type'].prototype.processB4ACodeBefore;
 
 Arduino['assemblage_add'].prototype.processB4ACodeBefore = function (block, blockJson) {
   let code = blockJson.b4a;
 
-  // block.setEnabled(false);
+  const OBJECT = block.getField('OBJECT');
+  const VALUE = block.getInput('VALUE');
 
-  // let type = Arduino['assemblage_var_init'].getFieldValue('TYPE');
-  // console.log(222).type;
-  // const VALUE = block.getInput('VALUE');
-  //
-  // switch (type) {
-  //   case 'boolean':
-  //     VALUE.setCheck('Boolean');
-  //     break;
-  //   case 'char':
-  //   case 'String':
-  //     VALUE.setCheck('String');
-  //     break;
-  //   case 'int':
-  //   case 'long':
-  //   case 'float':
-  //   case 'double':
-  //     VALUE.setCheck('Number');
-  //     break;
-  //   default:
-  //     VALUE.setCheck('Number');
-  //     break;
-  // }
+  switch (OBJECT.getVariable().type) {
+    case 'List<boolean>':
+      VALUE.setCheck('Boolean');
+      break;
+    case 'List<char>':
+    case 'List<String>':
+      VALUE.setCheck('String');
+      break;
+    case 'List<int>':
+    case 'List<long>':
+    case 'List<float>':
+    case 'List<double>':
+      VALUE.setCheck('Number');
+      break;
+    default:
+      VALUE.setCheck('Number');
+      break;
+  }
 
   return code;
 }
