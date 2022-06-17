@@ -30,7 +30,7 @@
             </nz-radio-group>
         </div>
         <div class="cloud-board-list">
-            <ng-container *ngIf="viewMode==1">
+            <ng-container *ngIf="viewMode=='1'">
                 <div class="vender-box" *ngFor="let vender of venderList">
                     <div class="vender">
                         <div class="img-box">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="viewMode==2">
+            <ng-container *ngIf="viewMode=='2'">
                 <div class="vender-box" *ngFor="let vender of coreList">
                     <div class="vender">
                         <div class="img-box">
@@ -62,7 +62,8 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="viewMode==3">
+            <!-- 搜索模式 -->
+            <ng-container *ngIf="viewMode=='0'">
 
             </ng-container>
         </div>

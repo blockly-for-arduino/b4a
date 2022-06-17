@@ -178,11 +178,13 @@ export class BlocklyComponent implements OnInit {
 
   // 重写blockly核心函数
   rewtireFunc() {
-    this.workspace.registerButtonCallback('CREATE_VARIABLE_STRING', (button) => {
-      console.log('CREATE_VARIABLE_STRING');
+    this.workspace.registerButtonCallback('CREATE_VARIABLE', (button) => {
+      console.log('CREATE_VARIABLE');
+      Blockly.Variables.createVariableButtonHandler(this.workspace, null, 'int')
     });
-    this.workspace.registerButtonCallback('CREATE_VARIABLE_LIST', (button) => {
-      console.log('CREATE_VARIABLE_LIST');
+    this.workspace.registerButtonCallback('CREATE_OBJECT', (button) => {
+      console.log('CREATE_OBJECT');
+
     });
 
     Blockly.Variables.createVariableButtonHandler = (workspace, opt_callback, opt_type) => {
@@ -194,7 +196,8 @@ export class BlocklyComponent implements OnInit {
           varType: opt_type
         },
         nzOnOk: (e) => {
-          opt_callback(e.varName);
+          if (opt_callback)
+            opt_callback(e.varName);
         }
       })
       modal.triggerOk
@@ -295,10 +298,6 @@ export class BlocklyComponent implements OnInit {
       // Handle unspecial case.
       this.setValue(id);
     };
-
-    // this.blocklyService.loadLibScript('assets/blockly/field_variable.js')
-
-
   }
 
 }

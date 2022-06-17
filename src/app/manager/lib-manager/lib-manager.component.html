@@ -7,7 +7,7 @@
         </div>
         <!-- 已安装的库 -->
         <div class="lib-list" #libListBox *ngIf="libManagerLoaded">
-            <ng-container *ngFor="let libName of libList;trackBy:libName">
+            <ng-container *ngFor="let libName of libList;trackBy:trackBylibName">
                 <ng-container *ngIf="libDict[libName]">
                     <div class="item" *ngIf="libDict[libName].json" data-id="{{libName}}">
                         <div class="kk" [ngStyle]="{background: libDict[libName].json.colour}"></div>

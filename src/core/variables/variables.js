@@ -17,6 +17,3 @@ Arduino['variables_set'] = function (block) {
   Arduino.addVariable(varName, `${varType} ${varName};\n`)
   return `${varName} = ${argument0};\n`
 };
-
-Arduino['variables_get_dynamic'] = Arduino['variables_get']
-Arduino['variables_set_dynamic'] = Arduino['variables_set']

@@ -136,4 +136,8 @@ export class LibManagerComponent implements OnInit {
     })
   }
 
+  trackBylibName(index, item) {
+    return item
+  }
+
 }

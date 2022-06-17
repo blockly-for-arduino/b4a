@@ -15,6 +15,8 @@ export class NewVarModalComponent implements OnInit {
   varType = 'int'
   varName = ''
 
+  isObject = false
+
   VAR_TYPE = VAR_TYPE
 
   constructor(
@@ -24,6 +26,9 @@ export class NewVarModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.VAR_TYPE.map(el => el.value),this.varType);
+    
+    this.isObject = !this.VAR_TYPE.map(el => el.value).includes(this.varType)
   }
 
   addVar() {
