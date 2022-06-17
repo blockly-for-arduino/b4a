@@ -39,7 +39,7 @@
                     ]
                 }
             ],
-            "output": "Any",
+            "output": "Number",
             "style": "text_blocks",
             "tooltip": "%{BKY_TEXT_LENGTH_TOOLTIP}",
             "helpUrl": "%{BKY_TEXT_LENGTH_HELPURL}",
