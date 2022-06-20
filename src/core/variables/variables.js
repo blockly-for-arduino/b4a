@@ -7,11 +7,12 @@ Arduino['variable_define'] = function (block) {
   if (varType == 'char') {
     value = value.replace(/^\"/, "'").replace(/\"$/, "'")
   }
-  console.log(block);
-  let code = `${varType} ${varName} = ${value};\n`
-  if (!block.parentBlock_)
+  let code = `${varType} ${varName} = ${value};`
+  if (isGlobal(block)) {
     Arduino.addVariable(varName, code)
-  return code
+    return ''
+  } else
+    return code + '\n'
 }
 
 Arduino['variables_get'] = function (block) {

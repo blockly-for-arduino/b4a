@@ -1,11 +1,13 @@
 <div class="modal-box">
-    <div>类型</div>
+    <!-- <div>类型</div>
     <nz-select *ngIf="!isObject" nzSize="small" [(ngModel)]="varType">
         <nz-option *ngFor="let item of VAR_TYPE" nzValue="{{item.value}}" nzLabel="{{item.name}}"></nz-option>
-    </nz-select>
-    <div *ngIf="isObject">
-        {{varType}}
-    </div>
+    </nz-select> -->
+    <ng-container *ngIf="isObject">
+        <div>类型</div>
+        <div>{{varType}}</div>
+    </ng-container>
+
     <div style="margin-left:10px">变量名</div>
     <input nz-input nzSize="small" [(ngModel)]="varName" />
 </div>

@@ -374,5 +374,21 @@ export function initArduinoGenerator() {
         return code
     }
 
+    // window['getParent'] = function (block) {
+    //     return block.parentBlock_ == null ? true : block.parentBlock_.type ==
+    // }
+
+    // 判断变量是否在setup中，如果在则为全局变量
+    window['isGlobal'] = function (block) {
+        let currentBlock = block
+        while (currentBlock.parentBlock_ != null) {
+            currentBlock = currentBlock.parentBlock_
+            if (currentBlock.type == 'arduino_setup') {
+                return true
+            }
+        }
+        return false
+    }
+
     return generator
 }
