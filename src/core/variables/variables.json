@@ -11,31 +11,47 @@
         },
         {
             "inputsInline": false,
-            "type": "define_variable_string",
-            "message0": "变量定义%1 字符串 变量名%2 初值%3",
+            "type": "variable_define",
+            "message0": "变量定义 类型%1 变量名%2 初值%3",
             "args0": [
                 {
                     "type": "field_dropdown",
-                    "name": "GLOBAL",
+                    "name": "TYPE",
                     "options": [
                         [
-                            "全局",
-                            "true"
+                            "整型",
+                            "int"
                         ],
                         [
-                            "局部",
-                            "false"
+                            "长整型",
+                            "long"
+                        ],
+                        [
+                            "浮点型",
+                            "float"
+                        ],
+                        [
+                            "双精度浮点型",
+                            "double"
+                        ],
+                        [
+                            "字符型",
+                            "char"
+                        ],
+                        [
+                            "字符串型",
+                            "String"
+                        ],
+                        [
+                            "布尔型",
+                            "boolean"
                         ]
                     ]
                 },
                 {
                     "type": "field_variable",
-                    "name": "OBJECT",
-                    "variable": "text",
-                    "variableTypes": [
-                        "String"
-                    ],
-                    "defaultType": "String"
+                    "name": "VAR",
+                    "variable": "var"
                 },
                 {
                     "type": "input_value",
@@ -43,64 +59,7 @@
                 }
             ],
             "b4a": {
-                "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
-                "library": "",
-                "variable": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
-            },
-            "previousStatement": null,
-            "nextStatement": null,
-            "colour": "#ff8c1a",
-            "toolbox": {
-                "show": true,
-                "inputs": {
-                    "VALUE": {
-                        "block": {
-                            "type": "text_multiline",
-                            "fields": {
-                                "TEXT": ""
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
-            "inputsInline": false,
-            "type": "define_variable_int",
-            "message0": "变量定义%1 整形 变量名%2 初值%3",
-            "args0": [
-                {
-                    "type": "field_dropdown",
-                    "name": "GLOBAL",
-                    "options": [
-                        [
-                            "全局",
-                            "true"
-                        ],
-                        [
-                            "局部",
-                            "false"
-                        ]
-                    ]
-                },
-                {
-                    "type": "field_variable",
-                    "name": "OBJECT",
-                    "variable": "value",
-                    "variableTypes": [
-                        "String"
-                    ],
-                    "defaultType": "String"
-                },
-                {
-                    "type": "input_value",
-                    "name": "VALUE"
-                }
-            ],
-            "b4a": {
-                "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
-                "library": "",
-                "variable": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
+                "code": "${TYPE} ${VAR} = ${VALUE};"
             },
             "previousStatement": null,
             "nextStatement": null,
@@ -120,78 +79,13 @@
             }
         },
         {
-            "inputsInline": false,
-            "type": "define_variable_float",
-            "message0": "变量定义%1 浮点型 变量名%2 初值%3",
-            "args0": [
-                {
-                    "type": "field_dropdown",
-                    "name": "GLOBAL",
-                    "options": [
-                        [
-                            "全局",
-                            "true"
-                        ],
-                        [
-                            "局部",
-                            "false"
-                        ]
-                    ]
-                },
-                {
-                    "type": "field_variable",
-                    "name": "OBJECT",
-                    "variable": "value",
-                    "variableTypes": [
-                        "float","double"
-                    ],
-                    "defaultType": "float"
-                },
-                {
-                    "type": "input_value",
-                    "name": "VALUE"
-                }
-            ],
-            "b4a": {
-                "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
-                "library": "",
-                "variable": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
-            },
-            "previousStatement": null,
-            "nextStatement": null,
-            "colour": "#ff8c1a",
-            "toolbox": {
-                "show": true,
-                "inputs": {
-                    "VALUE": {
-                        "block": {
-                            "type": "math_number",
-                            "fields": {
-                                "TEXT": 0
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
             "type": "variables_set",
             "message0": "变量赋值 %1 赋值 %2",
             "args0": [
                 {
                     "type": "field_variable",
                     "name": "VAR",
-                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
-                    "variableTypes": [
-                        "int",
-                        "long",
-                        "float",
-                        "double",
-                        "char",
-                        "String",
-                        "boolean"
-                    ],
-                    "defaultType": "int"
+                    "variable": "var"
                 },
                 {
                     "type": "input_value",
@@ -217,17 +111,7 @@
                 {
                     "type": "field_variable",
                     "name": "VAR",
-                    "variable": "var",
-                    "variableTypes": [
-                        "int",
-                        "long",
-                        "float",
-                        "double",
-                        "char",
-                        "String",
-                        "boolean"
-                    ],
-                    "defaultType": "int"
+                    "variable": "var"
                 }
             ],
             "output": null,

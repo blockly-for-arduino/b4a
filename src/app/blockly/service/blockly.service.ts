@@ -136,7 +136,7 @@ export class BlocklyService {
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
-          // 前置钩子函数
+          // 前置钩子函数 downey 2022-6-17
           if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
           // 添加宏
           if (blockJson.b4a.macro) {
@@ -170,6 +170,7 @@ export class BlocklyService {
             let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
             Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
           }
+          // downey 2022-6-17
           if (blockJson.b4a.global && !block.parentBlock_) {
             let primary
             if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
