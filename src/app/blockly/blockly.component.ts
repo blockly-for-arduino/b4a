@@ -240,6 +240,7 @@ export class BlocklyComponent implements OnInit {
           ' variable selected.');
       }
       const name = this.getText();
+      const TYPE = this.sourceBlock_?.parentBlock_?.getFieldValue('TYPE') || this.sourceBlock_.getFieldValue('TYPE');
       let variableModelList = [];
       if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         const variableTypes = this.getVariableTypes_();
@@ -247,8 +248,7 @@ export class BlocklyComponent implements OnInit {
         // doesn't modify the workspace's list.
         for (let i = 0; i < variableTypes.length; i++) {
           const variableType = variableTypes[i];
-          const variables =
-            this.sourceBlock_.workspace.getVariablesOfType(variableType);
+          const variables = this.sourceBlock_.workspace.getVariablesOfType(variableType);
           variableModelList = variableModelList.concat(variables);
         }
       }
@@ -257,7 +257,7 @@ export class BlocklyComponent implements OnInit {
       const options = [];
       for (let i = 0; i < variableModelList.length; i++) {
         // Set the UUID as the internal representation of the variable.
-        options[i] = [variableModelList[i].name, variableModelList[i].getId()];
+        if (!TYPE || (TYPE && (!variableModelList[i].type || TYPE === variableModelList[i].type))) options.push([variableModelList[i].name, variableModelList[i].getId()]);
       }
       options.push([Blockly.Msg['RENAME_VARIABLE'], 'RENAME_VARIABLE_ID']);
       if (Blockly.Msg['DELETE_VARIABLE']) {

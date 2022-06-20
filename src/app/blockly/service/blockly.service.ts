@@ -20,7 +20,7 @@ export class BlocklyService {
   // 用于存储lib在toolbox中是否可见
   libDict_show = {}
   blockList = []
-  
+
   toolbox: Blockly.utils.toolbox.ToolboxDefinition = {
     "kind": "categoryToolbox",
     "contents": [
@@ -136,6 +136,8 @@ export class BlocklyService {
         let Arduino: any = window['Arduino']
         let getValue: any = window['getValue']
         Arduino[blockJson.type] = (block) => {
+          // 前置钩子函数
+          if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
           // 添加宏
           if (blockJson.b4a.macro) {
             Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
@@ -166,6 +168,14 @@ export class BlocklyService {
             let className: string = blockJson.b4a.object.split(' ')[0]
             b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
             let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
+            Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
+          }
+          if (blockJson.b4a.global && !block.parentBlock_) {
+            let primary
+            if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
+            let className: string = blockJson.b4a.global.split(' ')[0]
+            b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
+            let object_code = processB4ACode(blockJson.b4a.global, b4aVars)
             Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
           }
           if (blockJson.b4a.function) {
@@ -356,6 +366,7 @@ export class BlocklyService {
 
 // 替换json中的变量
 function processB4ACode(code: string, vars: object): string {
+  // console.log(code, vars)
   for (const varName in vars) {
     let reg = new RegExp('\\' + varName, 'g')
     code = code.replace(reg, vars[varName])

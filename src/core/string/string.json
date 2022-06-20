@@ -14,7 +14,7 @@
                     "text": ""
                 }
             ],
-            "output": "Any",
+            "output": "String",
             "style": "text_blocks",
             "helpUrl": "%{BKY_TEXT_TEXT_HELPURL}",
             "tooltip": "%{BKY_TEXT_TEXT_TOOLTIP}",
@@ -39,7 +39,7 @@
                     ]
                 }
             ],
-            "output": "Any",
+            "output": "Number",
             "style": "text_blocks",
             "tooltip": "%{BKY_TEXT_LENGTH_TOOLTIP}",
             "helpUrl": "%{BKY_TEXT_LENGTH_HELPURL}",

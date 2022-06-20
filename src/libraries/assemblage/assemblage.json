@@ -6,23 +6,9 @@
   "blocks": [
     {
       "inputsInline": false,
-      "message0": "变量定义%1 类型%2 变量名%3 初值%4",
-      "type": "variable_var_init",
+      "message0": "变量类型 %1 %2",
+      "type": "variable_var_type",
       "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "GLOBAL",
-          "options": [
-            [
-              "全局变量",
-              "true"
-            ],
-            [
-              "局部变量",
-              "false"
-            ]
-          ]
-        },
         {
           "type": "field_dropdown",
           "name": "TYPE",
@@ -58,56 +44,20 @@
           ]
         },
         {
-          "type": "field_variable",
-          "name": "OBJECT",
-          "variable": "variable_global_1"
-        },
-        {
           "type": "input_value",
-          "name": "VALUE"
+          "name": "OBJECT",
+          "check": [
+            "variable_var_name"
+          ]
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : ('${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';')) }}",
+        "primary": "variable_type",
+        "code": "${TYPE} ${OBJECT}",
         "library": "",
-        "variable": "{{ ${GLOBAL} ? '${TYPE} ${OBJECT}' + (${${VALUE}} ? ' = ${${VALUE}};' : ';') : '' }}"
-      },
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": "#ff8c1a",
-      "toolbox": {
-        "show": true,
-        "inputs": {
-          "VALUE": {
-            "block": {
-              "type": "math_number",
-              "fields": {
-                "NUM": 0
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "inputsInline": true,
-      "message0": "变量赋值 变量名%1 值%2",
-      "type": "variable_set",
-      "args0": [
-        {
-          "type": "field_variable",
-          "name": "OBJECT",
-          "variable": "variable1"
-        },
-        {
-          "type": "input_value",
-          "name": "VALUE"
-        }
-      ],
-      "b4a": {
-        "code": "${OBJECT} = ${VALUE};",
-        "library": "",
-        "object": ""
+        "object": "",
+        "global": "${TYPE} ${OBJECT}",
+        "function": "test() {\n  return a+b;\n}"
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -118,75 +68,35 @@
     },
     {
       "inputsInline": false,
-      "message0": "集合定义%1 类型%2 变量名%3 初值%4",
-      "type": "assemblage_var_init",
+      "message0": "变量名称 %1 %2",
+      "type": "variable_var_name",
       "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "GLOBAL",
-          "options": [
-            [
-              "全局变量",
-              "true"
-            ],
-            [
-              "局部变量",
-              "false"
-            ]
-          ]
-        },
-        {
-          "type": "field_dropdown",
-          "name": "TYPE",
-          "options": [
-            [
-              "数字型",
-              "int"
-            ],
-            [
-              "长整型",
-              "long"
-            ],
-            [
-              "浮点型",
-              "float"
-            ],
-            [
-              "双精密浮点型",
-              "double"
-            ],
-            [
-              "字符型",
-              "char"
-            ],
-            [
-              "文本型",
-              "String"
-            ],
-            [
-              "布尔型",
-              "boolean"
-            ]
-          ]
-        },
         {
           "type": "field_variable",
           "name": "OBJECT",
-          "variable": "assemblage_global_1"
+          "variable": "variable1",
+          "defaultType": "int"
         },
         {
           "type": "input_value",
-          "name": "VALUE"
+          "name": "VALUE",
+          "check": [
+            "Number"
+          ]
         }
       ],
       "b4a": {
-        "code": "{{ ${GLOBAL} ? '' : 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') }}",
-        "library": "#include <ListLib.h>",
-        "object": "{{ ${GLOBAL} ? 'List<${TYPE}> ${OBJECT}' +  (${VALUE}===null ? ';' : ' = ${VALUE};') : '' }}"
+        "primary": "variable_name",
+        "code": "{{ ${${VALUE}} ? '${OBJECT} = ${${VALUE}};' : '${OBJECT};' }}",
+        "library": "",
+        "object": "",
+        "global": "{{ ${${VALUE}} ? '${OBJECT} = ${${VALUE}};' : '${OBJECT};' }}",
+        "function": ""
       },
+      "output": "variable_var_name",
       "previousStatement": null,
       "nextStatement": null,
-      "colour": "#1fb7a2",
+      "colour": "#ff8c1a",
       "toolbox": {
         "show": true,
         "inputs": {
@@ -202,6 +112,67 @@
       }
     },
     {
+      "inputsInline": false,
+      "message0": "集合类型%1 %2",
+      "type": "assemblage_var_type",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "TYPE",
+          "options": [
+            [
+              "整型",
+              "List<int>"
+            ],
+            [
+              "长整型",
+              "List<long>"
+            ],
+            [
+              "浮点型",
+              "List<float>"
+            ],
+            [
+              "双精度浮点型",
+              "List<double>"
+            ],
+            [
+              "字符型",
+              "List<char>"
+            ],
+            [
+              "字符串型",
+              "List<String>"
+            ],
+            [
+              "布尔型",
+              "List<boolean>"
+            ]
+          ]
+        },
+        {
+          "type": "input_value",
+          "name": "OBJECT",
+          "check": [
+            "variable_var_name"
+          ]
+        }
+      ],
+      "b4a": {
+        "primary": "assemblage_type",
+        "code": "${TYPE} ${OBJECT}",
+        "library": "#include <ListLib.h>",
+        "object": "",
+        "global": "${TYPE} ${OBJECT}"
+      },
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#1fb7a2",
+      "toolbox": {
+        "show": true
+      }
+    },
+    {
       "inputsInline": true,
       "message0": "集合添加 变量名%1 值%2",
       "type": "assemblage_add",
@@ -209,7 +180,8 @@
         {
           "type": "field_variable",
           "name": "OBJECT",
-          "variable": "assemblage1"
+          "variable": "assemblage1",
+          "defaultType": "int"
         },
         {
           "type": "input_value",
@@ -251,7 +223,7 @@
       "b4a": {
         "code": "${OBJECT}.AddRange(${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -283,7 +255,7 @@
       "b4a": {
         "code": "${OBJECT}.Insert(${INDEX}, ${VALUE});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -320,7 +292,7 @@
       "b4a": {
         "code": "${OBJECT}.InsertRange(${INDEX}, ${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -351,7 +323,7 @@
       "b4a": {
         "code": "${OBJECT}.Replace(${INDEX}, ${VALUE});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -386,7 +358,7 @@
       "b4a": {
         "code": "${OBJECT}.ReplaceRange(${INDEX}, ${VALUE}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -413,7 +385,7 @@
       "b4a": {
         "code": "${OBJECT}.Remove(${INDEX});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -444,7 +416,7 @@
       "b4a": {
         "code": "${OBJECT}.RemoveRange(${INDEX}, ${LENGTH});",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
@@ -469,10 +441,10 @@
         }
       ],
       "b4a": {
-        "code": "${OBJECT}.IndexOf(${VALUE});",
-        "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "code": "${OBJECT}.IndexOf(${VALUE})",
+        "library": "#include <ListLib.h>"
       },
+      "output": "Any",
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#3f96b7",
@@ -494,7 +466,7 @@
       "b4a": {
         "code": "${OBJECT}.Trim();",
         "library": "#include <ListLib.h>",
-        "object": "List<int> ${OBJECT};"
+        "object": ""
       },
       "previousStatement": null,
       "nextStatement": null,
