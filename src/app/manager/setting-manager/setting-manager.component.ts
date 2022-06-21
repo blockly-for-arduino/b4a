@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlocklyService } from '../../blockly/service/blockly.service'
+import { ElectronService } from '../../core/services/electron.service';
 @Component({
   selector: 'app-setting-manager',
   templateUrl: './setting-manager.component.html',
@@ -20,11 +21,18 @@ export class SettingManagerComponent implements OnInit {
   }
 
   constructor(
-    private blocklyService: BlocklyService
+    private blocklyService: BlocklyService,
+    private electronService: ElectronService
   ) { }
 
   ngOnInit(): void {
 
+  }
+
+  ngAfterViewInit(): void {
+    let version = this.electronService.package.version;
+    // @ts-ignore
+    document.getElementById('version').innerText = version;
   }
 
   themeChange() {

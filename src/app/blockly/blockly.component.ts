@@ -69,7 +69,7 @@ export class BlocklyComponent implements OnInit {
       Blockly.registry.Type.TOOLBOX_ITEM,
       Blockly.ToolboxCategory.registrationName,
       CustomCategory, true);
-
+    // @ts-ignore
     this.workspace = Blockly.inject(blocklyDiv, {
       // @ts-ignore
       readOnly: false,
@@ -244,7 +244,7 @@ export class BlocklyComponent implements OnInit {
       const name = this.getText();
       // downey 2022-6-17
       // const TYPE = this.sourceBlock_?.parentBlock_?.getFieldValue('TYPE') || this.sourceBlock_.getFieldValue('TYPE');
-      let variableModelList = [];
+      let variableModelList: any[] = [];
       if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         const variableTypes = this.getVariableTypes_();
         // Get a copy of the list, so that adding rename and new variable options
@@ -257,7 +257,7 @@ export class BlocklyComponent implements OnInit {
       }
       variableModelList.sort(Blockly.VariableModel.compareByName);
 
-      const options = [];
+      const options: any[] = [];
       for (let i = 0; i < variableModelList.length; i++) {
         // Set the UUID as the internal representation of the variable.
         options[i] = [variableModelList[i].name, variableModelList[i].getId()];

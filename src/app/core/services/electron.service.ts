@@ -15,6 +15,7 @@ export class ElectronService {
   dialog: typeof dialog;
   fs: typeof fs;
   shell: typeof shell;
+  package;
 
   boards = []
   libraries_user: LibInfo[] = []
@@ -34,6 +35,7 @@ export class ElectronService {
       this.shell = window.require('electron').shell
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+      this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
     }
   }

@@ -1,11 +1,12 @@
 {
   "name": "b4a",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "main.js",
   "private": true,
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "download": "^8.0.0",
+    "electron-updater": "^5.0.1",
     "serialport": "^10.4.0"
   }
 }
