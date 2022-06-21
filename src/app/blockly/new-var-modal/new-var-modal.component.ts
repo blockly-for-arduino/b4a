@@ -12,7 +12,7 @@ import { VAR_TYPE } from '../arduino/var.types';
 })
 export class NewVarModalComponent implements OnInit {
 
-  varType = 'int'
+  varType = 'b4aVariable'
   varName = ''
 
   isObject = false
@@ -25,9 +25,7 @@ export class NewVarModalComponent implements OnInit {
     private blocklyService: BlocklyService
   ) { }
 
-  ngOnInit(): void {
-    console.log(this.VAR_TYPE.map(el => el.value),this.varType);
-    
+  ngOnInit(): void {    
     this.isObject = !this.VAR_TYPE.map(el => el.value).includes(this.varType)
   }
 

@@ -47,16 +47,17 @@
                 {
                     "type": "field_variable",
                     "name": "VAR",
-                    "variable": "var"
+                    "variable": "var",
+                    "variableTypes": [
+                        "b4aVariable"
+                    ],
+                    "defaultType": "b4aVariable"
                 },
                 {
                     "type": "input_value",
                     "name": "VALUE"
                 }
             ],
-            "b4a": {
-                "code": "${TYPE} ${VAR} = ${VALUE};"
-            },
             "previousStatement": null,
             "nextStatement": null,
             "colour": "#ff8c1a",
@@ -81,7 +82,11 @@
                 {
                     "type": "field_variable",
                     "name": "VAR",
-                    "variable": "var"
+                    "variable": "var",
+                    "variableTypes": [
+                        "b4aVariable"
+                    ],
+                    "defaultType": "b4aVariable"
                 },
                 {
                     "type": "input_value",
@@ -107,7 +112,11 @@
                 {
                     "type": "field_variable",
                     "name": "VAR",
-                    "variable": "var"
+                    "variable": "var",
+                    "variableTypes": [
+                        "b4aVariable"
+                    ],
+                    "defaultType": "b4aVariable"
                 }
             ],
             "output": null,
