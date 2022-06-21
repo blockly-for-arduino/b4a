@@ -180,7 +180,9 @@ export class BlocklyComponent implements OnInit {
   rewtireFunc() {
     this.workspace.registerButtonCallback('CREATE_VARIABLE', (button) => {
       console.log('CREATE_VARIABLE');
-      Blockly.Variables.createVariableButtonHandler(this.workspace, null, 'int')
+      Blockly.Variables.createVariableButtonHandler(this.workspace, () => {
+        console.log('变量创建成功');
+      }, 'b4aVariable')
     });
     this.workspace.registerButtonCallback('CREATE_OBJECT', (button) => {
       console.log('CREATE_OBJECT');
