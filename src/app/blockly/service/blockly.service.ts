@@ -151,8 +151,6 @@ export class BlocklyService {
 
           if (blockJson.args0) {
             blockJson.args0.forEach(arg => {
-              // console.log(arg);
-
               b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
             });
           }
@@ -170,27 +168,19 @@ export class BlocklyService {
             let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
             Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
           }
-          // downey 2022-6-17
-          if (blockJson.b4a.global && !block.parentBlock_) {
-            let primary
-            if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
-            let className: string = blockJson.b4a.global.split(' ')[0]
-            b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
-            let object_code = processB4ACode(blockJson.b4a.global, b4aVars)
-            Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
-          }
           if (blockJson.b4a.function) {
             let functionBody = processB4ACode(blockJson.b4a.function, b4aVars)
-            console.log(functionBody);
-
             Arduino.addFunction(blockJson.b4a.function, functionBody)
           }
           if (blockJson.b4a.setup) {
             let setup_code = processB4ACode(blockJson.b4a.setup, b4aVars)
             Arduino.addSetup(b4aVars['${OBJECT_NAME}'], setup_code)
           }
-          let code = processB4ACode(blockJson.b4a.code, b4aVars)
-          return blockJson.output ? code : code + '\n'
+          if (blockJson.b4a.code) {
+            let code = processB4ACode(blockJson.b4a.code, b4aVars)
+            return blockJson.output ? code : code + '\n'
+          } else return '';
+
         }
       }
       // 判断库是否被用户隐藏
@@ -358,7 +348,7 @@ export class BlocklyService {
   }
 
   changeLanguage(language) {
-// @ts-ignore
+    // @ts-ignore
     Blockly.setLocale(zhHans);
     Blockly.Msg["VARIABLES_DEFAULT_NAME"] = "var1"; // 这句为啥没生效
   }

@@ -185,10 +185,10 @@ export class ArduinoCliService {
       })
     })
   }
-  async downloadArduinoLib(arduinoLibName) {
+  async downloadArduinoLib(sourceLib) {
     return new Promise<boolean>(async (resolve, reject) => {
-      let filePath = './/temp/' + arduinoLibName + '.zip'
-      await this.download('https://b4a.clz.me/libraries/' + arduinoLibName + '.zip', './/temp/');
+      let filePath = './/temp/' + sourceLib.name + '.zip'
+      await this.download(sourceLib.url, './/temp/');
       let child_install = this.childProcess.exec(this.cliPath + ' lib install --zip-path ' + filePath)
       child_install.on('close', code => {
         resolve(true)
@@ -210,13 +210,13 @@ export class ArduinoCliService {
     })
   }
 
-  async installArduinoLib(arduinoLibName) {
+  async installArduinoLib(sourceLib) {
     // 检查库是否已经安装
-    await this.uninstallArduinoLib(arduinoLibName)
+    await this.uninstallArduinoLib(sourceLib.name)
     // 允许arduino cli安装zip文件
     this.childProcess.exec(this.cliPath + ' set library.enable_unsafe_install true')
-    if (await this.downloadArduinoLib(arduinoLibName)) {
-      console.log(`arduino lib ${arduinoLibName} is loaded`);
+    if (await this.downloadArduinoLib(sourceLib)) {
+      console.log(`arduino lib ${sourceLib.name} is loaded`);
     }
   }
 

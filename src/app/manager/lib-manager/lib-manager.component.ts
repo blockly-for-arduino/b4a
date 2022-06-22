@@ -87,11 +87,15 @@ export class LibManagerComponent implements OnInit {
       // 推到libList_install中，用于左侧显示lib正在安装
       this.libList_install.push(libJson_cloud)
       let libName = libJson_cloud.name
-      let libJson = await lastValueFrom(this.cloudService.getLibJson(libName))
+      let libJson: any = await lastValueFrom(this.cloudService.getLibJson(libName))
       // 安装B4a lib
       this.electronService.saveLibJson(libName, libJson)
       // 安装arduino lib
-      await this.arduinoCli.installArduinoLib(libName)
+      if (libJson.source) {
+        libJson.source.forEach(async sourceLib => {
+          await this.arduinoCli.installArduinoLib(sourceLib)
+        });
+      }
       this.libList_install.splice(this.libList_install.indexOf(libName), 1)
       libJson_cloud['state'] = true
       this.blocklyService.init()
