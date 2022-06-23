@@ -114,45 +114,57 @@ export class BlocklyComponent implements OnInit {
 
   loadTempData() {
     let temp = localStorage.getItem('temp');
+    let tempJson = JSON.parse(temp);
     if (temp == null) {
-      temp = `
-      <xml xmlns="https://developers.google.com/blockly/xml">
-        <block type="arduino_setup" id="w%;fYz[)G_;{].azfgeM" x="30" y="30"></block>
-        <block type="arduino_loop" id="RBk!NG-d?N5UZD3=Fkjd" x="330" y="30"></block>
-      </xml>`
+      tempJson = {
+        "blocks": {
+          "languageVersion": 0, "blocks": [
+            { "type": "arduino_setup", "id": "w%;fYz[)G_;{].azfgeM", "x": 30, "y": 30 },
+            { "type": "arduino_loop", "id": "RBk!NG-d?N5UZD3=Fkjd", "x": 330, "y": 30 }
+          ]
+        }
+      }
     }
-    this.loadXml(temp);
+    this.loadJson(tempJson);
   }
 
   loadDefaultData() {
-    let temp = `
-    <xml xmlns="https://developers.google.com/blockly/xml">
-      <block type="arduino_setup" id="w%;fYz[)G_;{].azfgeM" x="30" y="30"></block>
-      <block type="arduino_loop" id="RBk!NG-d?N5UZD3=Fkjd" x="330" y="30"></block>
-    </xml>`
-    this.loadXml(temp);
+    let temp = {
+      "blocks": {
+        "languageVersion": 0, "blocks": [
+          { "type": "arduino_setup", "id": "w%;fYz[)G_;{].azfgeM", "x": 30, "y": 30 },
+          { "type": "arduino_loop", "id": "RBk!NG-d?N5UZD3=Fkjd", "x": 330, "y": 30 }
+        ]
+      }
+    }
+    this.loadJson(temp)
   }
 
   save() {
-    let xmlText = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(this.workspace));
-    localStorage.setItem('temp', xmlText)
+    // let xmlText = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(this.workspace));
+    let datajson = Blockly.serialization.workspaces.save(this.workspace)
+    localStorage.setItem('temp', JSON.stringify(datajson))
   }
 
   getXml() {
     return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(this.workspace));
   }
 
-  loadXml(xmlText) {
-    try {
-      let xmlDom = Blockly.Xml.textToDom(xmlText);
-      this.workspace.clear();
-      Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
+  loadJson(json) {
+    Blockly.serialization.workspaces.load(json, this.workspace)
   }
+
+  // loadXml(xmlText) {
+  //   try {
+  //     let xmlDom = Blockly.Xml.textToDom(xmlText);
+  //     this.workspace.clear();
+  //     Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
+  //     return true;
+  //   } catch (e) {
+  //     console.log(e);
+  //     return false;
+  //   }
+  // }
 
   reinit() {
     this.workspace.dispose();
