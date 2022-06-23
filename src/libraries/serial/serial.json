@@ -91,7 +91,7 @@
                 "category": "串口"
             },
             "b4a": {
-                "code": "serial.print(${VAR});"
+                "code": "${SERIAL}.print(${VAR});"
             },
             "previousStatement": null,
             "nextStatement": null
@@ -116,7 +116,7 @@
                 "show": true
             },
             "b4a": {
-                "code": "serial.println(${VAR});"
+                "code": "${SERIAL}.println(${VAR});"
             },
             "previousStatement": null,
             "nextStatement": null
