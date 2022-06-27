@@ -109,6 +109,8 @@ export class BlocklyComponent implements OnInit {
     this.workspace.addChangeListener(event => this.onWorkspaceChange(event))
     this.rewtireFunc()
     this.loadTempData()
+
+    this.updateCode()
   }
 
   onWorkspaceChange(event) {
@@ -117,10 +119,14 @@ export class BlocklyComponent implements OnInit {
       event instanceof Blockly.Events.BlockChange ||
       event instanceof Blockly.Events.VarRename
     ) {
-      this.code = this.generator.workspaceToCode(this.workspace);
-      this.codeChange.emit(this.code);
+      this.updateCode()
       this.save();
     }
+  }
+
+  updateCode(){
+    this.code = this.generator.workspaceToCode(this.workspace);
+    this.codeChange.emit(this.code);
   }
 
   loadTempData() {
@@ -141,8 +147,12 @@ export class BlocklyComponent implements OnInit {
     localStorage.setItem('temp', JSON.stringify(datajson))
   }
 
-  getXml() {
-    return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(this.workspace));
+  getJson() {
+    let datajson = Blockly.serialization.workspaces.save(this.workspace)
+    // console.log(datajson);
+    
+    datajson["dependencies"]={}
+    return JSON.stringify(datajson) 
   }
 
   loadJson(json) {

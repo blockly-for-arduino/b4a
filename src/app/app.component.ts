@@ -90,7 +90,7 @@ export class AppComponent {
   }
 
   saveFile() {
-    this.electronService.saveFile(this.blocklyComponent.getXml())
+    this.electronService.saveFile(this.blocklyComponent.getJson())
   }
 
   openFile() {
