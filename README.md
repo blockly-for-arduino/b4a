@@ -1,4 +1,6 @@
-# Blockly For Arduino
+# Blockly For Arduino  
+![](https://github.com/coloz/b4a/blob/master/doc/icon.png?raw=true)
+
 开发中...
 
 为Arduino开发的Blockly编程工具
@@ -57,4 +59,5 @@ npm run electron:build
 1. monaco-editor替换为mirrorcode（等mirrorcode next release）  
 2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组（设计变量添加方式）  
 3. 通过arduino cli安装b4a库所需的arduino依赖库  
-4. 多语言支持  
+4. 通过arduino cli安装开发板支持  
+5. 多语言支持  
