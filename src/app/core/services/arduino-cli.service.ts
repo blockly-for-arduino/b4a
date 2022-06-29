@@ -190,6 +190,9 @@ export class ArduinoCliService {
       let filePath = './/temp/' + sourceLib.name + '.zip'
       await this.download(sourceLib.url, './/temp/');
       let child_install = this.childProcess.exec(this.cliPath + ' lib install --zip-path ' + filePath)
+      child_install.stdout.on('data', data => {
+        console.log(data);
+      })
       child_install.on('close', code => {
         resolve(true)
       })
