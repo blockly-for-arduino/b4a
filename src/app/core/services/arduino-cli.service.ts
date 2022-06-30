@@ -8,6 +8,7 @@ import { isErrorInfo_Upload } from '../../shell/info';
 import * as os from 'os';
 import * as fs from 'fs';
 import * as download from 'download';
+import { SourceLib } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -213,7 +214,7 @@ export class ArduinoCliService {
     })
   }
 
-  async installArduinoLib(sourceLib) {
+  async installArduinoLib(sourceLib: SourceLib) {
     // 检查库是否已经安装
     await this.uninstallArduinoLib(sourceLib.name)
     // 允许arduino cli安装zip文件

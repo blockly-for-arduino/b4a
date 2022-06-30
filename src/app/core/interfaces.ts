@@ -26,3 +26,9 @@ export interface LibInfo {
     json?: any,
     show?: boolean
 }
+
+export interface SourceLib {
+    name: string,
+    type: string,
+    url: string
+}

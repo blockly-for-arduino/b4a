@@ -7,6 +7,7 @@ import { ArduinoCliService } from '../../core/services/arduino-cli.service';
 import { ElectronService } from '../../core/services/electron.service';
 import { lastValueFrom } from 'rxjs';
 import compareVersions from 'compare-versions';
+import { SourceLib } from '../../core/interfaces';
 
 @Component({
   selector: 'app-lib-manager',
@@ -92,8 +93,11 @@ export class LibManagerComponent implements OnInit {
       this.electronService.saveLibJson(libName, libJson)
       // 安装arduino lib
       if (libJson.source) {
-        libJson.source.forEach(async sourceLib => {
-          await this.arduinoCli.installArduinoLib(sourceLib)
+        libJson.source.forEach(async (sourceLib: SourceLib) => {
+          if (sourceLib.type == 'ArduinoLib')
+            await this.arduinoCli.installArduinoLib(sourceLib)
+          else if (sourceLib.type == 'B4aLib')
+            await this.electronService.installB4aLib(sourceLib)
         });
       }
       this.libList_install.splice(this.libList_install.indexOf(libName), 1)

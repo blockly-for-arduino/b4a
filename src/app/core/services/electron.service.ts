@@ -3,7 +3,8 @@ import { ipcRenderer, webFrame, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
 import { dialog } from '@electron/remote';
-import { LibInfo } from '../interfaces';
+import { LibInfo, SourceLib } from '../interfaces';
+import * as download from 'download';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ElectronService {
   dialog: typeof dialog;
   fs: typeof fs;
   shell: typeof shell;
+  download: typeof download;
   package;
 
   boards = []
@@ -37,6 +39,7 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
+      this.download = window.require('download');
     }
   }
 
@@ -141,6 +144,16 @@ export class ElectronService {
     if (!this.fs.existsSync(`${this.basePath}/libraries/${libName}`))
       this.fs.mkdirSync(`${this.basePath}/libraries/${libName}`)
     this.fs.writeFileSync(`${this.basePath}/libraries/${libName}/${libName}.json`, JSON.stringify(libJson))
+  }
+
+  saveLibJs(libName, fileText) {
+    if (!this.fs.existsSync(`${this.basePath}/libraries/${libName}`))
+      this.fs.mkdirSync(`${this.basePath}/libraries/${libName}`)
+    this.fs.writeFileSync(`${this.basePath}/libraries/${libName}/${libName}.js`, fileText)
+  }
+
+  async installB4aLib(b4aLib: SourceLib) {
+    await this.download(b4aLib.url, `${this.basePath}/libraries/${b4aLib.name}`);
   }
 
   delLibJson(libName) {

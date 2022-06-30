@@ -5,7 +5,18 @@
     "colour": "#48c2c4",
     "version": "0.0.1",
     "introduction": "RTC时钟模块驱动库，适用于DS1307/DS3231。",
-    "source": [],
+    "source": [
+        {
+            "name": "Rtc",
+            "type": "ArduinoLib",
+            "url": "https://b4a.clz.me/libraries/Rtc.zip"
+        },
+        {
+            "name": "RTC",
+            "type": "B4aLib",
+            "url": "https://b4a.clz.me/libraries/RTC.js"
+        }
+    ],
     "blocks": [
         {
             "inputsInline": true,
