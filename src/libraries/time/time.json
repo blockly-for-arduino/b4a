@@ -1,6 +1,6 @@
 {
     "category": "时间控制",
-    "icon": "fal fa-clock",
+    "icon": "fal fa-history",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [
