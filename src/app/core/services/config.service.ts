@@ -16,7 +16,8 @@ export class ConfigService {
     serial: ''
   }
 
-  boardList = []
+  boardList: string[] = []
+  boardDict = {}
 
   constructor(
     private electronService: ElectronService,
@@ -25,7 +26,11 @@ export class ConfigService {
   }
 
   async init() {
-    this.boardList = await this.electronService.getBoardList()
+    let boardData = await this.electronService.getBoardData()
+    this.boardList = boardData.map(board => board.name)
+    boardData.forEach(board => {
+      this.boardDict[board.name] = board
+    })
     // 加载暂存的开发板信息
     let boardName = localStorage.getItem('config.boardName')
     if (boardName != null) {
@@ -42,12 +47,7 @@ export class ConfigService {
   }
 
   selectBoard(boardName: string) {
-    let boardConfig: BoardConfig = null;
-    for (let index = 0; index < this.boardList.length; index++) {
-      boardConfig = this.boardList[index];
-      if (boardConfig.name == boardName) break;
-    }
-    this.config.board = boardConfig;
+    this.config.board = this.boardDict[boardName];
     localStorage.setItem('config.boardName', boardName)
   }
 

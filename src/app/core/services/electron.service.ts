@@ -92,7 +92,7 @@ export class ElectronService {
     return null
   }
 
-  async getBoardList() {
+  async getBoardData() {
     let boardList = []
     if (this.isElectron) {
       let boardFileList = this.fs.readdirSync(this.basePath + '/boards')

@@ -46,7 +46,7 @@
     </div>
     <div>
         <nz-select style="width: 160px;" nzSize="large" [ngModel]="boardSelected" (ngModelChange)="boardChange($event)">
-            <nz-option *ngFor="let item of boardList;index as i" [nzValue]="item.name" [nzLabel]="item.name">
+            <nz-option *ngFor="let boardName of boardList;index as i" [nzValue]="boardName" [nzLabel]="boardName">
             </nz-option>
         </nz-select>
         <nz-select style="width: 100px;" nzSize="large" [ngModel]="serialSelected" [nzPlaceHolder]="serialSelected"

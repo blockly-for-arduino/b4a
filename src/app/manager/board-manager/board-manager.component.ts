@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../../core/services/config.service';
-import Sortable from 'sortablejs';
 import { CloudService } from '../cloud.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ArduinoCliService } from '../../core/services/arduino-cli.service';
 
 @Component({
   selector: 'app-board-manager',
@@ -12,7 +12,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class BoardManagerComponent implements OnInit {
   @ViewChild('boardListBox', { static: false, read: ElementRef }) boardListBox: ElementRef
   boardManagerLoaded = false
-
 
   boardList_cloud = []
 
@@ -24,33 +23,25 @@ export class BoardManagerComponent implements OnInit {
     return this.configService.boardList
   }
 
+  get boardDict() {
+    return this.configService.boardDict
+  }
+
   constructor(
     private configService: ConfigService,
     private cloudService: CloudService,
+    private arduinoCli: ArduinoCliService,
     private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
     this.getCloudData()
-    this.message.warning('开发板加载功能正在开发中...')
   }
 
   getCloudData() {
     this.cloudService.getBoards().subscribe((resp: any) => {
       this.boardList_cloud = resp.data
       this.viewModeChange()
-    })
-  }
-
-  initListSortable() {
-    let sortable = new Sortable(this.boardListBox.nativeElement, {
-      sort: true,
-      delay: 0,
-      animation: 150,
-      dataIdAttr: "id",
-      onEnd: () => {
-        localStorage.setItem('libList', JSON.stringify(sortable.toArray()))
-      }
     })
   }
 
@@ -97,6 +88,21 @@ export class BoardManagerComponent implements OnInit {
       }
     })
     console.log(this.coreList);
+  }
+
+  async installBoard(boardJson_cloud) {
+    console.log(boardJson_cloud);
+    this.arduinoCli.installCore(boardJson_cloud);
+  }
+
+  initBoardData() {
+    // this.libList_cloud.map(lib => {
+    //   lib['verisonSelected'] = lib.version[0]
+    //   lib['state'] = this.libList.includes(lib.name)
+    //   lib['loading'] = false
+    //   if (lib['state'])
+    //     lib['newer'] = compareVersions(lib.version[0], this.libDict[lib.name].json.version) == 1
+    // })
   }
 
 }

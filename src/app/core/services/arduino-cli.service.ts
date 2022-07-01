@@ -58,8 +58,26 @@ export class ArduinoCliService {
 
   }
 
-  installCore() {
-
+  installCore(boardJson_cloud) {
+    // arduino-cli.exe core install esp32:esp32 --additional-urls https://www.arduino.cn/package_esp32_index.json
+    return new Promise<boolean>((resolve, reject) => {
+      console.log('安装核心:' + boardJson_cloud.core);
+      let cmd = this.cliPath + ' core install ' + boardJson_cloud.core
+      if (boardJson_cloud.url) cmd += ' --additional-urls ' + boardJson_cloud.url
+      let child = this.childProcess.exec(cmd)
+      child.stdout.on('data', (data) => {
+        console.log(data);
+        if (data.includes('平台已经安装')) {
+          resolve(true)
+        }
+      })
+      child.stderr.on('data', (data) => {
+        console.log(data);
+      })
+      child.on('close', (code) => {
+        console.log('installCore close:' + code);
+      })
+    })
   }
 
   runBuild(params: string) {

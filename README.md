@@ -24,6 +24,7 @@ npm i
 cd app  
 npm i
 ```
+
 ### 运行
 ```sh
 npm start
@@ -58,6 +59,6 @@ npm run electron:build
 ## TODO LIST  
 1. monaco-editor替换为mirrorcode（等mirrorcode next release）  
 2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组（设计变量添加方式）  
-3. 通过arduino cli安装b4a库所需的arduino依赖库  
-4. 通过arduino cli安装开发板支持  
-5. 多语言支持  
+3. 通过arduino cli安装开发板支持  
+4. 多语言支持  
+5. 移除lib时，检查当前程序中是否已经使用该库，如果正在使用，不允许移除该库。

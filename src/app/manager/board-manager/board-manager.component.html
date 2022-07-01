@@ -1,16 +1,16 @@
 <div class="lib-manager-box">
     <div class="left-box animate__animated animate__fadeInLeft animate__faster">
         <div class="table-header">
-            <div>已安装<span>（可拖拽排序）</span></div>
+            <div>已安装</div>
             <div class="version">核心</div>
         </div>
         <div class="lib-list" #boardListBox>
-            <ng-container *ngFor="let board of boardList">
+            <ng-container *ngFor="let boardName of boardList">
                 <!-- <ng-container *ngIf="libDict[libName]"> -->
-                <div class="item" data-id="{{board.name}}">
+                <div class="item" data-id="{{boardName}}">
                     <div class="kk"></div>
-                    <div class="name">{{board.name}}</div>
-                    <div class="version">{{board.core}}</div>
+                    <div class="name">{{boardName}}</div>
+                    <div class="version">{{boardDict[boardName].core}}</div>
                 </div>
                 <!-- </ng-container> -->
             </ng-container>
@@ -39,9 +39,10 @@
                         <div class="text vender-bg">{{vender.name}}</div>
                     </div>
                     <div class="board-list">
-                        <div class="board" *ngFor="let board of vender.boards">
+                        <div class="board" [ngClass]="{'able': true}" *ngFor="let board of vender.boards">
                             <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
                             <div class="text">{{board.name}}</div>
+                            <button nz-button nzType="primary" nzSize="small" (click)="installBoard(board)">安装</button>
                         </div>
                     </div>
                 </div>
