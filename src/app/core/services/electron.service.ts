@@ -19,7 +19,6 @@ export class ElectronService {
   download: typeof download;
   package;
 
-  boards = []
   libraries_user: LibInfo[] = []
   libraries_core: LibInfo[] = []
 
@@ -69,7 +68,6 @@ export class ElectronService {
   }
 
   getLibPathInfo(path: string): LibInfo {
-    // console.log(path);
     let realPath = path.replace(this.basePath, '.')
     if (this.fs.statSync(path).isFile()) {
       let libName = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
@@ -98,7 +96,9 @@ export class ElectronService {
       let boardFileList = this.fs.readdirSync(this.basePath + '/boards')
       boardFileList.forEach(boardFile => {
         let boardConfigString = this.fs.readFileSync(this.basePath + '/boards/' + boardFile, { encoding: 'utf-8' })
-        boardList.push(JSON.parse(boardConfigString))
+        let boardConfig = JSON.parse(boardConfigString)
+        boardConfig['file'] = boardFile
+        boardList.push(boardConfig)
       })
     }
     return boardList
@@ -160,5 +160,32 @@ export class ElectronService {
     this.fs.rmdirSync(`${this.basePath}/libraries/${libName}`, { recursive: true })
   }
 
+  installcore(boardJson_cloud) {
+    return new Promise<boolean>((resolve, reject) => {
+      let file;
+      if (boardJson_cloud.core == 'esp8266:esp8266') {
+        file = './/temp/esp8266_package_3.0.2_arduinocn.exe'
+      } if (boardJson_cloud.core == 'esp32:esp32') {
+        file = './/temp/esp32_package_2.0.3_arduinocn.exe'
+      }
+      let child = this.childProcess.spawn(file);
+      child.stdout.on('data', (data) => {
+        console.log(data.toString());
+      })
+      child.stderr.on('data', (data) => {
+        console.log(data);
+      })
+      child.on('close', (code) => {
+        console.log('installBoard close:' + code);
+        if (code == 0) {
+          resolve(true)
+        }
+      })
+    })
+  }
+
+  delBoardJson(filename) {
+    this.fs.rmSync(`${this.basePath}/boards/${filename}`)
+  }
 
 }

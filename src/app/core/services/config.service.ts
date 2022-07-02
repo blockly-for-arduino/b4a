@@ -31,6 +31,8 @@ export class ConfigService {
     boardData.forEach(board => {
       this.boardDict[board.name] = board
     })
+    console.log(this.boardDict);
+    
     // 加载暂存的开发板信息
     let boardName = localStorage.getItem('config.boardName')
     if (boardName != null) {

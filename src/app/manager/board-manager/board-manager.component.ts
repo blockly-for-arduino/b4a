@@ -3,6 +3,7 @@ import { ConfigService } from '../../core/services/config.service';
 import { CloudService } from '../cloud.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ArduinoCliService } from '../../core/services/arduino-cli.service';
+import { ElectronService } from '../../core/services';
 
 @Component({
   selector: 'app-board-manager',
@@ -31,6 +32,7 @@ export class BoardManagerComponent implements OnInit {
     private configService: ConfigService,
     private cloudService: CloudService,
     private arduinoCli: ArduinoCliService,
+    private electronService: ElectronService,
     private message: NzMessageService
   ) { }
 
@@ -92,17 +94,23 @@ export class BoardManagerComponent implements OnInit {
 
   async installBoard(boardJson_cloud) {
     console.log(boardJson_cloud);
-    this.arduinoCli.installCore(boardJson_cloud);
+    if (boardJson_cloud.mode == "arduino_cli") {
+      this.arduinoCli.installCore(boardJson_cloud);
+    } else if (boardJson_cloud.mode == "download_exec") {
+      this.electronService.installcore(boardJson_cloud);
+    }
   }
 
-  initBoardData() {
-    // this.libList_cloud.map(lib => {
-    //   lib['verisonSelected'] = lib.version[0]
-    //   lib['state'] = this.libList.includes(lib.name)
-    //   lib['loading'] = false
-    //   if (lib['state'])
-    //     lib['newer'] = compareVersions(lib.version[0], this.libDict[lib.name].json.version) == 1
-    // })
+  async uninstallBoard(boardJson_cloud) {
+    let filename = this.boardDict[boardJson_cloud.name].file
+    this.electronService.delBoardJson(filename)
+    this.configService.init()
   }
+
+  isInstalled(boardName) {
+    return this.boardList.includes(boardName)
+  }
+
+
 
 }
