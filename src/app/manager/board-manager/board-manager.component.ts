@@ -94,17 +94,35 @@ export class BoardManagerComponent implements OnInit {
 
   async installBoard(boardJson_cloud) {
     console.log(boardJson_cloud);
-    if (boardJson_cloud.mode == "arduino_cli") {
-      this.arduinoCli.installCore(boardJson_cloud);
-    } else if (boardJson_cloud.mode == "download_exec") {
-      this.electronService.installcore(boardJson_cloud);
+    try {
+      boardJson_cloud['loading'] = true
+      this.electronService.installBoardJson(boardJson_cloud)
+      let arduinoCoreList = await this.arduinoCli.checkArduinoCoreList()
+      if (!arduinoCoreList.includes(boardJson_cloud.core)) {
+        if (boardJson_cloud.core_setup[0].mode == "arduino_cli") {
+          await this.arduinoCli.installCore(boardJson_cloud);
+        } else if (boardJson_cloud.core_setup[0].mode == "download_exec") {
+          await this.electronService.installcore(boardJson_cloud);
+        }
+      }
+      boardJson_cloud['loading'] = false
+      this.configService.init()
+      this.message.success('开发板 ' + boardJson_cloud.name + ' 安装成功')
+    } catch (error) {
+      boardJson_cloud['loading'] = false
+      this.message.error('开发板 ' + boardJson_cloud.name + ' 安装失败')
     }
   }
 
   async uninstallBoard(boardJson_cloud) {
-    let filename = this.boardDict[boardJson_cloud.name].file
-    this.electronService.delBoardJson(filename)
-    this.configService.init()
+    try {
+      let filename = this.boardDict[boardJson_cloud.name].file
+      this.electronService.delBoardJson(filename)
+      this.configService.init()
+      this.message.success('开发板 ' + boardJson_cloud.name + ' 移除成功')
+    } catch (error) {
+      this.message.error('开发板 ' + boardJson_cloud.name + ' 移除失败')
+    }
   }
 
   isInstalled(boardName) {

@@ -1,12 +1,12 @@
 {
-    "name": "Arduino MEGA",
+    "name": "RaspberryPi Pico",
     "version":"1.0.0",
-    "description": "Arduino MEGA standard compatible board",
+    "description": "RaspberryPi Pico standard compatible board",
     "compilerTool": "arduino-cli",
-    "core": "arduino:avr@1.8.5",
-    "type": "arduino:avr:mega",
-    "compilerParam": "compile -v -b arduino:avr:mega",
-    "uploadParam": "upload -v -b arduino:avr:mega -p ${serial}",
+    "core": "arduino:mbed_rp2040@3.0.1",
+    "type": "arduino:mbed_rp2040:pico",
+    "compilerParam": "compile -v -b arduino:mbed_rp2040:pico",
+    "uploadParam": "upload -v -b arduino:mbed_rp2040:pico -p ${serial}",
     "analogPins": [
         [
             "A0",

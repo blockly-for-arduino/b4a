@@ -1,17 +1,20 @@
 @import "../lib-manager/lib-manager.component.scss";
 
 .left-box {
+    width: 380px;
+
     .name {
         margin-left: 5px;
     }
 
     .version {
-        right: 30px !important;
+        right: 0px !important;
+        width: auto !important;
     }
 }
 
 .right-box {
-    // padding-right: 15px;
+    width: calc(100% - 395px);
 
     .cloud-board-list {
         height: calc(100% - 50px);
@@ -92,7 +95,7 @@
 
             &:hover {
                 button {
-                    visibility: visible;
+                    visibility: visible !important;
                 }
             }
 

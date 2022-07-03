@@ -3,7 +3,7 @@
     "version":"1.0.0",
     "description": "Arduino UNO standard compatible board",
     "compilerTool": "arduino-cli",
-    "core": "arduino:avr",
+    "core": "arduino:avr@1.8.5",
     "type": "arduino:avr:uno",
     "compilerParam": "compile -v -b arduino:avr:uno",
     "uploadParam": "upload -v -b arduino:avr:uno -p ${serial}",

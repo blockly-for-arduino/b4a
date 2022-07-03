@@ -1,12 +1,12 @@
 {
-    "name": "Arduino MEGA",
-    "version":"1.0.0",
-    "description": "Arduino MEGA standard compatible board",
+    "name": "ESP32C3",
+    "version": "1.0.0",
+    "description": "ESP32C3 compatible board",
     "compilerTool": "arduino-cli",
-    "core": "arduino:avr@1.8.5",
-    "type": "arduino:avr:mega",
-    "compilerParam": "compile -v -b arduino:avr:mega",
-    "uploadParam": "upload -v -b arduino:avr:mega -p ${serial}",
+    "core": "esp32:esp32@2.0.3",
+    "type": "esp32:esp32:esp32c3",
+    "compilerParam": "compile -v -b esp32:esp32:esp32c3",
+    "uploadParam": "upload -v -b esp32:esp32:esp32c3 -p ${serial}",
     "analogPins": [
         [
             "A0",
@@ -145,18 +145,6 @@
         [
             "Serial",
             "Serial"
-        ],
-        [
-            "Serial1",
-            "Serial1"
-        ],
-        [
-            "Serial2",
-            "Serial2"
-        ],
-        [
-            "Serial3",
-            "Serial3"
         ]
     ],
     "serialSpeed": [

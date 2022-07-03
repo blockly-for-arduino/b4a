@@ -58,17 +58,46 @@ export class ArduinoCliService {
 
   }
 
+  arduinoCoreList;
+  checkArduinoCoreList() {
+    this.arduinoCoreList = []
+    console.log('获取已安装核心列表:');
+    return new Promise<string[]>((resolve, reject) => {
+      let child_arduinoCoreList = this.childProcess.exec(this.cliPath + ' core list')
+      child_arduinoCoreList.stdout.on('data', (data: string) => {
+        let list = data.split('\n')
+        list.forEach((line, index) => {
+          if (index != 0) {
+            let dataList = line.split(/\s+/)
+            let libName = dataList[0]
+            let version = dataList[1]
+            if (libName != '')
+              this.arduinoCoreList.push(libName + '@' + version)
+          }
+        })
+      })
+      child_arduinoCoreList.on('close', code => {
+        console.log(this.arduinoCoreList);
+        resolve(this.arduinoCoreList)
+      })
+    })
+  }
+
   installCore(boardJson_cloud) {
     // arduino-cli.exe core install esp32:esp32 --additional-urls https://www.arduino.cn/package_esp32_index.json
     return new Promise<boolean>((resolve, reject) => {
       console.log('安装核心:' + boardJson_cloud.core);
+      this.state.next(ShellState.INSTALL_CORE_ING)
       let cmd = this.cliPath + ' core install ' + boardJson_cloud.core
       if (boardJson_cloud.url) cmd += ' --additional-urls ' + boardJson_cloud.url
       let child = this.childProcess.exec(cmd)
       child.stdout.on('data', (data) => {
         console.log(data);
-        if (data.includes('平台已经安装')) {
+        if (data.includes('平台已经安装') || data.includes(`已安装${boardJson_cloud.core}平台`)) {
           resolve(true)
+          this.state.next(ShellState.INSTALL_CORE_DONE)
+        } else {
+          this.output.next(data)
         }
       })
       child.stderr.on('data', (data) => {
@@ -76,6 +105,7 @@ export class ArduinoCliService {
       })
       child.on('close', (code) => {
         console.log('installCore close:' + code);
+        if (code != 0) this.state.next(ShellState.INSTALL_CORE_FAIL)
       })
     })
   }

@@ -1,36 +1,16 @@
 {
-    "name": "Arduino MEGA",
+    "name": "WiFiduino",
     "version":"1.0.0",
-    "description": "Arduino MEGA standard compatible board",
+    "description": "WiFiduino",
     "compilerTool": "arduino-cli",
-    "core": "arduino:avr@1.8.5",
-    "type": "arduino:avr:mega",
-    "compilerParam": "compile -v -b arduino:avr:mega",
-    "uploadParam": "upload -v -b arduino:avr:mega -p ${serial}",
+    "core": "esp8266:esp8266@3.0.2",
+    "type": "esp8266:esp8266:wifiduino",
+    "compilerParam": "compile -v -b esp8266:esp8266:wifiduino",
+    "uploadParam": "upload -v -b esp8266:esp8266:wifiduino -p ${serial}",
     "analogPins": [
         [
             "A0",
             "A0"
-        ],
-        [
-            "A1",
-            "A1"
-        ],
-        [
-            "A2",
-            "A2"
-        ],
-        [
-            "A3",
-            "A3"
-        ],
-        [
-            "A4",
-            "A4"
-        ],
-        [
-            "A5",
-            "A5"
         ]
     ],
     "digitalPins": [
@@ -145,18 +125,6 @@
         [
             "Serial",
             "Serial"
-        ],
-        [
-            "Serial1",
-            "Serial1"
-        ],
-        [
-            "Serial2",
-            "Serial2"
-        ],
-        [
-            "Serial3",
-            "Serial3"
         ]
     ],
     "serialSpeed": [

@@ -37,11 +37,20 @@
                         <div class="text vender-bg">{{vender.name}}</div>
                     </div>
                     <div class="board-list">
-                        <div class="board" [ngClass]="{'installed': isInstalled(board.name)}" *ngFor="let board of vender.boards">
-                            <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
-                            <div class="text">{{board.name}}</div>
-                            <button nz-button nzType="primary" nzSize="small" *ngIf="!isInstalled(board.name)" (click)="installBoard(board)">安装</button>
-                            <button nz-button nzType="primary" nzSize="small" *ngIf="isInstalled(board.name)" (click)="uninstallBoard(board)">移除</button>
+                        <div class="board" [ngClass]="{'installed': isInstalled(board_cloud.name)}"
+                            *ngFor="let board_cloud of vender.boards">
+                            <img src="https://b4a.clz.me/assets/board/{{board_cloud.img}}" alt="{{board_cloud.img}}" />
+                            <div class="text">{{board_cloud.name}}</div>
+                            <button nz-button nzType="primary" nzSize="small" *ngIf="!isInstalled(board_cloud.name)"
+                                (click)="installBoard(board_cloud)" [nzLoading]="board_cloud['loading']"
+                                [ngStyle]="{'visibility':board_cloud['loading']?'visible':'hidden'}">
+                                安装
+                            </button>
+                            <button nz-button nzType="primary" nzSize="small" *ngIf="isInstalled(board_cloud.name)"
+                                (click)="uninstallBoard(board_cloud)" [nzLoading]="board_cloud['loading']"
+                                [ngStyle]="{'visibility':board_cloud['loading']?'visible':'hidden'}">
+                                移除
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -56,8 +65,8 @@
                     </div>
                     <div class="board-list">
                         <div class="board" *ngFor="let board of vender.boards">
-                            <img src="https://b4a.clz.me/assets/board/{{board.img}}" alt="{{board.img}}" />
-                            <div class="text">{{board.name}}</div>
+                            <img src="https://b4a.clz.me/assets/board/{{board_cloud.img}}" alt="{{board_cloud.img}}" />
+                            <div class="text">{{board_cloud.name}}</div>
                         </div>
                     </div>
                 </div>

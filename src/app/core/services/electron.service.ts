@@ -184,6 +184,10 @@ export class ElectronService {
     })
   }
 
+  async installBoardJson(boardJson_cloud) {
+    await this.download(boardJson_cloud.file, `${this.basePath}/boards`);
+  }
+
   delBoardJson(filename) {
     this.fs.rmSync(`${this.basePath}/boards/${filename}`)
   }
