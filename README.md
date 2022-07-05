@@ -61,4 +61,5 @@ npm run electron:build
 2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组（设计变量添加方式）  
 3. 通过arduino cli安装开发板支持  
 4. 多语言支持  
-5. 移除lib时，检查当前程序中是否已经使用该库，如果正在使用，不允许移除该库。
+5. 移除lib时，检查当前程序中是否已经使用该lib，如果正在使用，不允许移除该lib。
+6. 移除board时，检查当前程序中是否已经使用该board，如果正在使用，不允许移除该board。

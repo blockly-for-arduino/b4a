@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService } from '../../core/services/config.service';
 import { CloudService } from '../cloud.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { ArduinoCliService } from '../../core/services/arduino-cli.service';
 import { ElectronService } from '../../core/services';
+import { InstallShellComponent } from './install-shell/install-shell.component';
 
 @Component({
   selector: 'app-board-manager',
@@ -14,11 +16,11 @@ export class BoardManagerComponent implements OnInit {
   @ViewChild('boardListBox', { static: false, read: ElementRef }) boardListBox: ElementRef
   boardManagerLoaded = false
 
-  boardList_cloud = []
+  boardList_cloud: any[] = []
 
   viewMode = '1'; //1:按厂家查看；2:按核心查看；3:搜索模式
-  venderList = []
-  coreList = []
+  venderList: any[] = []
+  coreList: any = []
 
   get boardList() {
     return this.configService.boardList
@@ -33,7 +35,8 @@ export class BoardManagerComponent implements OnInit {
     private cloudService: CloudService,
     private arduinoCli: ArduinoCliService,
     private electronService: ElectronService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private modal: NzModalService
   ) { }
 
   ngOnInit(): void {
@@ -93,25 +96,17 @@ export class BoardManagerComponent implements OnInit {
   }
 
   async installBoard(boardJson_cloud) {
-    console.log(boardJson_cloud);
-    try {
-      boardJson_cloud['loading'] = true
-      this.electronService.installBoardJson(boardJson_cloud)
-      let arduinoCoreList = await this.arduinoCli.checkArduinoCoreList()
-      if (!arduinoCoreList.includes(boardJson_cloud.core)) {
-        if (boardJson_cloud.core_setup[0].mode == "arduino_cli") {
-          await this.arduinoCli.installCore(boardJson_cloud);
-        } else if (boardJson_cloud.core_setup[0].mode == "download_exec") {
-          await this.electronService.installcore(boardJson_cloud);
-        }
+    this.modal.create({
+      nzContent: InstallShellComponent,
+      nzTitle: '安装 ' + boardJson_cloud.name,
+      nzClosable: false,
+      nzFooter: null,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        boardJson_cloud: boardJson_cloud
       }
-      boardJson_cloud['loading'] = false
-      this.configService.init()
-      this.message.success('开发板 ' + boardJson_cloud.name + ' 安装成功')
-    } catch (error) {
-      boardJson_cloud['loading'] = false
-      this.message.error('开发板 ' + boardJson_cloud.name + ' 安装失败')
-    }
+    })
+    console.log(boardJson_cloud);
   }
 
   async uninstallBoard(boardJson_cloud) {
@@ -121,6 +116,7 @@ export class BoardManagerComponent implements OnInit {
       this.configService.init()
       this.message.success('开发板 ' + boardJson_cloud.name + ' 移除成功')
     } catch (error) {
+      console.error(error);
       this.message.error('开发板 ' + boardJson_cloud.name + ' 移除失败')
     }
   }

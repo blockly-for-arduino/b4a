@@ -40,9 +40,6 @@ export class ShellComponent implements OnInit {
         this.cd.detectChanges()
       }
       this.state = state
-      // if (state == ShellState.UPLOAD_DONE) {
-      //   console.log(this.dataList);
-      // }
     })
     this.arduinoCliOutput = this.arduinoCli.output.subscribe(str => {
       // 系统信息直接写入

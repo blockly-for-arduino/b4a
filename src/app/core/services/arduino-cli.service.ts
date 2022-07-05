@@ -30,6 +30,7 @@ export class ArduinoCliService {
 
   child_build: childProcess.ChildProcess;
   child_upload: childProcess.ChildProcess;
+  child_coreInstall: childProcess.ChildProcess;
 
   constructor(
     private electronService: ElectronService,
@@ -46,25 +47,26 @@ export class ArduinoCliService {
 
   async build(code) {
     this.electronService.creatTempPrject(code);
-    return await this.runBuild(this.configService.config.board.compilerParam + ' .//temp')
+    return await this.runBuild(this.configService.config.board!.compilerParam + ' .//temp')
   }
 
   async upload(code) {
     if (await this.build(code))
-      await this.runUpload(this.configService.config.board.uploadParam.replace('${serial}', this.configService.config.serial) + ' .//temp')
+      await this.runUpload(this.configService.config.board!.uploadParam.replace('${serial}', this.configService.config.serial) + ' .//temp')
   }
 
   checkCore() {
 
   }
 
-  arduinoCoreList;
+
   checkArduinoCoreList() {
-    this.arduinoCoreList = []
-    console.log('获取已安装核心列表:');
+    let arduinoCoreList: any[] = []
     return new Promise<string[]>((resolve, reject) => {
       let child_arduinoCoreList = this.childProcess.exec(this.cliPath + ' core list')
-      child_arduinoCoreList.stdout.on('data', (data: string) => {
+      child_arduinoCoreList.stdout!.on('data', (data: string) => {
+        console.log(data);
+        if (data.includes('正在')) return;
         let list = data.split('\n')
         list.forEach((line, index) => {
           if (index != 0) {
@@ -72,13 +74,13 @@ export class ArduinoCliService {
             let libName = dataList[0]
             let version = dataList[1]
             if (libName != '')
-              this.arduinoCoreList.push(libName + '@' + version)
+              arduinoCoreList.push(libName + '@' + version)
           }
         })
       })
       child_arduinoCoreList.on('close', code => {
-        console.log(this.arduinoCoreList);
-        resolve(this.arduinoCoreList)
+        console.log('已安装核心列表:', arduinoCoreList);
+        resolve(arduinoCoreList)
       })
     })
   }
@@ -86,21 +88,20 @@ export class ArduinoCliService {
   installCore(boardJson_cloud) {
     // arduino-cli.exe core install esp32:esp32 --additional-urls https://www.arduino.cn/package_esp32_index.json
     return new Promise<boolean>((resolve, reject) => {
-      console.log('安装核心:' + boardJson_cloud.core);
-      this.state.next(ShellState.INSTALL_CORE_ING)
       let cmd = this.cliPath + ' core install ' + boardJson_cloud.core
       if (boardJson_cloud.url) cmd += ' --additional-urls ' + boardJson_cloud.url
       let child = this.childProcess.exec(cmd)
-      child.stdout.on('data', (data) => {
-        console.log(data);
+      child.stdout!.on('data', (data) => {
+        // console.log(data);
         if (data.includes('平台已经安装') || data.includes(`已安装${boardJson_cloud.core}平台`)) {
           resolve(true)
           this.state.next(ShellState.INSTALL_CORE_DONE)
         } else {
+          if (data == `${boardJson_cloud.core}已下载`) return
           this.output.next(data)
         }
       })
-      child.stderr.on('data', (data) => {
+      child.stderr!.on('data', (data) => {
         console.log(data);
       })
       child.on('close', (code) => {
@@ -117,15 +118,15 @@ export class ArduinoCliService {
       let state = ShellState.BUILDING;
       this.state.next(state);
       setTimeout(() => {
-        this.output.next(`创建编译任务  目标设备：${this.configService.config.board.name}\n`);
+        this.output.next(`创建编译任务  目标设备：${this.configService.config.board!.name}\n`);
       }, 200);
       // this.child_build = this.childProcess.exec(this.cliPath + ' ' + params)
       this.child_build = this.childProcess.spawn(this.cliPath, params.split(' '))
-      this.child_build.stdout.on('data', (dataBuffer: Buffer) => {
+      this.child_build.stdout!.on('data', (dataBuffer: Buffer) => {
         let data = dataBuffer.toString();
         this.output.next(data);
       })
-      this.child_build.stderr.on('data', (dataBuffer: Buffer) => {
+      this.child_build.stderr!.on('data', (dataBuffer: Buffer) => {
         let data = dataBuffer.toString();
         console.log(data);
         if (state == ShellState.BUILDING && data.includes('error:'))
@@ -157,7 +158,7 @@ export class ArduinoCliService {
       this.state.next(state);
       this.output.next(`创建上传任务  目标端口：${this.configService.config.serial}\n`);
       this.child_upload = this.childProcess.spawn(this.cliPath, params.split(' '))
-      this.child_upload.stdout.on('data', (dataBuffer: Buffer) => {
+      this.child_upload.stdout!.on('data', (dataBuffer: Buffer) => {
         let data = dataBuffer.toString();
         // console.log(data);
         if (isErrorInfo_Upload(data)) {
@@ -165,7 +166,7 @@ export class ArduinoCliService {
         }
         this.output.next(data)
       })
-      this.child_upload.stderr.on('data', (dataBuffer: Buffer) => {
+      this.child_upload.stderr!.on('data', (dataBuffer: Buffer) => {
         let data = dataBuffer.toString();
         console.log(data);
 
@@ -195,19 +196,27 @@ export class ArduinoCliService {
 
   killChild() {
     if (typeof this.child_build != 'undefined') {
-      this.child_build.stdout.destroy()
+      this.child_build.stdout!.destroy()
       if (this.os.platform() === 'win32')
         this.childProcess.exec('taskkill /pid ' + this.child_build.pid + ' /f /t')
       else
         this.child_build.kill()
     }
     if (typeof this.child_upload != 'undefined') {
-      this.child_upload.stdout.destroy()
-      this.child_upload.stderr.destroy()
+      this.child_upload.stdout!.destroy()
+      this.child_upload.stderr!.destroy()
       if (this.os.platform() === 'win32')
         this.childProcess.exec('taskkill /pid ' + this.child_upload.pid + ' /f /t')
       else
         this.child_upload.kill()
+    }
+    if (typeof this.child_coreInstall != 'undefined') {
+      this.child_coreInstall.stdout!.destroy()
+      this.child_coreInstall.stderr!.destroy()
+      if (this.os.platform() === 'win32')
+        this.childProcess.exec('taskkill /pid ' + this.child_coreInstall.pid + ' /f /t')
+      else
+        this.child_coreInstall.kill()
     }
   }
 
@@ -216,7 +225,7 @@ export class ArduinoCliService {
     this.arduinoLibList = []
     return new Promise<string[]>((resolve, reject) => {
       let child_arduinoLibList = this.childProcess.exec(this.cliPath + ' lib list')
-      child_arduinoLibList.stdout.on('data', (data: string) => {
+      child_arduinoLibList.stdout!.on('data', (data: string) => {
         if (data.includes('LIBRARY_LOCATION_USER')) {
           let list = data.split('\n')
           list.forEach((line, index) => {
@@ -239,7 +248,7 @@ export class ArduinoCliService {
       let filePath = './/temp/' + sourceLib.name + '.zip'
       await this.download(sourceLib.url, './/temp/');
       let child_install = this.childProcess.exec(this.cliPath + ' lib install --zip-path ' + filePath)
-      child_install.stdout.on('data', data => {
+      child_install.stdout!.on('data', data => {
         console.log(data);
       })
       child_install.on('close', code => {

@@ -161,12 +161,13 @@ export class ElectronService {
   }
 
   installcore(boardJson_cloud) {
+    let basePath = this.fs.existsSync('./resources/packages') ? '.\\resources\\packages\\' : '.\\packages\\';
     return new Promise<boolean>((resolve, reject) => {
       let file;
-      if (boardJson_cloud.core == 'esp8266:esp8266') {
-        file = './/temp/esp8266_package_3.0.2_arduinocn.exe'
-      } if (boardJson_cloud.core == 'esp32:esp32') {
-        file = './/temp/esp32_package_2.0.3_arduinocn.exe'
+      if (boardJson_cloud.core.includes('esp8266:esp8266')) {
+        file = basePath + `esp8266_package_3.0.2_arduinocn.exe`
+      } if (boardJson_cloud.core.includes('esp32:esp32')) {
+        file = basePath + `esp32_package_2.0.3_arduinocn.exe`
       }
       let child = this.childProcess.spawn(file);
       child.stdout.on('data', (data) => {
@@ -185,6 +186,8 @@ export class ElectronService {
   }
 
   async installBoardJson(boardJson_cloud) {
+    console.log(boardJson_cloud.file);
+
     await this.download(boardJson_cloud.file, `${this.basePath}/boards`);
   }
 

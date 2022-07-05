@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
-import { APP_CONFIG } from '../environments/environment';
 import { BlocklyComponent } from './blockly/blockly.component';
 import { ConfigService } from './core/services/config.service';
 import { BlocklyService } from './blockly/service/blockly.service';

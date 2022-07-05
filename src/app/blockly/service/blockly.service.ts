@@ -54,6 +54,9 @@ export class BlocklyService {
     this.processLibs(libs)
     await this.loadLibs()
     Blockly.defineBlocksWithJsonArray(this.blockList);
+    if (typeof this.workspace != 'undefined') {
+      this.workspace.updateToolbox(this.toolbox);
+    }
     this.loaded.next(true)
   }
 

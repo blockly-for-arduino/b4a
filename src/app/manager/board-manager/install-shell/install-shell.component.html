@@ -1,0 +1,13 @@
+<div class="info-box">
+    <div *ngFor="let data of dataList;index as i;trackBy:trackFunc"
+        class="animate__animated animate__fadeInLeft animate__faster" [ngClass]="{
+            'red': isErrorInfo_Build(data) || isErrorInfo_Upload(data),
+            'blue':isSystemInfo(data)
+        }">
+        {{data}}
+    </div>
+</div>
+<div *nzModalFooter>
+    <button *ngIf="!isDone" nz-button nzDanger (click)="stop()">终止安装</button>
+    <button *ngIf="isDone" nz-button (click)="stop()">完成</button>
+</div>

@@ -15,7 +15,8 @@
           "strict": true
         },
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true
         }
       },
       "prefix": "app",

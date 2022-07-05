@@ -13,13 +13,16 @@ import { SettingManagerComponent } from './setting-manager/setting-manager.compo
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { InstallShellComponent } from './board-manager/install-shell/install-shell.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
   declarations: [
     ManagerComponent,
     LibManagerComponent,
     BoardManagerComponent,
-    SettingManagerComponent
+    SettingManagerComponent,
+    InstallShellComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +34,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     NzDividerModule,
     NzRadioModule,
     NzInputModule,
-    NzTagModule
+    NzTagModule,
+    NzModalModule
   ],
   exports: [
     ManagerComponent

@@ -75,7 +75,12 @@ export let systemInfo = [
     '创建编译任务',
     '编译完成',
     '创建上传任务',
-    '上传完成'
+    '上传完成',
+    '检查已安装核心...',
+    '安装核心',
+    '安装完成',
+    '加载配置',
+    '核心 '
 ]
 
 export function isUselessInfo(data: string) {

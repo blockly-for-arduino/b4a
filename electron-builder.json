@@ -24,6 +24,13 @@
       "filter": [
         "**/*"
       ]
+    },
+    {
+      "from": "packages",
+      "to": "packages",
+      "filter": [
+        "**/*"
+      ]
     }
   ],
   "win": {
