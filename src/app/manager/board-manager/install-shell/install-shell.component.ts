@@ -111,8 +111,6 @@ export class InstallShellComponent implements OnInit {
       this.boardJson_cloud['loading'] = false
       this.arduinoCli.output.next('安装完成')
       this.message.success('开发板 ' + this.boardJson_cloud.name + ' 安装成功')
-      localStorage.setItem('guide', 'false')
-      this.configService.init()
       this.isDone = true
     } catch (error) {
       console.error(error);
@@ -122,6 +120,8 @@ export class InstallShellComponent implements OnInit {
   }
 
   stop() {
+    localStorage.setItem('guide', 'hide')
+    this.configService.init()
     this.arduinoCli.killChild()
     this.modalRef.close()
   }

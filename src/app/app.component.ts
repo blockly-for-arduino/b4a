@@ -69,6 +69,7 @@ export class AppComponent {
       }
     })
   }
+  
   showGuide = false;
   checkGuide() {
     if (localStorage.getItem('guide') == null) {

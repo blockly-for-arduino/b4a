@@ -73,6 +73,7 @@ export class GuideComponent implements OnInit {
   }
 
   async installBoard(index) {
+    localStorage.clear();
     let boardJson_cloud = this.boardList[index]
     this.modal.create({
       nzContent: InstallShellComponent,

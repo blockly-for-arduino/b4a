@@ -32,13 +32,13 @@ export class ConfigService {
       this.boardDict[board.name] = board
     })
     console.log(this.boardDict);
-    
+
     // 加载暂存的开发板信息
     let boardName = localStorage.getItem('config.boardName')
     if (boardName != null) {
       this.selectBoard(boardName)
     } else {
-      this.selectBoard('Arduino UNO')
+      this.selectBoard(this.boardList[0])
     }
     // 加载暂存的串口信息
     let serial = localStorage.getItem('config.serial')

@@ -124,7 +124,7 @@ export class BlocklyComponent implements OnInit {
     }
   }
 
-  updateCode(){
+  updateCode() {
     this.code = this.generator.workspaceToCode(this.workspace);
     this.codeChange.emit(this.code);
   }
@@ -150,9 +150,9 @@ export class BlocklyComponent implements OnInit {
   getJson() {
     let datajson = Blockly.serialization.workspaces.save(this.workspace)
     // console.log(datajson);
-    
-    datajson["dependencies"]={}
-    return JSON.stringify(datajson) 
+
+    datajson["dependencies"] = {}
+    return JSON.stringify(datajson)
   }
 
   loadJson(json) {
@@ -160,7 +160,8 @@ export class BlocklyComponent implements OnInit {
   }
 
   reinit() {
-    this.workspace.dispose();
+    if (typeof this.workspace !== 'undefined')
+      this.workspace.dispose();
     this.init();
   }
 
