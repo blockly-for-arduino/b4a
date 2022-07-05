@@ -42,16 +42,15 @@ export class AppComponent {
     private serialService: SerialService
   ) {
     this.translate.setDefaultLang('en');
-    // console.log('APP_CONFIG', APP_CONFIG);
     if (electronService.isElectron) {
       console.log('Run in electron');
-      // console.log(process.env);
     } else {
       console.log('Run in browser');
     }
   }
 
   ngOnInit(): void {
+    this.checkGuide();
     this.configService.init();
     this.blocklyService.loaded.subscribe(state => {
       if (state) {
@@ -63,12 +62,20 @@ export class AppComponent {
     })
     this.configService.loaded.subscribe(state => {
       if (state) {
-        // console.log('configService loaded');
+        this.checkGuide();
         this.serialSelected = this.configService.config.serial;
         if (this.configService.config.board != null)
           this.boardSelected = this.configService.config.board.name;
       }
     })
+  }
+  showGuide = false;
+  checkGuide() {
+    if (localStorage.getItem('guide') == null) {
+      this.showGuide = true
+    } else {
+      this.showGuide = false
+    }
   }
 
   ngAfterViewInit(): void {

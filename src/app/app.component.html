@@ -1,88 +1,95 @@
-<header>
-    <div>
-        <button nz-button nzSize="large" (click)="newFile()" nz-tooltip nzTooltipPlacement="bottom"
-            nzTooltipTitle="新工程">
-            <i nz-icon nzType="file-add" nzTheme="outline"></i>
-        </button>
-        <button nz-button nzSize="large" (click)="openFile()" nz-tooltip nzTooltipPlacement="bottom"
-            nzTooltipTitle="打开工程">
-            <i nz-icon nzType="folder-open" nzTheme="outline"></i>
-        </button>
-        <button nz-button nzSize="large" (click)="saveFile()" nz-tooltip nzTooltipPlacement="bottom"
-            nzTooltipTitle="保存工程">
-            <i nz-icon nzType="save" nzTheme="outline"></i>
-        </button>
-        <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='build'}"
-            (click)="openSider('shell','build')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译">
-            <i nz-icon nzType="check"></i>
-        </button>
-        <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='upload'}"
-            (click)="openSider('shell','upload')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译并上传">
-            <i nz-icon nzType="download"></i>
-        </button>
-        <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzSize="large" [ngClass]="{active: mode=='code'}" (click)="openSider('code')" nz-tooltip
-            nzTooltipPlacement="bottom" nzTooltipTitle="查看代码">
-            <i nz-icon nzType="code" nzTheme="outline"></i>
-        </button>
-        <button nz-button nzSize="large" [ngClass]="{active: mode=='monitor'}" (click)="openSider('monitor')" nz-tooltip
-            nzTooltipPlacement="bottom" nzTooltipTitle="串口监视器">
-            <i nz-icon nzType="monitor" nzTheme="outline"></i>
-        </button>
-        <nz-divider nzType="vertical"></nz-divider>
-        <!-- <button nz-button nzSize="large" (click)="openCloud()" nz-tooltip nzTooltipPlacement="bottom"
+<ng-container *ngIf="!showGuide;else guide">
+    <header>
+        <div>
+            <button nz-button nzSize="large" (click)="newFile()" nz-tooltip nzTooltipPlacement="bottom"
+                nzTooltipTitle="新工程">
+                <i nz-icon nzType="file-add" nzTheme="outline"></i>
+            </button>
+            <button nz-button nzSize="large" (click)="openFile()" nz-tooltip nzTooltipPlacement="bottom"
+                nzTooltipTitle="打开工程">
+                <i nz-icon nzType="folder-open" nzTheme="outline"></i>
+            </button>
+            <button nz-button nzSize="large" (click)="saveFile()" nz-tooltip nzTooltipPlacement="bottom"
+                nzTooltipTitle="保存工程">
+                <i nz-icon nzType="save" nzTheme="outline"></i>
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='build'}"
+                (click)="openSider('shell','build')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译">
+                <i nz-icon nzType="check"></i>
+            </button>
+            <button nz-button nzSize="large" [ngClass]="{active: mode=='shell'&&action=='upload'}"
+                (click)="openSider('shell','upload')" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="编译并上传">
+                <i nz-icon nzType="download"></i>
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzSize="large" [ngClass]="{active: mode=='code'}" (click)="openSider('code')" nz-tooltip
+                nzTooltipPlacement="bottom" nzTooltipTitle="查看代码">
+                <i nz-icon nzType="code" nzTheme="outline"></i>
+            </button>
+            <button nz-button nzSize="large" [ngClass]="{active: mode=='monitor'}" (click)="openSider('monitor')"
+                nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="串口监视器">
+                <i nz-icon nzType="monitor" nzTheme="outline"></i>
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <!-- <button nz-button nzSize="large" (click)="openCloud()" nz-tooltip nzTooltipPlacement="bottom"
             nzTooltipTitle="云资源">
             <i nz-icon nzType="cloud" nzTheme="outline"></i>
         </button> -->
-        <button nz-button nzSize="large" (click)="gotoGithub()" nz-tooltip nzTooltipPlacement="bottom"
-            nzTooltipTitle="Github" nzTooltipPlacement="bottom">
-            <i nz-icon nzType="github" nzTheme="outline"></i>
-        </button>
-        <button nz-button nzSize="large" (click)="gotoWebsite()" nz-tooltip nzTooltipPlacement="bottom"
-            nzTooltipTitle="官网" nzTooltipPlacement="bottom">
-            <i nz-icon nzType="global" nzTheme="outline"></i>
-        </button>
+            <button nz-button nzSize="large" (click)="gotoGithub()" nz-tooltip nzTooltipPlacement="bottom"
+                nzTooltipTitle="Github" nzTooltipPlacement="bottom">
+                <i nz-icon nzType="github" nzTheme="outline"></i>
+            </button>
+            <button nz-button nzSize="large" (click)="gotoWebsite()" nz-tooltip nzTooltipPlacement="bottom"
+                nzTooltipTitle="官网" nzTooltipPlacement="bottom">
+                <i nz-icon nzType="global" nzTheme="outline"></i>
+            </button>
+        </div>
+        <div>
+            <nz-select style="width: 160px;" nzSize="large" [ngModel]="boardSelected"
+                (ngModelChange)="boardChange($event)">
+                <nz-option *ngFor="let boardName of boardList;index as i" [nzValue]="boardName" [nzLabel]="boardName">
+                </nz-option>
+            </nz-select>
+            <nz-select style="width: 100px;" nzSize="large" [ngModel]="serialSelected" [nzPlaceHolder]="serialSelected"
+                (ngModelChange)="serialChange($event)" (nzOpenChange)="getSerialPortList()">
+                <nz-option *ngFor="let item of serialList;index as i" [nzValue]="item" [nzLabel]="item">
+                </nz-option>
+            </nz-select>
+            <button nz-button nzSize="large" [ngClass]="{active: mode=='setting'}" (click)="openManager(2)">
+                <i nz-icon nzType="setting" nzTheme="outline"></i>
+            </button>
+        </div>
+    </header>
+    <div class="blockly-box">
+        <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
     </div>
-    <div>
-        <nz-select style="width: 160px;" nzSize="large" [ngModel]="boardSelected" (ngModelChange)="boardChange($event)">
-            <nz-option *ngFor="let boardName of boardList;index as i" [nzValue]="boardName" [nzLabel]="boardName">
-            </nz-option>
-        </nz-select>
-        <nz-select style="width: 100px;" nzSize="large" [ngModel]="serialSelected" [nzPlaceHolder]="serialSelected"
-            (ngModelChange)="serialChange($event)" (nzOpenChange)="getSerialPortList()">
-            <nz-option *ngFor="let item of serialList;index as i" [nzValue]="item" [nzLabel]="item">
-            </nz-option>
-        </nz-select>
-        <button nz-button nzSize="large" [ngClass]="{active: mode=='setting'}" (click)="openManager(2)">
-            <i nz-icon nzType="setting" nzTheme="outline"></i>
-        </button>
+    <div class="lib-manager-btn" *ngIf="libManagerWidth" [ngStyle]="{'width': libManagerWidth+'px'}"
+        (click)="openManager(0)">
+        <i class="fal fa-books-medical"></i>
+        库管理
     </div>
-</header>
-<div class="blockly-box">
-    <clz-blockly #blockly (codeChange)="codeChange($event)"></clz-blockly>
-</div>
-<div class="lib-manager-btn" *ngIf="libManagerWidth" [ngStyle]="{'width': libManagerWidth+'px'}" (click)="openManager(0)">
-    <i class="fal fa-books-medical"></i>
-    库管理
-</div>
-<div class="manager-box animate__animated animate__fadeIn animate__faster" [ngClass]="{'animate__fadeOut': willClose}"
-    *ngIf="showManager">
-    <app-manager (backEvent)="closeSider()" [selectedTab]="selectedTab"></app-manager>
-</div>
-<div class="right-box animate__animated animate__fadeInRight animate__faster"
-    [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider">
-    <div class="right-header">
-        <i nz-icon nzType="right-circle" nzTheme="outline" (click)="closeSider()"></i>
-        <div *ngIf="mode=='shell'">运行详情</div>
-        <div *ngIf="mode=='code'">代码预览</div>
-        <div *ngIf="mode=='monitor'">串口监视器</div>
-        <div *ngIf="mode=='setting'">设置</div>
+    <div class="manager-box animate__animated animate__fadeIn animate__faster"
+        [ngClass]="{'animate__fadeOut': willClose}" *ngIf="showManager">
+        <app-manager (backEvent)="closeSider()" [selectedTab]="selectedTab"></app-manager>
     </div>
-    <div class="right-content">
-        <app-shell *ngIf="mode=='shell'"></app-shell>
-        <app-code *ngIf="mode=='code'" [code]="code"></app-code>
-        <app-monitor *ngIf="mode=='monitor'" [serial]="serialSelected"></app-monitor>
-        <!-- <app-setting *ngIf="mode=='setting'"></app-setting> -->
+    <div class="right-box animate__animated animate__fadeInRight animate__faster"
+        [ngClass]="{'animate__fadeOutRight': willClose}" *ngIf="showSider">
+        <div class="right-header">
+            <i nz-icon nzType="right-circle" nzTheme="outline" (click)="closeSider()"></i>
+            <div *ngIf="mode=='shell'">运行详情</div>
+            <div *ngIf="mode=='code'">代码预览</div>
+            <div *ngIf="mode=='monitor'">串口监视器</div>
+            <div *ngIf="mode=='setting'">设置</div>
+        </div>
+        <div class="right-content">
+            <app-shell *ngIf="mode=='shell'"></app-shell>
+            <app-code *ngIf="mode=='code'" [code]="code"></app-code>
+            <app-monitor *ngIf="mode=='monitor'" [serial]="serialSelected"></app-monitor>
+            <!-- <app-setting *ngIf="mode=='setting'"></app-setting> -->
+        </div>
     </div>
-</div>
+</ng-container>
+<ng-template #guide>
+    <app-guide></app-guide>
+</ng-template>

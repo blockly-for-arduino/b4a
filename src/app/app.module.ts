@@ -29,6 +29,7 @@ import { CodeModule } from './code/code.module';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ManagerModule } from './manager/manager.module';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { GuideComponent } from './guide/guide.component';
 const icons: IconDefinition[] = [CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline, RightOutline, RightCircleOutline,
   LoadingOutline, CloudOutline, SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
@@ -39,7 +40,7 @@ const icons: IconDefinition[] = [CheckOutline, DownloadOutline, CodeOutline, Fil
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GuideComponent],
   imports: [
     BrowserModule,
     FormsModule,
