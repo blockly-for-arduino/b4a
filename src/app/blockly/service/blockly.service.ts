@@ -57,7 +57,8 @@ export class BlocklyService {
     await this.loadLibs()
     Blockly.defineBlocksWithJsonArray(this.blockList);
     if (typeof this.workspace != 'undefined') {
-      this.workspace.updateToolbox(this.toolbox);
+      if (this.workspace.getToolbox() != null)
+        this.workspace.updateToolbox(this.toolbox);
     }
     this.loaded.next(true)
   }
@@ -149,7 +150,7 @@ export class BlocklyService {
           let getValue: any = window['getValue']
           Arduino[blockJson.type] = (block) => {
             // 前置钩子函数 downey 2022-6-17
-            if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
+            // if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
             // 添加宏
             if (blockJson.b4a.macro) {
               Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
@@ -163,12 +164,14 @@ export class BlocklyService {
 
             if (blockJson.args0) {
               blockJson.args0.forEach(arg => {
-                b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+                if (arg.name)
+                  b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
               });
             }
             if (blockJson.args1) {
               blockJson.args1.forEach(arg => {
-                b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+                if (arg.name)
+                  b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
               });
             }
 
@@ -333,18 +336,6 @@ export class BlocklyService {
     }
     return JSON.parse(jsonString)
   }
-
-  // loadXml(xmlText) {
-  //   try {
-  //     let xmlDom = Blockly.Xml.textToDom(xmlText);
-  //     this.workspace.clear();
-  //     Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
-  //     return true;
-  //   } catch (e) {
-  //     console.log(e);
-  //     return false;
-  //   }
-  // }
 
   async updateToolbox() {
     this.toolbox = {
