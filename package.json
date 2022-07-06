@@ -52,6 +52,7 @@
     "download": "8.0.0",
     "file-saver": "2.0.5",
     "iconv-lite": "0.6.3",
+    "loaders.css": "0.1.2",
     "monaco-editor": "0.33.0",
     "ng-zorro-antd": "13.2.2",
     "rxjs": "7.5.5",

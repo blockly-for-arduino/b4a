@@ -10,3 +10,24 @@ html, body {
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.loading-box {
+  width: 100vw;
+  height: 100vh;
+  background: #22262a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .text {
+      color: #fff;
+      margin-left: 12px;
+      margin-top: 5px;
+      font-size: 18px;
+  }
+}

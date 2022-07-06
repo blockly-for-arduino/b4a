@@ -1,0 +1,174 @@
+{
+    "category": "点灯·blinker",
+    "name": "blinker",
+    "icon": "fal fa-lightbulb-on",
+    "introduction": "点灯·blinker物联网支持库",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "%1 点灯 WiFi接入 密钥%2 热点%3 密码%4",
+            "type": "blinker_begin_wifi",
+            "colour": "#4db6ac",
+            "args0": [
+                {
+                    "type": "field_image",
+                    "src": "https://diandeng.tech/favicon.ico",
+                    "width": 20,
+                    "height": 20,
+                    "alt": "*"
+                },
+                {
+                    "type": "field_input",
+                    "name": "AUTH",
+                    "text": ""
+                },
+                {
+                    "type": "field_input",
+                    "name": "SSID",
+                    "text": ""
+                },
+                {
+                    "type": "field_input",
+                    "name": "PSWD",
+                    "text": ""
+                }
+            ],
+            "toolbox": {
+                "show": true
+            },
+            "b4a": {
+                "code": "Blinker.begin(${AUTH}, ${SSID}, ${PSWD});",
+                "macro": "#define BLINKER_WIFI",
+                "library": "#include <Blinker.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "%1点灯 蓝牙BLE接入 RX%2 TX%3 波特率%4",
+            "type": "blinker_begin_ble",
+            "colour": "#4DB6AC",
+            "args0": [
+                {
+                    "type": "field_image",
+                    "src": "https://diandeng.tech/favicon.ico",
+                    "width": 20,
+                    "height": 20,
+                    "alt": "*"
+                },
+                {
+                    "type": "field_number",
+                    "name": "RX",
+                    "value": 2
+                },
+                {
+                    "type": "field_number",
+                    "name": "TX",
+                    "value": 3
+                },
+                {
+                    "type": "field_number",
+                    "name": "SPEED",
+                    "value": 9600
+                }
+            ],
+            "toolbox": {
+                "show": true
+            },
+            "b4a": {
+                "code": "Blinker.begin(${RX}, ${TX}, ${SPEED});",
+                "macro": "#define BLINKER_WIFI",
+                "library": "#include <Blinker.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "type": "blinker_button_callback",
+            "message0": "%1点灯 按键%2回调",
+            "args0": [
+                {
+                    "type": "field_image",
+                    "src": "https://diandeng.tech/favicon.ico",
+                    "width": 20,
+                    "height": 20,
+                    "alt": "*"
+                },
+                {
+                    "type": "field_input",
+                    "name": "KEY",
+                    "text": "btn-abc"
+                }
+            ],
+            "message1": "%1",
+            "args1": [
+                {
+                    "type": "input_statement",
+                    "name": "INNER"
+                }
+            ],
+            "b4a": {
+                "library": "#include <Blinker.h>",
+                "object": "BlinkerButton ${OBJECT}(\"${KEY}\");",
+                "setup": "${OBJECT}.attach(${OBJECT}_callback);",
+                "function": "void ${OBJECT}_callback(const String & state)\r\n{\r\n${INNER}\r\n}"
+            },
+            "colour": "#26a69a",
+            "tooltip": "arduino_setup",
+            "helpUrl": "",
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "blinker_button_callback",
+            "message0": "%1点灯 滑动条%2回调",
+            "args0": [
+                {
+                    "type": "field_image",
+                    "src": "https://diandeng.tech/favicon.ico",
+                    "width": 20,
+                    "height": 20,
+                    "alt": "*"
+                },
+                {
+                    "type": "field_input",
+                    "name": "KEY",
+                    "text": "btn-abc"
+                }
+            ],
+            "message1": "%1",
+            "args1": [
+                {
+                    "type": "input_statement",
+                    "name": "INNER"
+                }
+            ],
+            "b4a": {
+                "library": "#include <Blinker.h>",
+                "object": "BlinkerSlider ${OBJECT}(\"${KEY}\");",
+                "setup": "${OBJECT}.attach(${OBJECT}_callback);",
+                "function": "void ${OBJECT}_callback(const String & state)\r\n{\r\n${INNER}\r\n}"
+            },
+            "colour": "#26a69a",
+            "tooltip": "arduino_setup",
+            "helpUrl": "",
+            "toolbox": {
+                "show": true,
+                "category": "Blinker"
+            }
+        }
+    ]
+}

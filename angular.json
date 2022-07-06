@@ -50,7 +50,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/animate.css/animate.min.css",
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "node_modules/loaders.css/loaders.min.css"
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js",

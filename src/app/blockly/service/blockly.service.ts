@@ -8,6 +8,7 @@ import { ElectronService } from '../../core/services/electron.service';
 import { BehaviorSubject } from 'rxjs';
 import { LibInfo } from '../../core/interfaces';
 import { compareList } from '../../func/func';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,7 @@ export class BlocklyService {
     private http: HttpClient,
     private configService: ConfigService,
     private electronService: ElectronService,
+    private message: NzMessageService
   ) {
 
   }
@@ -114,14 +116,20 @@ export class BlocklyService {
 
   async loadLibJson(path, name) {
     return new Promise(async (resolve, reject) => {
-      this.loadUrl(path).subscribe(config => {
-        let libJson = this.processJsonVariable(config)
-        this.libDict[name]['json'] = libJson
-        // b4a 代码创建器
-        this.b4a2js(libJson, name)
-        this.blockList = this.blockList.concat(libJson.blocks)
-        resolve(true)
-      })
+      try {
+        this.loadUrl(path).subscribe(config => {
+          let libJson = this.processJsonVariable(config)
+          this.libDict[name]['json'] = libJson
+          // b4a 代码创建器
+          this.b4a2js(libJson, name)
+          this.blockList = this.blockList.concat(libJson.blocks)
+          resolve(true)
+        })
+      } catch (error) {
+        this.message.error(`加载库 ${name} 失败`)
+        this.message.error(error)
+        resolve(false)
+      }
     })
   }
 
@@ -133,76 +141,81 @@ export class BlocklyService {
   }
 
   b4a2js(libJson, libName) {
-    libJson.blocks.forEach(blockJson => {
-      if (blockJson.b4a) {
-        // console.log('b4a代码创建器 >>> ' + blockJson.type);
-        let Arduino: any = window['Arduino']
-        let getValue: any = window['getValue']
-        Arduino[blockJson.type] = (block) => {
-          // 前置钩子函数 downey 2022-6-17
-          if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
-          // 添加宏
-          if (blockJson.b4a.macro) {
-            Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
-          }
-          // 添加库
-          if (blockJson.b4a.library) {
-            Arduino.addLibrary(blockJson.b4a.library, blockJson.b4a.library)
-          }
-          // b4a变量表，用于最后替换变量
-          let b4aVars = {}
+    try {
+      libJson.blocks.forEach(blockJson => {
+        if (blockJson.b4a) {
+          // console.log('b4a代码创建器 >>> ' + blockJson.type);
+          let Arduino: any = window['Arduino']
+          let getValue: any = window['getValue']
+          Arduino[blockJson.type] = (block) => {
+            // 前置钩子函数 downey 2022-6-17
+            if (typeof Arduino[blockJson.type].prototype.processB4ACodeBefore === 'function') Arduino[blockJson.type].prototype.processB4ACodeBefore(block, blockJson);
+            // 添加宏
+            if (blockJson.b4a.macro) {
+              Arduino.addMacro(blockJson.b4a.macro, blockJson.b4a.macro)
+            }
+            // 添加库
+            if (blockJson.b4a.library) {
+              Arduino.addLibrary(blockJson.b4a.library, blockJson.b4a.library)
+            }
+            // b4a变量表，用于最后替换变量
+            let b4aVars = {}
 
-          if (blockJson.args0) {
-            blockJson.args0.forEach(arg => {
-              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
-            });
-          }
-          if (blockJson.args1) {
-            blockJson.args1.forEach(arg => {
-              b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
-            });
-          }
+            if (blockJson.args0) {
+              blockJson.args0.forEach(arg => {
+                b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+              });
+            }
+            if (blockJson.args1) {
+              blockJson.args1.forEach(arg => {
+                b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+              });
+            }
 
-          if (blockJson.b4a.object) {
-            let primary
-            if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
-            let className: string = blockJson.b4a.object.split(' ')[0]
-            b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
-            let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
-            Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
-          }
-          if (blockJson.b4a.function) {
-            let functionBody = processB4ACode(blockJson.b4a.function, b4aVars)
-            Arduino.addFunction(blockJson.b4a.function, functionBody)
-          }
-          if (blockJson.b4a.setup) {
-            let setup_code = processB4ACode(blockJson.b4a.setup, b4aVars)
-            Arduino.addSetup(b4aVars['${OBJECT_NAME}'], setup_code)
-          }
-          if (blockJson.b4a.code) {
-            let code = processB4ACode(blockJson.b4a.code, b4aVars)
-            return blockJson.output ? code : code + '\n'
-          } else return '';
+            if (blockJson.b4a.object) {
+              let primary
+              if (blockJson.b4a.primary) primary = processB4ACode(blockJson.b4a.primary, b4aVars);
+              let className: string = blockJson.b4a.object.split(' ')[0]
+              b4aVars['${OBJECT_NAME}'] = className.toLowerCase() + '_' + primary;
+              let object_code = processB4ACode(blockJson.b4a.object, b4aVars)
+              Arduino.addObject(b4aVars['${OBJECT_NAME}'], object_code)
+            }
+            if (blockJson.b4a.function) {
+              let functionBody = processB4ACode(blockJson.b4a.function, b4aVars)
+              Arduino.addFunction(blockJson.b4a.function, functionBody)
+            }
+            if (blockJson.b4a.setup) {
+              let setup_code = processB4ACode(blockJson.b4a.setup, b4aVars)
+              Arduino.addSetup(b4aVars['${OBJECT_NAME}'], setup_code)
+            }
+            if (blockJson.b4a.code) {
+              let code = processB4ACode(blockJson.b4a.code, b4aVars)
+              return blockJson.output ? code : code + '\n'
+            } else return '';
 
+          }
         }
-      }
-      // 判断库是否被用户隐藏
-      if (this.libDict_show[libName])
-        if (!this.libDict_show[libName].show) {
+        // 判断库是否被用户隐藏
+        if (this.libDict_show[libName])
+          if (!this.libDict_show[libName].show) {
+            return
+          }
+        // 如果是按键，直接添加到toolbox
+        if (blockJson.kind == 'button') {
+          let buttonJson = blockJson
+          this.addButtonToCategory(libJson, buttonJson)
           return
         }
-      // 如果是按键，直接添加到toolbox
-      if (blockJson.kind == 'button') {
-        let buttonJson = blockJson
-        this.addButtonToCategory(libJson, buttonJson)
-        return
-      }
-      // 添加到toolbox
-      if (blockJson.toolbox) {
-        if (!blockJson.toolbox.show) return
-        this.addBlockToCategory(libJson, blockJson)
-      }
-    });
+        // 添加到toolbox
+        if (blockJson.toolbox) {
+          if (!blockJson.toolbox.show) return
+          this.addBlockToCategory(libJson, blockJson)
+        }
+      });
+    } catch (error) {
+      this.message.error(`加载库 ${name} 失败`)
+      this.message.error(error)
+    }
   }
 
   addButtonToCategory(libJson, buttonJson) {
