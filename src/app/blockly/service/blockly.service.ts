@@ -334,17 +334,17 @@ export class BlocklyService {
     return JSON.parse(jsonString)
   }
 
-  loadXml(xmlText) {
-    try {
-      let xmlDom = Blockly.Xml.textToDom(xmlText);
-      this.workspace.clear();
-      Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
-  }
+  // loadXml(xmlText) {
+  //   try {
+  //     let xmlDom = Blockly.Xml.textToDom(xmlText);
+  //     this.workspace.clear();
+  //     Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
+  //     return true;
+  //   } catch (e) {
+  //     console.log(e);
+  //     return false;
+  //   }
+  // }
 
   async updateToolbox() {
     this.toolbox = {

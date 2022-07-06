@@ -156,6 +156,7 @@ export class BlocklyComponent implements OnInit {
   }
 
   loadJson(json) {
+    console.log(json);
     Blockly.serialization.workspaces.load(json, this.workspace)
   }
 

@@ -50,7 +50,7 @@ export class ManagerComponent implements OnInit {
 
   loadExample(item) {
     this.cloudService.loadExample(item).subscribe(resp => {
-      this.blocklyService.loadXml(resp);
+      // this.blocklyService.loadXml(resp);
       this.message.success(`示例 ${item.name} 加载成功`);
     }, err => {
       this.message.error(`示例 ${item.name} 加载失败`);

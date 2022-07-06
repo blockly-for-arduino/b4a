@@ -69,7 +69,7 @@ export class AppComponent {
       }
     })
   }
-  
+
   showGuide = false;
   checkGuide() {
     if (localStorage.getItem('guide') == null) {
@@ -102,7 +102,8 @@ export class AppComponent {
 
   openFile() {
     this.electronService.openFile().then(fileContent => {
-      this.blocklyComponent.loadXml(fileContent);
+      let json = JSON.parse(fileContent)
+      this.blocklyComponent.loadJson(json);
     })
   }
 
