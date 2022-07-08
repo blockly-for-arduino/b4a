@@ -70,7 +70,7 @@ export class GitService {
     console.log('git clone done');
     this.fs.rmdirSync(path + '\\.git', { recursive: true })
     let _7zFile = this.fs.readdirSync(path)[0]
-    this.electronService.unpackCoreToArduino15(_7zFile)
+    this.electronService.unpackCoreToArduino15(path + '\\' + _7zFile)
   }
 
 }

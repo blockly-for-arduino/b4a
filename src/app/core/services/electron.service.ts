@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, webFrame, shell } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import * as os from 'os';
 import { dialog } from '@electron/remote';
 import { LibInfo, SourceLib } from '../interfaces';
 import * as download from 'download';
@@ -14,6 +15,7 @@ export class ElectronService {
   webFrame: typeof webFrame;
   childProcess: typeof childProcess;
   dialog: typeof dialog;
+  os: typeof os;
   fs: typeof fs;
   shell: typeof shell;
   download: typeof download;
@@ -36,6 +38,7 @@ export class ElectronService {
       this.dialog = window.require('@electron/remote').dialog;
       this.shell = window.require('electron').shell
       this.childProcess = window.require('child_process');
+      this.os = window.require('os');
       this.fs = window.require('fs');
       this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
@@ -189,13 +192,14 @@ export class ElectronService {
 
   unpackCoreToArduino15(_7zFilePath) {
     //%LOCALAPPDATA%/Arduino15/packages
-    console.log(`unpack ${_7zFilePath} to ${process.env.LOCALAPPDATA + '/Arduino15/packages'}`);
 
-    // this._7z.unpack("D:\\Git\\b4a-all\\b4a\\temp\\arduino-avr@1.8.5\\avr.7z", process.env.LOCALAPPDATA + '/Arduino15/packages', err => {
-    //   console.log(err);
+    // windows
+    console.log(`unpack ${_7zFilePath} to ${this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
 
-    //   console.log('unpack done');
-    // });
+    this._7z.unpack(_7zFilePath, this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages', err => {
+      console.log(err);
+      console.log('unpack done');
+    });
   }
 
   async installBoardJson(boardJson_cloud) {
