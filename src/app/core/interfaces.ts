@@ -32,3 +32,17 @@ export interface SourceLib {
     type: string,
     url: string
 }
+
+export interface BoardJsonCloud {
+    "name": string,
+    "description": string,
+    "verison": string,
+    "author": string,
+    "vender": string,
+    "core": string,
+    "img": string,
+    "file": string,
+    "help": string,
+    "core_setup": any[],
+    "loading"?: boolean
+}

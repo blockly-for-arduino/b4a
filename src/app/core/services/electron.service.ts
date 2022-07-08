@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { dialog } from '@electron/remote';
 import { LibInfo, SourceLib } from '../interfaces';
 import * as download from 'download';
-
+import * as _7z from '7zip-min';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +17,7 @@ export class ElectronService {
   fs: typeof fs;
   shell: typeof shell;
   download: typeof download;
+  _7z: typeof _7z;
   package;
 
   libraries_user: LibInfo[] = []
@@ -39,6 +40,7 @@ export class ElectronService {
       this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
       this.download = window.require('download');
+      this._7z = window.require('7zip-min');
     }
   }
 
@@ -183,6 +185,17 @@ export class ElectronService {
         }
       })
     })
+  }
+
+  unpackCoreToArduino15(_7zFilePath) {
+    //%LOCALAPPDATA%/Arduino15/packages
+    console.log(`unpack ${_7zFilePath} to ${process.env.LOCALAPPDATA + '/Arduino15/packages'}`);
+
+    // this._7z.unpack("D:\\Git\\b4a-all\\b4a\\temp\\arduino-avr@1.8.5\\avr.7z", process.env.LOCALAPPDATA + '/Arduino15/packages', err => {
+    //   console.log(err);
+
+    //   console.log('unpack done');
+    // });
   }
 
   async installBoardJson(boardJson_cloud) {

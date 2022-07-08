@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { BoardJsonCloud } from '../core/interfaces';
 import { InstallShellComponent } from '../manager/board-manager/install-shell/install-shell.component';
 
 @Component({
@@ -22,7 +23,8 @@ export class GuideComponent implements OnInit {
       "help": "https://www.arduino.cn/",
       "core_setup": [
         {
-          "mode": "arduino_cli"
+          "mode": "git_7z",
+          "url": "https://e.coding.net/coloz/arduino-packages/avr.git"
         }
       ]
     },
@@ -74,7 +76,7 @@ export class GuideComponent implements OnInit {
 
   async installBoard(index) {
     localStorage.clear();
-    let boardJson_cloud = this.boardList[index]
+    let boardJson_cloud: BoardJsonCloud = this.boardList[index]
     this.modal.create({
       nzContent: InstallShellComponent,
       nzTitle: '安装 ' + boardJson_cloud.name,
@@ -85,7 +87,6 @@ export class GuideComponent implements OnInit {
         boardJson_cloud: boardJson_cloud
       }
     })
-    console.log(boardJson_cloud);
   }
 
 }

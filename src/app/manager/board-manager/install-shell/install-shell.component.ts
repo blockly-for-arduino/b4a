@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ElectronService } from '../../../core/services';
 import { ArduinoCliService } from '../../../core/services/arduino-cli.service';
 import { ConfigService } from '../../../core/services/config.service';
+import { GitService } from '../../../core/services/git.service';
 import { isErrorInfo_Build, isErrorInfo_Upload, isSystemInfo, isUsefulInfo_Build, isUsefulInfo_Upload } from '../../../shell/info';
 import { ShellState } from '../../../shell/shell.component';
 
@@ -31,6 +32,7 @@ export class InstallShellComponent implements OnInit {
     private configService: ConfigService,
     private electronService: ElectronService,
     private arduinoCli: ArduinoCliService,
+    private gitServer: GitService,
     private message: NzMessageService,
     private modalRef: NzModalRef,
     private cd: ChangeDetectorRef
@@ -95,7 +97,7 @@ export class InstallShellComponent implements OnInit {
       this.arduinoCli.state.next(ShellState.INSTALL_CORE_ING)
       // 下载开发板json配置
       this.electronService.installBoardJson(this.boardJson_cloud)
-      
+
       this.arduinoCli.output.next('检查已安装核心...')
       let arduinoCoreList = await this.arduinoCli.checkArduinoCoreList()
       if (!arduinoCoreList.includes(this.boardJson_cloud.core)) {
@@ -104,6 +106,8 @@ export class InstallShellComponent implements OnInit {
           await this.arduinoCli.installCore(this.boardJson_cloud);
         } else if (this.boardJson_cloud.core_setup[0].mode == "download_exec") {
           await this.electronService.installcore(this.boardJson_cloud);
+        } else if (this.boardJson_cloud.core_setup[0].mode == "git_7z") {
+          await this.gitServer.clone(this.boardJson_cloud);
         }
       } else {
         this.arduinoCli.output.next(`核心 ${this.boardJson_cloud.core} 已安装`)

@@ -5,8 +5,10 @@
   "private": true,
   "dependencies": {
     "@electron/remote": "^2.0.8",
+    "7zip-min": "^1.4.3",
     "download": "^8.0.0",
     "electron-updater": "^5.0.1",
+    "isomorphic-git": "^1.18.3",
     "serialport": "^10.4.0"
   }
 }
