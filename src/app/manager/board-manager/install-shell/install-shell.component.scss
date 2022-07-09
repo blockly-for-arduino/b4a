@@ -2,3 +2,71 @@
     height: 200px;
     overflow-x: hidden;
 }
+
+.state-box {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 160px;
+    position: relative;
+
+    i {
+        font-size: 100px;
+    }
+
+    .text-box {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .red {
+        color: rgb(181, 38, 38);
+    }
+
+    .blue {
+        color: rgb(42, 112, 205)
+    }
+
+    .green {
+        color: rgb(38, 144, 89);
+    }
+}
+
+.close-btn {
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -15px;
+    right: -25px;
+    color: #AAA;
+    cursor: pointer;
+    transition: all 0.5s;
+    overflow: hidden;
+
+    i {
+        font-size: 18px;
+    }
+
+    .btn-text {
+        visibility: hidden;
+        white-space: nowrap;
+        margin-left: 5px;
+    }
+
+    &:hover {
+        width: 90px;
+        color: rgb(181, 38, 38);
+
+        .btn-text {
+            visibility: visible;
+        }
+    }
+}

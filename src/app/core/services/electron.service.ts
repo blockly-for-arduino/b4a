@@ -191,15 +191,19 @@ export class ElectronService {
   }
 
   unpackCoreToArduino15(_7zFilePath) {
-    //%LOCALAPPDATA%/Arduino15/packages
-
-    // windows
-    console.log(`unpack ${_7zFilePath} to ${this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
-
-    this._7z.unpack(_7zFilePath, this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages', err => {
-      console.log(err);
-      console.log('unpack done');
-    });
+    return new Promise<boolean>((resolve, reject) => {
+      // windows
+      console.log(`unpack ${_7zFilePath} to ${this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
+      this._7z.unpack(_7zFilePath, this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages', err => {
+        if (err == null) {
+          console.log('unpack done');
+          resolve(true)
+        } else {
+          console.log('unpack error');
+          resolve(false)
+        }
+      });
+    })
   }
 
   async installBoardJson(boardJson_cloud) {
@@ -209,7 +213,8 @@ export class ElectronService {
   }
 
   delBoardJson(filename) {
-    this.fs.rmSync(`${this.basePath}/boards/${filename}`)
+    if (this.fs.existsSync(`${this.basePath}/boards/${filename}`))
+      this.fs.rmSync(`${this.basePath}/boards/${filename}`)
   }
 
 }

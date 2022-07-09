@@ -40,7 +40,8 @@ export class GuideComponent implements OnInit {
       "help": "https://www.arduino.cn/",
       "core_setup": [
         {
-          "mode": "arduino_cli"
+          "mode": "git_7z",
+          "url": "https://e.coding.net/coloz/arduino-packages/avr.git"
         }
       ]
     },
@@ -56,12 +57,8 @@ export class GuideComponent implements OnInit {
       "help": "https://www.arduino.cn/",
       "core_setup": [
         {
-          "mode": "download_exec",
-          "url": "https://dl.clz.me/esp8266_package_3.0.2_arduinocn.exe"
-        },
-        {
-          "mode": "arduino_cli",
-          "url": "https://www.arduino.cn/package_esp8266com_index.json"
+          "mode": "git_7z",
+          "url": "https://e.coding.net/coloz/arduino-packages/esp8266.git"
         }
       ]
     }
@@ -75,11 +72,9 @@ export class GuideComponent implements OnInit {
   }
 
   async installBoard(index) {
-    localStorage.clear();
     let boardJson_cloud: BoardJsonCloud = this.boardList[index]
     this.modal.create({
       nzContent: InstallShellComponent,
-      nzTitle: '安装 ' + boardJson_cloud.name,
       nzClosable: false,
       nzFooter: null,
       nzMaskClosable: false,

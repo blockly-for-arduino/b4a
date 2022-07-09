@@ -9,6 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as download from 'download';
 import { SourceLib } from '../interfaces';
+import { InstallState } from '../../manager/board-manager/install-shell/install-shell.component';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +96,7 @@ export class ArduinoCliService {
         // console.log(data);
         if (data.includes('平台已经安装') || data.includes(`已安装${boardJson_cloud.core}平台`)) {
           resolve(true)
-          this.state.next(ShellState.INSTALL_CORE_DONE)
+          // this.state.next(InstallState.INSTALL_CORE_DONE)
         } else {
           if (data == `${boardJson_cloud.core}已下载`) return
           this.output.next(data)
@@ -106,7 +107,7 @@ export class ArduinoCliService {
       })
       child.on('close', (code) => {
         console.log('installCore close:' + code);
-        if (code != 0) this.state.next(ShellState.INSTALL_CORE_FAIL)
+        // if (code != 0) this.state.next(InstallState.INSTALL_CORE_FAIL)
       })
     })
   }

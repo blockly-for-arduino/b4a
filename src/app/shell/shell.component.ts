@@ -10,9 +10,9 @@ export enum ShellState {
   UPLOADING = 12,
   UPLOAD_DONE = 22,
   UPLOAD_FAIL = 32,
-  INSTALL_CORE_ING = 13,
-  INSTALL_CORE_DONE = 23,
-  INSTALL_CORE_FAIL = 33,
+  // INSTALL_CORE_ING = 13,
+  // INSTALL_CORE_DONE = 23,
+  // INSTALL_CORE_FAIL = 33,
 }
 
 @Component({

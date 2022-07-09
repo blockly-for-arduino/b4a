@@ -32,10 +32,10 @@ export class ConfigService {
       this.boardDict[board.name] = board
     })
     console.log(this.boardDict);
-
+    console.log(this.boardList);
     // 加载暂存的开发板信息
     let boardName = localStorage.getItem('config.boardName')
-    if (boardName != null) {
+    if (boardName != null && this.boardList.includes(boardName)) {
       this.selectBoard(boardName)
     } else {
       this.selectBoard(this.boardList[0])

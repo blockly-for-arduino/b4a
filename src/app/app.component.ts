@@ -63,6 +63,7 @@ export class AppComponent {
     this.configService.loaded.subscribe(state => {
       if (state) {
         this.checkGuide();
+        if (this.configService.boardList.length == 0) this.showGuide = true
         this.serialSelected = this.configService.config.serial;
         if (this.configService.config.board != null)
           this.boardSelected = this.configService.config.board.name;
@@ -74,10 +75,15 @@ export class AppComponent {
   checkGuide() {
     if (localStorage.getItem('guide') == null) {
       this.showGuide = true
-    } else {
-      this.showGuide = false
+      return
     }
+    if (this.configService.boardList.length == 0) {
+      this.showGuide = true
+      return
+    }
+    this.showGuide = false
   }
+
 
   ngAfterViewInit(): void {
     this.getSerialPortList()

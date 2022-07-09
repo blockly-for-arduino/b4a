@@ -1,4 +1,4 @@
-<div class="info-box">
+<!-- <div class="info-box">
     <div *ngFor="let data of dataList;index as i;trackBy:trackFunc"
         class="animate__animated animate__fadeInLeft animate__faster" [ngClass]="{
             'red': isErrorInfo_Build(data) || isErrorInfo_Upload(data),
@@ -10,4 +10,71 @@
 <div *nzModalFooter>
     <button *ngIf="!isDone" nz-button nzDanger (click)="stop()">终止安装</button>
     <button *ngIf="isDone" nz-button (click)="stop()">完成</button>
+</div> -->
+<div class="state-box">
+    <ng-container *ngIf="state==4">
+        <i nz-icon nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.name}}</div>
+            <div>下载开发板配置</div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="state==0">
+        <i nz-icon nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.core}}</div>
+            <div>检查已安装核心</div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="state==1">
+        <i nz-icon nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.core}}</div>
+            <div>下载核心</div>
+        </div>
+
+    </ng-container>
+    <ng-container *ngIf="state==2">
+        <i nz-icon nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.core}}</div>
+            <div>安装核心</div>
+        </div>
+
+    </ng-container>
+    <ng-container *ngIf="state==3">
+        <i nz-icon nzType="loading" nzTheme="outline" nzSpin="true" class="blue"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.name}}</div>
+            <div>安装完成</div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="state==5">
+        <i nz-icon nzType="check-circle" nzTheme="outline" class="green"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.name}}</div>
+            <div>开发板安装完成</div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="state==-1">
+        <i nz-icon nzType="close-circle" nzTheme="outline" class="red"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.core}}</div>
+            <div>核心安装失败</div>
+        </div>
+
+    </ng-container>
+    <ng-container *ngIf="state==-2">
+        <i nz-icon nzType="close-circle" nzTheme="outline" class="red"></i>
+        <div class="text-box">
+            <div>{{boardJson_cloud.name}}</div>
+            <div>开发板安装失败</div>
+        </div>
+    </ng-container>
+    <div class="close-btn" (click)="stop()">
+        <i nz-icon nzType="close" nzTheme="outline"></i>
+        <div class="btn-text animate__animated animate__fadeInRight">终止安装</div>
+    </div>
 </div>

@@ -98,7 +98,6 @@ export class BoardManagerComponent implements OnInit {
   async installBoard(boardJson_cloud) {
     this.modal.create({
       nzContent: InstallShellComponent,
-      nzTitle: '安装 ' + boardJson_cloud.name,
       nzClosable: false,
       nzFooter: null,
       nzMaskClosable: false,

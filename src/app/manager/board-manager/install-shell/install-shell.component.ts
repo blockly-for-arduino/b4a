@@ -2,12 +2,24 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { Subscription } from 'rxjs';
+import { BoardJsonCloud } from '../../../core/interfaces';
 import { ElectronService } from '../../../core/services';
 import { ArduinoCliService } from '../../../core/services/arduino-cli.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { GitService } from '../../../core/services/git.service';
 import { isErrorInfo_Build, isErrorInfo_Upload, isSystemInfo, isUsefulInfo_Build, isUsefulInfo_Upload } from '../../../shell/info';
-import { ShellState } from '../../../shell/shell.component';
+
+export enum InstallState {
+  INSTALL_CORE_CHECK = 0,
+  INSTALL_CORE_DOWNLOAD = 1,
+  INSTALL_CORE_ING = 2,
+  INSTALL_CORE_DONE = 3,
+  INSTALL_CORE_FAIL = -1,
+
+  INSTALL_BOARD_DOWNLOAD = 4,
+  INSTALL_BOARD_DONE = 5,
+  INSTALL_BOARD_FAIL = -2,
+}
 
 @Component({
   selector: 'app-install-shell',
@@ -16,17 +28,9 @@ import { ShellState } from '../../../shell/shell.component';
 })
 export class InstallShellComponent implements OnInit {
 
-  @Input() boardJson_cloud;
-  dataList = ['']
+  @Input() boardJson_cloud: BoardJsonCloud;
 
-  state = ShellState.INSTALL_CORE_ING;
-
-  arduinoCliOutput: Subscription;
-  arduinoCliState: Subscription;
-
-  lastLine: string = 'null';
-
-  isDone = false
+  state = InstallState.INSTALL_CORE_CHECK;
 
   constructor(
     private configService: ConfigService,
@@ -39,94 +43,67 @@ export class InstallShellComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.arduinoCliState = this.arduinoCli.state.subscribe(state => {
-      if (state == ShellState.INSTALL_CORE_ING) {
-        this.dataList = ['']
-        this.lastLine = ''
-        this.cd.detectChanges()
-      }
-      this.state = state
-    })
-    this.arduinoCliOutput = this.arduinoCli.output.subscribe(str => {
-      console.log(str);
-      if (str.includes('0.00%')) return
-      // 系统信息直接写入
-      if (isSystemInfo(str)) {
-        console.log('system info: ' + str);
-        this.dataList.push(str)
-        this.dataList.push('')
-        this.cd.detectChanges()
-        return
-      }
-      // 替换百分比进度
-      let temp = str.match(/([\d.d]+%)|已下载|已安装/)
-      if (temp != null) {
-        let packageName = str.split(' ')[0]
-        if (packageName.includes('已下载')) {
-          packageName = str.split('已下载')[0]
-        } else if (packageName.includes('已安装')) {
-          packageName = str.split('已安装')[0]
-        }
-        let currentline = packageName + ' ' + temp[0]
-        if (this.lastLine.includes(packageName)) {
-          this.dataList[this.dataList.length - 1] = currentline
-        } else {
-          this.dataList.push(currentline)
-        }
-        this.lastLine = currentline
-      }
-
-      this.cd.detectChanges()
-
-    })
   }
 
   ngAfterViewInit(): void {
-    this.install()
+    // this.install()
   }
 
   ngOnDestroy(): void {
-    this.arduinoCliOutput.unsubscribe()
-    this.arduinoCliState.unsubscribe()
     this.arduinoCli.killChild()
   }
 
   async install() {
     try {
-      this.boardJson_cloud['loading'] = true
-      this.arduinoCli.state.next(ShellState.INSTALL_CORE_ING)
-      // 下载开发板json配置
+      this.changeState(InstallState.INSTALL_BOARD_DOWNLOAD)
       this.electronService.installBoardJson(this.boardJson_cloud)
-
-      this.arduinoCli.output.next('检查已安装核心...')
+      this.changeState(InstallState.INSTALL_CORE_CHECK)
       let arduinoCoreList = await this.arduinoCli.checkArduinoCoreList()
       if (!arduinoCoreList.includes(this.boardJson_cloud.core)) {
-        this.arduinoCli.output.next(`安装核心 ${this.boardJson_cloud.core}...`)
-        if (this.boardJson_cloud.core_setup[0].mode == "arduino_cli") {
-          await this.arduinoCli.installCore(this.boardJson_cloud);
-        } else if (this.boardJson_cloud.core_setup[0].mode == "download_exec") {
-          await this.electronService.installcore(this.boardJson_cloud);
-        } else if (this.boardJson_cloud.core_setup[0].mode == "git_7z") {
-          await this.gitServer.clone(this.boardJson_cloud);
+        if (this.boardJson_cloud.core_setup[0].mode == "git_7z") {
+          this.changeState(InstallState.INSTALL_CORE_DOWNLOAD)
+          let _7zFile = await this.gitServer.clone(this.boardJson_cloud);
+          this.changeState(InstallState.INSTALL_CORE_ING)
+          if (await this.electronService.unpackCoreToArduino15(_7zFile)) {
+            this.changeState(InstallState.INSTALL_CORE_DONE)
+          } else {
+            this.changeState(this.state = InstallState.INSTALL_CORE_FAIL)
+          }
         }
+        // if (this.boardJson_cloud.core_setup[0].mode == "arduino_cli") {
+        //   await this.arduinoCli.installCore(this.boardJson_cloud);
+        // } else if (this.boardJson_cloud.core_setup[0].mode == "download_exec") {
+        //   await this.electronService.installcore(this.boardJson_cloud);
+        // }  
       } else {
-        this.arduinoCli.output.next(`核心 ${this.boardJson_cloud.core} 已安装`)
+        this.changeState(InstallState.INSTALL_CORE_DONE)
       }
-      this.boardJson_cloud['loading'] = false
-      this.arduinoCli.output.next('安装完成')
-      this.message.success('开发板 ' + this.boardJson_cloud.name + ' 安装成功')
-      this.isDone = true
+      setTimeout(() => {
+        this.changeState(InstallState.INSTALL_BOARD_DONE)
+      }, 1000);
+      setTimeout(() => {
+        this.close();
+      }, 2000);
     } catch (error) {
       console.error(error);
-      this.boardJson_cloud['loading'] = false
-      this.message.error('开发板 ' + this.boardJson_cloud.name + ' 安装失败')
+      this.changeState(InstallState.INSTALL_BOARD_FAIL)
     }
   }
 
-  stop() {
+  changeState(state: InstallState) {
+    this.state = state
+    this.cd.detectChanges()
+  }
+
+  close() {
     localStorage.setItem('guide', 'hide')
     this.configService.init()
-    this.arduinoCli.killChild()
+    this.modalRef.close()
+  }
+
+  stop() {
+    let boardFileName = this.boardJson_cloud.file.split('/').pop()
+    this.electronService.delBoardJson(boardFileName)
     this.modalRef.close()
   }
 
@@ -144,6 +121,10 @@ export class InstallShellComponent implements OnInit {
 
   isErrorInfo_Upload(data: string) {
     return isErrorInfo_Upload(data)
+  }
+
+  test(){
+    this.child
   }
 
 
