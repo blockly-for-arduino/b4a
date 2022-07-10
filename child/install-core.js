@@ -6,10 +6,10 @@ const _7z = require('7zip-min')
 const os = require('os')
 
 process.on('message', async (msg, setHandle) => {
-    console.log(msg.data);
-    process.send({ type: 'state', data: 'INSTALL_CORE_DOWNLOAD' })
+    // console.log(msg.data);
+    process.send({ state: 'INSTALL_CORE_DOWNLOAD' })
     let _7zFilePath = await clone(msg.data)
-    process.send({ type: 'state', data: 'INSTALL_CORE_ING' })
+    process.send({ state: 'INSTALL_CORE_ING' })
     let result = await unpack(_7zFilePath)
     if (result) {
         process.send({ state: 'INSTALL_CORE_DONE' })
@@ -20,7 +20,7 @@ process.on('message', async (msg, setHandle) => {
 
 function clone(boardJsonCloud) {
     return new Promise(async (resolve, reject) => {
-        console.log(`git clone ${boardJsonCloud.core}...`);
+        // console.log(`git clone ${boardJsonCloud.core}...`);
         let path = '.\\temp\\' + boardJsonCloud.core
         path = path.replace(':', '-')
         await git.clone({
@@ -38,7 +38,7 @@ function clone(boardJsonCloud) {
                 }
             },
         })
-        console.log('git clone done');
+        // console.log('git clone done');
         fs.rmdirSync(path + '\\.git', { recursive: true })
         let _7zFile = path + '\\' + fs.readdirSync(path)[0]
         resolve(_7zFile)
@@ -49,7 +49,7 @@ function clone(boardJsonCloud) {
 function unpack(_7zFilePath) {
     return new Promise((resolve, reject) => {
         // windows
-        console.log(`unpack ${_7zFilePath} to ${os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
+        // console.log(`unpack ${_7zFilePath} to ${os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
         _7z.unpack(_7zFilePath, os.homedir() + '\\AppData\\Local\\Arduino15\\packages', err => {
             if (err == null) {
                 console.log('unpack done');

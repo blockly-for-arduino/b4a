@@ -80,16 +80,17 @@ export class BoardManagerComponent implements OnInit {
     let coreDict = {}
     this.coreList = []
     this.boardList_cloud.map(board => {
-      if (coreDict[board.core]) {
-        coreDict[board.core].boards.push(board)
+      let core = board.core.split('@')[0].split(':')[1]
+      if (coreDict[core]) {
+        coreDict[core].boards.push(board)
       } else {
         let coreInfo = {
-          name: board.core.split(':')[1],
+          name: core,
           img: "",
           boards: [board]
         }
         this.coreList.push(coreInfo)
-        coreDict[board.core] = coreInfo
+        coreDict[core] = coreInfo
       }
     })
     console.log(this.coreList);
