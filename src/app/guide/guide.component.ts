@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BoardJsonCloud } from '../core/interfaces';
+import { ElectronService } from '../core/services';
 import { InstallShellComponent } from '../manager/board-manager/install-shell/install-shell.component';
 
 @Component({
@@ -65,7 +66,8 @@ export class GuideComponent implements OnInit {
   ]
 
   constructor(
-    private modal: NzModalService
+    private modal: NzModalService,
+    private electronService:ElectronService
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +84,10 @@ export class GuideComponent implements OnInit {
         boardJson_cloud: boardJson_cloud
       }
     })
+  }
+
+  openUrl(url){
+    this.electronService.openUrl(url);
   }
 
 }

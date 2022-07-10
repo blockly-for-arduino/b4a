@@ -6,7 +6,6 @@ import { BoardJsonCloud } from '../../../core/interfaces';
 import { ElectronService } from '../../../core/services';
 import { ArduinoCliService } from '../../../core/services/arduino-cli.service';
 import { ConfigService } from '../../../core/services/config.service';
-import { GitService } from '../../../core/services/git.service';
 import { isErrorInfo_Build, isErrorInfo_Upload, isSystemInfo, isUsefulInfo_Build, isUsefulInfo_Upload } from '../../../shell/info';
 
 export enum InstallState {
@@ -31,12 +30,12 @@ export class InstallShellComponent implements OnInit {
   @Input() boardJson_cloud: BoardJsonCloud;
 
   state = InstallState.INSTALL_CORE_CHECK;
+  child_installCore;
 
   constructor(
     private configService: ConfigService,
     private electronService: ElectronService,
     private arduinoCli: ArduinoCliService,
-    private gitServer: GitService,
     private message: NzMessageService,
     private modalRef: NzModalRef,
     private cd: ChangeDetectorRef
@@ -46,7 +45,7 @@ export class InstallShellComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    // this.install()
+    this.install()
   }
 
   ngOnDestroy(): void {
@@ -62,13 +61,32 @@ export class InstallShellComponent implements OnInit {
       if (!arduinoCoreList.includes(this.boardJson_cloud.core)) {
         if (this.boardJson_cloud.core_setup[0].mode == "git_7z") {
           this.changeState(InstallState.INSTALL_CORE_DOWNLOAD)
-          let _7zFile = await this.gitServer.clone(this.boardJson_cloud);
-          this.changeState(InstallState.INSTALL_CORE_ING)
-          if (await this.electronService.unpackCoreToArduino15(_7zFile)) {
-            this.changeState(InstallState.INSTALL_CORE_DONE)
-          } else {
-            this.changeState(this.state = InstallState.INSTALL_CORE_FAIL)
-          }
+          this.child_installCore = this.electronService.installCore(this.boardJson_cloud)
+          this.child_installCore.on('message', (data: any) => {
+            console.log(data.state)
+            switch (data.state) {
+              case 'INSTALL_CORE_DOWNLOAD':
+                this.changeState(InstallState.INSTALL_CORE_DOWNLOAD)
+                break;
+              case 'INSTALL_CORE_ING':
+                this.changeState(InstallState.INSTALL_CORE_ING)
+                break;
+              case 'INSTALL_CORE_DONE':
+                this.changeState(InstallState.INSTALL_CORE_DONE)
+                setTimeout(() => {
+                  this.changeState(InstallState.INSTALL_BOARD_DONE)
+                }, 1000);
+                setTimeout(() => {
+                  this.close();
+                }, 2000);
+                break;
+              case 'INSTALL_CORE_FAIL':
+                this.changeState(InstallState.INSTALL_CORE_FAIL)
+                break;
+              default:
+                break;
+            }
+          })
         }
         // if (this.boardJson_cloud.core_setup[0].mode == "arduino_cli") {
         //   await this.arduinoCli.installCore(this.boardJson_cloud);
@@ -76,14 +94,13 @@ export class InstallShellComponent implements OnInit {
         //   await this.electronService.installcore(this.boardJson_cloud);
         // }  
       } else {
-        this.changeState(InstallState.INSTALL_CORE_DONE)
+        setTimeout(() => {
+          this.changeState(InstallState.INSTALL_BOARD_DONE)
+        }, 1000);
+        setTimeout(() => {
+          this.close();
+        }, 2000);
       }
-      setTimeout(() => {
-        this.changeState(InstallState.INSTALL_BOARD_DONE)
-      }, 1000);
-      setTimeout(() => {
-        this.close();
-      }, 2000);
     } catch (error) {
       console.error(error);
       this.changeState(InstallState.INSTALL_BOARD_FAIL)
@@ -97,11 +114,13 @@ export class InstallShellComponent implements OnInit {
 
   close() {
     localStorage.setItem('guide', 'hide')
+    if (typeof this.child_installCore != 'undefined') this.child_installCore.kill()
     this.configService.init()
     this.modalRef.close()
   }
 
   stop() {
+    if (typeof this.child_installCore != 'undefined') this.child_installCore.kill()
     let boardFileName = this.boardJson_cloud.file.split('/').pop()
     this.electronService.delBoardJson(boardFileName)
     this.modalRef.close()
@@ -122,10 +141,5 @@ export class InstallShellComponent implements OnInit {
   isErrorInfo_Upload(data: string) {
     return isErrorInfo_Upload(data)
   }
-
-  test(){
-    this.child
-  }
-
 
 }

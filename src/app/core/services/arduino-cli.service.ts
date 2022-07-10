@@ -66,7 +66,7 @@ export class ArduinoCliService {
     return new Promise<string[]>((resolve, reject) => {
       let child_arduinoCoreList = this.childProcess.exec(this.cliPath + ' core list')
       child_arduinoCoreList.stdout!.on('data', (data: string) => {
-        console.log(data);
+        // console.log(data);
         if (data.includes('正在')) return;
         let list = data.split('\n')
         list.forEach((line, index) => {

@@ -26,8 +26,8 @@
       ]
     },
     {
-      "from": "packages",
-      "to": "packages",
+      "from": "child",
+      "to": "child",
       "filter": [
         "**/*"
       ]

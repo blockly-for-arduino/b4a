@@ -190,31 +190,20 @@ export class ElectronService {
     })
   }
 
-  unpackCoreToArduino15(_7zFilePath) {
-    return new Promise<boolean>((resolve, reject) => {
-      // windows
-      console.log(`unpack ${_7zFilePath} to ${this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages'}`);
-      this._7z.unpack(_7zFilePath, this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages', err => {
-        if (err == null) {
-          console.log('unpack done');
-          resolve(true)
-        } else {
-          console.log('unpack error');
-          resolve(false)
-        }
-      });
-    })
-  }
-
   async installBoardJson(boardJson_cloud) {
-    console.log(boardJson_cloud.file);
-
     await this.download(boardJson_cloud.file, `${this.basePath}/boards`);
   }
 
   delBoardJson(filename) {
     if (this.fs.existsSync(`${this.basePath}/boards/${filename}`))
       this.fs.rmSync(`${this.basePath}/boards/${filename}`)
+  }
+
+  installCore(boardJsonCloud) {
+    let path = this.fs.existsSync('./resources') ? './resources' : '.';
+    let child = this.childProcess.fork(path + '/child/install-core.js')
+    child.send({ data: boardJsonCloud })
+    return child
   }
 
 }
