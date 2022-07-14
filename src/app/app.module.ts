@@ -21,7 +21,7 @@ import {
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline,
   RightOutline, RightCircleOutline, LoadingOutline, CloudOutline,
   SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
-  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline
+  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline,FolderOutline
 } from '@ant-design/icons-angular/icons';
 import { MonitorModule } from './monitor/monitor.module';
 import { ShellModule } from './shell/shell.module';
@@ -33,7 +33,7 @@ import { GuideComponent } from './guide/guide.component';
 const icons: IconDefinition[] = [CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
   SaveOutline, FolderOpenOutline, MonitorOutline, SettingOutline, RightOutline, RightCircleOutline,
   LoadingOutline, CloudOutline, SearchOutline, EnterOutline, AppstoreAddOutline, CloudDownloadOutline,
-  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline
+  LeftCircleOutline, GlobalOutline, GithubOutline, DeleteOutline,FolderOutline
 ];
 
 // AoT requires an exported function for factories

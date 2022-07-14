@@ -61,7 +61,7 @@ export class InstallShellComponent implements OnInit {
       if (!arduinoCoreList.includes(this.boardJson_cloud.core)) {
         if (this.boardJson_cloud.core_setup[0].mode == "git_7z") {
           this.changeState(InstallState.INSTALL_CORE_DOWNLOAD)
-          this.child_installCore = this.electronService.installCore(this.boardJson_cloud)
+          this.child_installCore = this.electronService.installCore()
           this.child_installCore.on('message', (data: any) => {
             console.log(data.state)
             switch (data.state) {
@@ -87,6 +87,7 @@ export class InstallShellComponent implements OnInit {
                 break;
             }
           })
+          this.child_installCore.send({ data: this.boardJson_cloud })
         }
         // if (this.boardJson_cloud.core_setup[0].mode == "arduino_cli") {
         //   await this.arduinoCli.installCore(this.boardJson_cloud);

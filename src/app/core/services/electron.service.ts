@@ -6,7 +6,7 @@ import * as os from 'os';
 import { dialog } from '@electron/remote';
 import { LibInfo, SourceLib } from '../interfaces';
 import * as download from 'download';
-import * as _7z from '7zip-min';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +19,7 @@ export class ElectronService {
   fs: typeof fs;
   shell: typeof shell;
   download: typeof download;
-  _7z: typeof _7z;
+
   package;
 
   libraries_user: LibInfo[] = []
@@ -43,7 +43,6 @@ export class ElectronService {
       this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
       this.download = window.require('download');
-      this._7z = window.require('7zip-min');
     }
   }
 
@@ -199,10 +198,9 @@ export class ElectronService {
       this.fs.rmSync(`${this.basePath}/boards/${filename}`)
   }
 
-  installCore(boardJsonCloud) {
+  installCore() {
     let path = this.fs.existsSync('./resources') ? './resources' : '.';
     let child = this.childProcess.fork(path + '/child/install-core.js')
-    child.send({ data: boardJsonCloud })
     return child
   }
 
