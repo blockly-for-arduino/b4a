@@ -19,13 +19,6 @@
       ]
     },
     {
-      "from": "arduino",
-      "to": "arduino",
-      "filter": [
-        "**/*"
-      ]
-    },
-    {
       "from": "child",
       "to": "child",
       "filter": [

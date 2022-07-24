@@ -13,10 +13,10 @@
                 </div>
             </ng-container>
         </div>
-        <!-- <div class="left-bottom">
-            <div (click)="openBoard"><i nz-icon nzType="folder" nzTheme="outline"></i>B4A开发板目录</div>
-            <div (click)="expression"><i nz-icon nzType="folder" nzTheme="outline"></i>Arduino核心目录</div>
-        </div> -->
+        <div class="left-bottom">
+            <a nz-button nzType="link" (click)="openBoardFolder()"><i nz-icon nzType="folder" nzTheme="outline"></i>B4A开发板目录</a>
+            <a nz-button nzType="link" (click)="openCoreFolder()"><i nz-icon nzType="folder" nzTheme="outline"></i>Arduino核心目录</a>
+        </div>
     </div>
     <div class="right-box animate__animated animate__fadeInRight animate__faster">
         <div class="search-box">

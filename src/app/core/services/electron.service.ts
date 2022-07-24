@@ -6,6 +6,7 @@ import * as os from 'os';
 import { dialog } from '@electron/remote';
 import { LibInfo, SourceLib } from '../interfaces';
 import * as download from 'download';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class ElectronService {
   }
 
   basePath = './resources/app/';
+  cliPath = './child/install-board.exe'
 
   constructor() {
     if (this.isElectron) {
@@ -164,33 +166,42 @@ export class ElectronService {
     this.fs.rmdirSync(`${this.basePath}/libraries/${libName}`, { recursive: true })
   }
 
-  installcore(boardJson_cloud) {
-    let basePath = this.fs.existsSync('./resources/packages') ? '.\\resources\\packages\\' : '.\\packages\\';
-    return new Promise<boolean>((resolve, reject) => {
-      let file;
-      if (boardJson_cloud.core.includes('esp8266:esp8266')) {
-        file = basePath + `esp8266_package_3.0.2_arduinocn.exe`
-      } if (boardJson_cloud.core.includes('esp32:esp32')) {
-        file = basePath + `esp32_package_2.0.3_arduinocn.exe`
+  child_installBoard;
+  installBoardState = new Subject<string>()
+  stateList = [
+    'DOWNLOAD_BOARD_JSON', 'DOWNLOAD_BOARD_FAIL',
+    'CHECK_BOARD_CORE', 'DOWNLOAD_BOARD_CORE',
+    'INSTALL_BOARD_ING', 'INSTALL_BOARD_DONE', 'INSTALL_BOARD_FAIL']
+  installBoard(boardJson_cloud) {
+    console.log(boardJson_cloud);
+    this.child_installBoard = this.childProcess.spawn(this.cliPath, [
+      '-boardUrl', boardJson_cloud.file,
+      '-boardPath', `${this.basePath}/boards`,
+      '-boardName', boardJson_cloud.name,
+      '-coreUrl', boardJson_cloud.core_setup[0].url,
+      '-coreName', boardJson_cloud.core.split('@')[0],
+      '-coreVersion', boardJson_cloud.core.split('@')[1],
+      '-corePath', this.os.homedir() + '/AppData/Local/Arduino15/packages'
+    ])
+    this.child_installBoard.stdout.on('data', (dataBuffer) => {
+      let data = dataBuffer.toString().split('\n')[0]
+      console.log(JSON.stringify(data));
+      if (this.stateList.includes(data)) {
+        this.installBoardState.next(data)
       }
-      let child = this.childProcess.spawn(file);
-      child.stdout.on('data', (data) => {
-        console.log(data.toString());
-      })
-      child.stderr.on('data', (data) => {
-        console.log(data);
-      })
-      child.on('close', (code) => {
-        console.log('installBoard close:' + code);
-        if (code == 0) {
-          resolve(true)
-        }
-      })
+    })
+    this.child_installBoard.stderr.on('data', (dataBuffer) => {
+      let data = dataBuffer.toString();
+      console.log(data);
+    })
+    this.child_installBoard.on('data', (dataBuffer) => {
+      let data = dataBuffer.toString();
+      console.log(data);
     })
   }
 
-  async installBoardJson(boardJson_cloud) {
-    await this.download(boardJson_cloud.file, `${this.basePath}/boards`);
+  stopInstallBoard() {
+    this.child_installBoard.kill();
   }
 
   delBoardJson(filename) {
@@ -198,10 +209,14 @@ export class ElectronService {
       this.fs.rmSync(`${this.basePath}/boards/${filename}`)
   }
 
-  installCore() {
-    let path = this.fs.existsSync('./resources') ? './resources' : '.';
-    let child = this.childProcess.fork(path + '/child/install-core.js')
-    return child
+  openBoardFolder() {
+    console.log(process.cwd() + `${this.basePath}/boards`.replace('.', ''));
+    this.shell.showItemInFolder(process.cwd() + `${this.basePath}/boards`.replace('.', ''))
+  }
+
+  openCoreFolder() {
+    console.log(this.os.homedir() + '/AppData/Local/Arduino15/packages');
+    this.shell.showItemInFolder(this.os.homedir() + '\\AppData\\Local\\Arduino15\\packages')
   }
 
 }

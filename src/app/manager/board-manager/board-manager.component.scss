@@ -125,22 +125,7 @@
     bottom: 0;
     left: 0;
     display: flex;
-    color: #333;
-    background: #999;
+    justify-content: space-between;
     height: 36px;
     width: 100%;
-
-    >div {
-        width: 50%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        i {
-            margin-left: -3px;
-            margin-right: 5px;
-        }
-    }
 }

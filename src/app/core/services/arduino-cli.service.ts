@@ -9,7 +9,6 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as download from 'download';
 import { SourceLib } from '../interfaces';
-import { InstallState } from '../../manager/board-manager/install-shell/install-shell.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class ArduinoCliService {
   os: typeof os;
   fs: typeof fs;
   download: typeof download;
-  cliPath = '.\\arduino\\arduino-cli.exe'
+  cliPath = '.\\clild\\arduino-cli.exe'
 
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);

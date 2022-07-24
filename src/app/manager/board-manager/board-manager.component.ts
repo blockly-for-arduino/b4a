@@ -125,6 +125,13 @@ export class BoardManagerComponent implements OnInit {
     return this.boardList.includes(boardName)
   }
 
+  openBoardFolder() {
+    this.electronService.openBoardFolder()
+  }
+
+  openCoreFolder() {
+    this.electronService.openCoreFolder()
+  }
 
 
 }
