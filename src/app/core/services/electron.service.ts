@@ -44,6 +44,7 @@ export class ElectronService {
       this.fs = window.require('fs');
       this.package = window.require("./package.json");
       this.basePath = this.fs.existsSync('./resources') ? './resources/app' : './src';
+      this.cliPath = this.fs.existsSync('./resources') ? './resources/child/install-board.exe' : './child/install-board.exe'
       this.download = window.require('download');
     }
   }
@@ -174,6 +175,16 @@ export class ElectronService {
     'INSTALL_BOARD_ING', 'INSTALL_BOARD_DONE', 'INSTALL_BOARD_FAIL']
   installBoard(boardJson_cloud) {
     console.log(boardJson_cloud);
+    console.log([
+      '-boardUrl', boardJson_cloud.file,
+      '-boardPath', `${this.basePath}/boards`,
+      '-boardName', boardJson_cloud.name,
+      '-coreUrl', boardJson_cloud.core_setup[0].url,
+      '-coreName', boardJson_cloud.core.split('@')[0],
+      '-coreVersion', boardJson_cloud.core.split('@')[1],
+      '-corePath', this.os.homedir() + '/AppData/Local/Arduino15/packages'
+    ].join(' '));
+
     this.child_installBoard = this.childProcess.spawn(this.cliPath, [
       '-boardUrl', boardJson_cloud.file,
       '-boardPath', `${this.basePath}/boards`,
@@ -184,8 +195,9 @@ export class ElectronService {
       '-corePath', this.os.homedir() + '/AppData/Local/Arduino15/packages'
     ])
     this.child_installBoard.stdout.on('data', (dataBuffer) => {
+      console.log(dataBuffer.toString());
       let data = dataBuffer.toString().split('\n')[0]
-      console.log(JSON.stringify(data));
+      // console.log(data);
       if (this.stateList.includes(data)) {
         this.installBoardState.next(data)
       }
@@ -210,8 +222,15 @@ export class ElectronService {
   }
 
   openBoardFolder() {
-    console.log(process.cwd() + `${this.basePath}/boards`.replace('.', ''));
-    this.shell.showItemInFolder(process.cwd() + `${this.basePath}/boards`.replace('.', ''))
+    console.log(__dirname);
+
+    let path
+    if (__dirname.includes('node_modules')) {
+      path = __dirname.split('node_modules')[0] + `${this.basePath}/boards`.replace('./', '')
+    }
+    console.log(path.replace('./', ''));
+
+    this.shell.showItemInFolder(path)
   }
 
   openCoreFolder() {
