@@ -1,5 +1,5 @@
 # Blockly For Arduino  
-![](https://github.com/coloz/b4a/blob/master/doc/icon.png?raw=true)
+![](https://github.com/coloz/b4a/blob/master/doc/img/icon.png?raw=true)
 
 开发中...
 
@@ -9,7 +9,7 @@
 [B4A 库创建器](https://github.com/coloz/b4a-creator)  
 [开发板/类库/示例资源](https://github.com/coloz/b4a-cloud)  
 
-![](https://github.com/coloz/b4a/blob/master/doc/pic1.jpg?raw=true)
+![](https://github.com/coloz/b4a/blob/master/doc/img/pic1.jpg?raw=true)
 
 ## 开发  
 ### 关键技术  
@@ -55,6 +55,13 @@ npm run electron:build
 [ardublockly](https://github.com/carlosperate/ardublockly)  
 本人通过ardublockly源码学习了blockly如何进行Arduino适配  
 
+## 联合发布  
+本软件由 奈何col 和 以下组织联合发布  
+![](https://github.com/coloz/b4a/blob/master/doc/img/openjumper.png?raw=true)
+
+## 深度合作  
+本软件正在和以下组织开展深度合作：  
+![](https://github.com/coloz/b4a/blob/master/doc/img/idealab.png?raw=true)
 
 ## TODO LIST  
 1. monaco-editor替换为mirrorcode（等mirrorcode next release）  
