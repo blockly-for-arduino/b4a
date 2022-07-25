@@ -41,7 +41,7 @@ export class ArduinoCliService {
       this.os = window.require('os');
       this.fs = window.require('fs');
       this.download = window.require('download');
-      this.cliPath = this.fs.existsSync('./resources/app') ? '.\\resources\\arduino\\arduino-cli.exe' : '.\\arduino\\arduino-cli.exe';
+      this.cliPath = this.fs.existsSync('./resources/app') ? '.\\resources\\child\\arduino-cli.exe' : '.\\child\\arduino-cli.exe';
     }
   }
 

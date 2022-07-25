@@ -196,11 +196,12 @@ export class ElectronService {
     ])
     this.child_installBoard.stdout.on('data', (dataBuffer) => {
       console.log(dataBuffer.toString());
-      let data = dataBuffer.toString().split('\n')[0]
-      // console.log(data);
-      if (this.stateList.includes(data)) {
-        this.installBoardState.next(data)
-      }
+      let dataList = dataBuffer.toString().split('\n')
+      dataList.forEach(data => {
+        if (this.stateList.includes(data)) {
+          this.installBoardState.next(data)
+        }
+      });
     })
     this.child_installBoard.stderr.on('data', (dataBuffer) => {
       let data = dataBuffer.toString();
@@ -229,6 +230,7 @@ export class ElectronService {
       path = __dirname.split('node_modules')[0] + `${this.basePath}/boards`.replace('./', '')
     }
     console.log(path.replace('./', ''));
+    console.log('this.fs.existsSync(path)', this.fs.existsSync(path));
 
     this.shell.showItemInFolder(path)
   }
