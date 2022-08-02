@@ -1,1 +1,132 @@
-{"category":"DHT温湿度传感器","name":"DHT-sensor","icon":"fal fa-oil-temp","introduction":"单总线温湿度传感器库，适用于DHT11/DHT21/DHT22/AM2302/AM2321/AM2301。","colour":"#48c2c4","version":"0.0.1","author":"奈何col","compatibility":{"core":["arduino:avr"],"voltage":["5v"]},"source":[{"name":"Adafruit_Sensor","type":"ArduinoLib","url":"https://b4a.clz.me/libraries/Adafruit_Sensor.zip"},{"name":"DHT-sensor-library","type":"ArduinoLib","url":"https://b4a.clz.me/libraries/DHT-sensor-library.zip"}],"blocks":[{"inputsInline":true,"message0":"初始化温湿度传感器%1 传感器型号%2 连接引脚%3","type":"dht_readhumidity","colour":"#48c2c4","args0":[{"type":"field_variable","name":"OBJECT","variable":"dht","variableTypes":["DHT"],"defaultType":"DHT"},{"type":"field_dropdown","name":"DHTTYPE","options":[["DHT11","DHT11"],["DHT22/AM2302/AM2321","DHT22"],["DHT21/AM2301","DHT21"]]},{"type":"field_dropdown","name":"DHTPIN","options":"${board.digitalPins}"}],"toolbox":{"show":true,"inputs":null},"b4a":{"code":"${OBJECT}.readHumidity();","library":"#include <DHT.h>","object":"DHT ${OBJECT}(${DHTPIN}, ${DHTTYPE});","setup":"${OBJECT}.begin();"},"previousStatement":null,"nextStatement":null},{"inputsInline":true,"message0":"温湿度传感器%1 读取温度","type":"dht_readtemperature","colour":"#48c2c4","args0":[{"type":"field_variable","name":"OBJECT","variable":"dht","variableTypes":["DHT"],"defaultType":"DHT"}],"toolbox":{"show":true,"inputs":null},"b4a":{"code":"${OBJECT}.readTemperature();"},"output":"Any"},{"inputsInline":true,"message0":"温湿度传感器%1 读取湿度","type":"dht_readtemperature","colour":"#48c2c4","args0":[{"type":"field_variable","name":"OBJECT","variable":"dht","variableTypes":["DHT"],"defaultType":"DHT"}],"toolbox":{"show":true,"inputs":null},"b4a":{"code":"${OBJECT}.readHumidity()"},"output":"Any"}]}
+{
+    "category": "DHT温湿度传感器",
+    "name": "DHT-sensor",
+    "icon": "fal fa-oil-temp",
+    "introduction": "单总线温湿度传感器库，适用于DHT11/DHT21/DHT22/AM2302/AM2321/AM2301。",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr"
+        ],
+        "voltage": [
+            "5v"
+        ]
+    },
+    "source": [
+        {
+            "name": "Adafruit_Sensor",
+            "type": "ArduinoLib",
+            "url": "https://b4a.clz.me/libraries/Adafruit_Sensor.zip"
+        },
+        {
+            "name": "DHT-sensor-library",
+            "type": "ArduinoLib",
+            "url": "https://b4a.clz.me/libraries/DHT-sensor-library.zip"
+        }
+    ],
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "初始化温湿度传感器%1 传感器型号%2 连接引脚%3",
+            "type": "dht_init",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "dht",
+                    "variableTypes": [
+                        "DHT"
+                    ],
+                    "defaultType": "DHT"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DHTTYPE",
+                    "options": [
+                        [
+                            "DHT11",
+                            "DHT11"
+                        ],
+                        [
+                            "DHT22/AM2302/AM2321",
+                            "DHT22"
+                        ],
+                        [
+                            "DHT21/AM2301",
+                            "DHT21"
+                        ]
+                    ]
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DHTPIN",
+                    "options": "${board.digitalPins}"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.begin();",
+                "library": "#include <DHT.h>",
+                "object": "DHT ${OBJECT}(${DHTPIN}, ${DHTTYPE});"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "温湿度传感器%1 读取温度",
+            "type": "dht_readtemperature",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "dht",
+                    "variableTypes": [
+                        "DHT"
+                    ],
+                    "defaultType": "DHT"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.readTemperature();"
+            },
+            "output": "Any"
+        },
+        {
+            "inputsInline": true,
+            "message0": "温湿度传感器%1 读取湿度",
+            "type": "dht_readhumidity",
+            "colour": "#48c2c4",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "dht",
+                    "variableTypes": [
+                        "DHT"
+                    ],
+                    "defaultType": "DHT"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.readHumidity()"
+            },
+            "output": "Any"
+        }
+    ]
+}
