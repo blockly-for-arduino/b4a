@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1659600337116') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sr04:before {
+  content: "\e634";
+}
+
+.icon-irtemp:before {
+  content: "\e635";
+}
+
+.icon-motor-driver:before {
+  content: "\e636";
+}
+
+.icon-tft:before {
+  content: "\e637";
+}
+
+.icon-bmp180:before {
+  content: "\e638";
+}
+
+.icon-lcd1602:before {
+  content: "\e639";
+}
+
+.icon-oled12864:before {
+  content: "\e63a";
+}
+
+.icon-sht30:before {
+  content: "\e63b";
+}
+
+.icon-dht11:before {
+  content: "\e63c";
+}
+
+.icon-servo:before {
+  content: "\e63d";
+}
+
+.icon-dht22:before {
+  content: "\e63e";
+}
+
+.icon-led8x8:before {
+  content: "\e63f";
+}
+
+.icon-key4x4:before {
+  content: "\e640";
+}
+

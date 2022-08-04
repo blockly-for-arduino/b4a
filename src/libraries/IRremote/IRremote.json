@@ -1,0 +1,190 @@
+{
+    "category": "红外通信",
+    "name": "IRremot",
+    "icon": "fal fa-projector",
+    "introduction": "红外接收和发射的驱动库",
+    "colour": "#FF0000",
+    "version": "0.0.1",
+    "author": "K2L",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "type": "IRremote_begin",
+            "colour": "#ffca28",
+            "message0": "红外接收%1 管脚%2",                      
+            "args0": [
+            {
+                "type":"field_variable",
+                "name":"IRremote_NAME",
+                "variable":"ir_name",
+                "variableTypes":["ir_name1"],
+                "defaultType":"ir_name1"
+            },
+            {
+                "type": "field_dropdown",
+                "name":"PIN_IR_IN",
+                "options":"${board.digitalPins}",
+                "value": 2
+            }           
+            ],
+            "message1": "有数据%1",
+            "args1": [
+                {
+                    "type": "input_statement",
+                    "name": "DATA_OK"
+                }
+            ],
+            "message2": "无数据%1",
+            "args2": [
+                {
+                    "type": "input_statement",
+                    "name": "NO_DATA"
+                }
+            ],
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <IRremote.h>",
+              "object": "long ${IRremote_NAME}; \nIRrecv irrecv_${PIN_IR_IN}(${PIN_IR_IN}); \ndecode_results results_${PIN_IR_IN};",
+              "setup": "Serial.begin(9600);\r\nirrecv_${PIN_IR_IN}.enableIRIn();",
+              "code":  "if (irrecv_${PIN_IR_IN}.decode(&results_${PIN_IR_IN})) {\n${IRremote_NAME}=results_${PIN_IR_IN}.value;\nString type=\"UNKNOWN\";\nString typelist[18]={\"UNUSED\", \"RC5\", \"RC6\", \"NEC\", \"SONY\", \"PANASONIC\", \"JVC\", \"SAMSUNG\", \"WHYNTER\", \"AIWA_RC_T501\", \"LG\", \"SANYO\", \"MITSUBISHI\", \"DISH\", \"SHARP\", \"DENON\", \"PRONTO\", \"LEGO_PF\"}; \nif(results_${PIN_IR_IN}.decode_type>=1&&results_${PIN_IR_IN}.decode_type<=17){ \ntype=typelist[results_${PIN_IR_IN}.decode_type];\n}\nSerial.println(\"IR TYPE:\"+type+\"  \");\n${DATA_OK} \nirrecv_${PIN_IR_IN}.resume();\n} else {\n${NO_DATA} \n}"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "IRremote_Send",
+            "colour": "#ffca28",
+            "message0": "红外发射（%1协议) 管脚%2数值%3 比特数%4",                      
+            "args0": [
+            {
+                "type": "field_dropdown",
+                "name":"IR_send_agreement",
+                "options":[["RC5","RC5"],["RC6","RC6"],["NEC","NEC"],["Sony","Sony"],["Panasonic","Panasonic"],["JVC","JVC"],["SAMSUNG","SAMSUNG"],["Whynter","Whynter"],["AiwaRCT501","AiwaRCT501"],["LG","LG"],["Sanyo","Sanyo"],["Mitsubishi","Mitsubishi"],["DISH","DISH"],["SharpRaw","SharpRaw"],["Denon","Denon"]]
+            },
+            {
+                "type": "field_dropdown",
+                "name":"PIN_IR_OUT",
+                "options":"${board.digitalPins}",
+                "value": 2
+            },
+            {
+                "type": "field_input",
+                "name":"DATA_send",
+                "text": "0x89ABCDEF"
+            }, 
+            {
+                "type": "field_input",
+                "name":"DATA_BIS",
+                "text": "32"
+            }  
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <IRremote.h>",
+              "object": "IRsend irsend;",
+              "code":  "irsend.send${IR_send_agreement}(${DATA_send},${DATA_BIS});"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "IRremote_receive_EN",
+            "colour": "#ffca28",
+            "message0": "红外接收使能 管脚 %1",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"PIN_IR_receive",
+                "options":"${board.digitalPins}",
+                "value": 2
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <IRremote.h>",
+              "code":  "${PIN_IR_IN}.enableIRIn();"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "IRremote_data_receive_print",
+            "colour": "#ffca28",
+            "message0": "红外接收并打印数据(RAW) 管脚 %1",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"PIN_IR_receive",
+                "options":"${board.digitalPins}",
+                "value": 2
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <IRremote.h>",
+              "code":  " if (${PIN_IR_IN}.decode(&${PIN_IR_IN})) {\ndumpRaw(&${PIN_IR_IN});\n${PIN_IR_IN}.resume();\n}",
+              "setup":"Serial.begin(9600);\nirrecv_2.enableIRIn();",
+              "function": "void dumpRaw(decode_results *results) {\n int count = results->rawlen;\n Serial.print(\"RawData (\");\n Serial.print(count, DEC);\n Serial.print(\"): \");\n for (int i = 0; i < count; i++) {\n\t Serial.print(results->rawbuf[i]*MICROS_PER_TICK, DEC);\n\t if(i!=count-1){\n\t\t Serial.print(\",\");\n\t\t}\n}\nSerial.println(\"\");\n}"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "IRremote_Send_array",
+            "colour": "#ffca28",
+            "message0": "红外发射(RAW) 管脚 %1数组%2 数组长度%3 频率%4",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"PIN_IR_send",
+                "options":[["3","3"]]
+            },
+            {
+                "type": "field_input",
+                "name":"data_array",
+                "text": "0,0,0"
+            },
+            {
+                "type": "field_input",
+                "name":"length_array",
+                "text": "3"
+            },
+            {
+                "type": "field_input",
+                "name":"frequency",
+                "text": "38"
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <IRremote.h>",
+              "code":  "unsigned int buf_raw[${length_array}]={${data_array}};\nirsend.sendRaw(buf_raw,${length_array},${frequency});",
+              "object":"IRsend irsend"                                                                                                                                                                      
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          }
+    ]
+}

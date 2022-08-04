@@ -129,6 +129,8 @@ export class BlocklyService {
       } catch (error) {
         this.message.error(`加载库 ${name} 失败`)
         this.message.error(error)
+        console.log(error);
+        
         resolve(false)
       }
     })
@@ -216,8 +218,10 @@ export class BlocklyService {
         }
       });
     } catch (error) {
-      this.message.error(`加载库 ${name} 失败`)
+      this.message.error(`加载库 ${libName} 失败`)
       this.message.error(error)
+      console.log(error);
+      
     }
   }
 

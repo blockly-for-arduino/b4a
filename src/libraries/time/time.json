@@ -47,8 +47,35 @@
                 "code": "millis()"
             },
             "toolbox": {
-                "show": true,
-                "category": "时间控制"
+                "show": true
+            }
+        },
+        {
+            "type": "system_time",
+            "message0": "系统时间",
+            "output": "Any",
+            "colour": 230,
+            "tooltip": "system_time",
+            "helpUrl": "",
+            "b4a": {
+                "code": "__TIME__"
+            },
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "type": "system_date",
+            "message0": "系统日期",
+            "output": "Any",
+            "colour": 230,
+            "tooltip": "system_date",
+            "helpUrl": "",
+            "b4a": {
+                "code": "__DATE__"
+            },
+            "toolbox": {
+                "show": true
             }
         }
     ]

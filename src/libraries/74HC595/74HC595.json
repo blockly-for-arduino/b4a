@@ -1,0 +1,152 @@
+{
+    "category": "74HC595移位寄存器",
+    "name": "74HC595",
+    "icon": "fal fa-abacus",
+    "introduction": "74HC595移位寄存器的驱动库",
+    "colour": "#FF0000",
+    "version": "0.0.1",
+    "author": "K2L",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "type": "74hc595_begin",
+            "colour": "#ffca28",
+            "message0": "初始化74HC595对象%1 数目%2 data引脚%3 clock引脚%4 latch引脚%5",                      
+            "args0": [
+            {
+              "type": "field_variable",
+               "name": "74hc595_name",
+              "variable": "hc",
+              "variableTypes":["hc1"],
+              "defaultType":"hc1"
+            },
+            {
+                "type": "input_value",
+                "name":"74hc595_amount"
+            },
+            {
+              "type": "field_dropdown",
+              "name":"74hc595_PIN_data",
+              "options":"${board.digitalPins}",
+              "value": 0
+           },
+           {
+             "type": "field_dropdown",
+             "name":"74hc595_PIN_clock",
+             "options":"${board.digitalPins}",
+             "value": 0
+           },
+           {
+            "type": "field_dropdown",
+            "name":"74hc595_PIN_latch",
+            "options":"${board.digitalPins}",
+            "value": 0
+           }
+            ],                                  
+            "toolbox": {
+              "show": true,
+              "inputs": {
+                "74hc595_amount": {
+                    "block": {
+                        "type": "math_number",
+                        "fields": {
+                            "NUM": 1
+                          }
+                      }
+                  }
+              }
+            },
+            "b4a": { 
+              "library":"#include <ShiftRegister74HC595.h>",  
+              "object":"ShiftRegister74HC595<${74hc595_amount}> ${74hc595_name}(${74hc595_PIN_data}, ${74hc595_PIN_clock}, ${74hc595_PIN_latch});"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "74hc595_out_all",
+            "colour": "#ffca28",
+            "message0": "74hc595%1 全部管脚输出为%2",                      
+            "args0": [
+            {
+              "type": "field_variable",
+              "name": "74hc595_name",
+              "variable": "hc",
+              "variableTypes":["hc1"],
+              "defaultType":"hc1"
+            },
+            {
+              "type": "field_dropdown",
+              "name":"74hc595_out_LogicLevel",
+              "options":[
+                  [
+                    "高电平","High"
+                  ],
+                  [
+                    "低电平","Low"
+                  ]
+                ]
+          }
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {
+              "code":  "${74hc595_name}.setAll${74hc595_out_LogicLevel}();"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "74hc595_out_one",
+            "colour": "#ffca28",
+            "message0": "74HC595%1 管脚%2 输出%3",                      
+            "args0": [            
+            {
+              "type": "field_variable",
+              "name": "74hc595_name",
+              "variable": "hc",
+              "variableTypes":["hc1"],
+              "defaultType":"hc1"
+            },
+            {
+              "type": "field_input",
+                "name":"74hc595_out_pin",
+                "text":"3"
+            },
+            {
+              "type": "field_dropdown",
+              "name":"74hc595_out_LogicLevel_mode",
+              "options":[
+                  [
+                    "高电平","HIGH"
+                  ],
+                  [
+                    "低电平","LOW"
+                  ]
+                ]
+            }
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {    
+              "library":"#include <NewTone.h>",
+              "setup":"pinMode(${BUZZER_PIN}, OUTPUT);",        
+              "code":  "${74hc595_name}.set(${74hc595_out_pin}, ${74hc595_out_LogicLevel_mode});"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          }
+    ]
+}

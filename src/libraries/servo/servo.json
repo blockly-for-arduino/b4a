@@ -1,1 +1,84 @@
-{"category":"舵机","name":"servo","icon":"fal fa-undo","introduction":"舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板","colour":"#48c2c4","version":"0.0.1","author":"奈何col","compatibility":{"core":["arduino:avr","esp32:esp32","esp8266:esp8266"],"voltage":[]},"blocks":[{"inputsInline":true,"message0":"舵机%1移动到%2","type":"servo1_write","args0":[{"type":"field_variable","name":"OBJECT","variable":"servo1","variableTypes":["Servo"],"defaultType":"Servo"},{"type":"field_number","name":"ANGLE","value":0}],"b4a":{"code":"${OBJECT}.write(${ANGLE});","library":"#include <Servo.h>","object":"Servo ${OBJECT};"},"previousStatement":null,"nextStatement":null,"colour":"#03a9f4","toolbox":{"show":true}},{"inputsInline":true,"message0":"舵机%1连接到引脚%2","type":"servo1_attach","args0":[{"type":"field_variable","name":"OBJECT","variable":"servo1","variableTypes":["Servo"],"defaultType":"Servo"},{"type":"field_dropdown","name":"PIN1","options":"${board.digitalPins}"}],"b4a":{"code":"${OBJECT}.attach(${PIN1});","library":"#include <Servo.h>","object":"Servo ${OBJECT};"},"previousStatement":null,"nextStatement":null,"colour":"#03a9f4","toolbox":{"show":true,"category":"舵机"}}]}
+{
+    "category": "舵机",
+    "name": "servo",
+    "icon": "iconfont icon-servo",
+    "introduction": "舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "舵机%1移动到%2",
+            "type": "servo1_write",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "servo1",
+                    "variableTypes": [
+                        "Servo"
+                    ],
+                    "defaultType": "Servo"
+                },
+                {
+                    "type": "field_number",
+                    "name": "ANGLE",
+                    "value": 0
+                }
+            ],
+            "b4a": {
+                "code": "${OBJECT}.write(${ANGLE});",
+                "library": "#include <Servo.h>",
+                "object": "Servo ${OBJECT};"
+            },
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": "#03a9f4",
+            "toolbox": {
+                "show": true
+            }
+        },
+        {
+            "inputsInline": true,
+            "message0": "舵机%1连接到引脚%2",
+            "type": "servo1_attach",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "servo1",
+                    "variableTypes": [
+                        "Servo"
+                    ],
+                    "defaultType": "Servo"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "PIN1",
+                    "options": "${board.digitalPins}"
+                }
+            ],
+            "b4a": {
+                "code": "${OBJECT}.attach(${PIN1});",
+                "library": "#include <Servo.h>",
+                "object": "Servo ${OBJECT};"
+            },
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": "#03a9f4",
+            "toolbox": {
+                "show": true,
+                "category": "舵机"
+            }
+        }
+    ]
+}

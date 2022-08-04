@@ -1,0 +1,197 @@
+{
+    "category": "蜂鸣器",
+    "name": "Buzzer",
+    "icon": "far fa-bell-on",
+    "introduction": "蜂鸣器的驱动库",
+    "colour": "#FF0000",
+    "version": "0.0.1",
+    "author": "K2L",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "type": "Buzzer_ON",
+            "colour": "#ffca28",
+            "message0": "播放声音 管脚%1 频率%2",                      
+            "args0": [
+            {
+               "type": "field_dropdown",
+               "name":"BUZZER_PIN",
+               "options":"${board.digitalPins}",
+               "value": 0
+            },
+            {
+                "type": "field_dropdown",
+                "name":"BUZZER_Tone",
+                "options":[
+                      ["NOTE_C3","131"],
+                      ["NOTE_D3","147"],
+                      ["NOTE_E3","165"],
+                      ["NOTE_F3","175"],
+                      ["NOTE_G3","196"],
+                      ["NOTE_A3","220"],
+                      ["NOTE_B3","247"],
+                      ["NOTE_C4","262"],
+                      ["NOTE_D4","294"],
+                      ["NOTE_E4","330"],
+                      ["NOTE_F4","349"],
+                      ["NOTE_G4","392"],
+                      ["NOTE_A4","440"],
+                      ["NOTE_B4","494"],
+                      ["NOTE_C5","532"],
+                      ["NOTE_D5","587"],
+                      ["NOTE_E5","659"],
+                      ["NOTE_F5","698"],
+                      ["NOTE_G5","784"],
+                      ["NOTE_A5","880"],
+                      ["NOTE_B5","988"],
+                      ["NOTE_C6","1047"],
+                      ["NOTE_D6","1175"],
+                      ["NOTE_E6","1319"],
+                      ["NOTE_F6","1397"],
+                      ["NOTE_G6","1568"],
+                      ["NOTE_A6","1760"],
+                      ["NOTE_B6","1976"],
+                      ["NOTE_C7","2093"],
+                      ["NOTE_D7","2349"],
+                      ["NOTE_E7","2637"],
+                      ["NOTE_F7","2794"],
+                      ["NOTE_G7","3136"],
+                      ["NOTE_A7","3520"],
+                      ["NOTE_B7","3951"]]
+            }
+            ],                                  
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "code": "tone(${BUZZER_PIN},${BUZZER_Tone});",
+              "setup": "pinMode(${BUZZER_PIN}, OUTPUT);"                                                                                                                                                       
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "Buzzer_OFF",
+            "colour": "#ffca28",
+            "message0": "结束声音 管脚%1",                      
+            "args0": [
+            {
+                "type": "field_dropdown",
+                "name":"BUZZER_PIN",
+                "options":"${board.digitalPins}",
+                "value": 0
+            }
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {
+              "setup": "pinMode(${BUZZER_PIN}, OUTPUT);",
+              "code":  "notone(${BUZZER_PIN});"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "Buzzer_ON_noTimer",
+            "colour": "#ffca28",
+            "message0": "播放声音(无定时器) 管脚%1 频率%2 持续时间%3毫秒",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"BUZZER_PIN",
+                "options":"${board.digitalPins}",
+                "value": 2
+            },
+            {
+              "type": "field_dropdown",
+              "name":"BUZZER_Tone",
+              "options":[
+                  ["NOTE_C3","131"],
+                  ["NOTE_D3","147"],
+                  ["NOTE_E3","165"],
+                  ["NOTE_F3","175"],
+                  ["NOTE_G3","196"],
+                  ["NOTE_A3","220"],
+                  ["NOTE_B3","247"],
+                  ["NOTE_C4","262"],
+                  ["NOTE_D4","294"],
+                  ["NOTE_E4","330"],
+                  ["NOTE_F4","349"],
+                  ["NOTE_G4","392"],
+                  ["NOTE_A4","440"],
+                  ["NOTE_B4","494"],
+                  ["NOTE_C5","532"],
+                  ["NOTE_D5","587"],
+                  ["NOTE_E5","659"],
+                  ["NOTE_F5","698"],
+                  ["NOTE_G5","784"],
+                  ["NOTE_A5","880"],
+                  ["NOTE_B5","988"],
+                  ["NOTE_C6","1047"],
+                  ["NOTE_D6","1175"],
+                  ["NOTE_E6","1319"],
+                  ["NOTE_F6","1397"],
+                  ["NOTE_G6","1568"],
+                  ["NOTE_A6","1760"],
+                  ["NOTE_B6","1976"],
+                  ["NOTE_C7","2093"],
+                  ["NOTE_D7","2349"],
+                  ["NOTE_E7","2637"],
+                  ["NOTE_F7","2794"],
+                  ["NOTE_G7","3136"],
+                  ["NOTE_A7","3520"],
+                  ["NOTE_B7","3951"]
+                ]
+            },
+            {
+              "type": "field_input",
+              "name":"ON_time",
+              "text": 1000
+            }
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {    
+              "library":"#include <NewTone.h>",
+              "setup":"pinMode(${BUZZER_PIN}, OUTPUT);",        
+              "code":  "NewTone(${BUZZER_PIN},${BUZZER_Tone},${ON_time});"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "Buzzer_OFF_noTimer",
+            "colour": "#ffca28",
+            "message0": "结束声音(无定时器) 管脚%1",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}",
+                "value": 2
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "code":  "NewnoTone(${BUZZER_PIN});"                                                                                                                                                                    
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          }
+    ]
+}

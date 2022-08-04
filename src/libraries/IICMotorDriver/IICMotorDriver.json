@@ -1,10 +1,10 @@
 {
     "category": "多功能电机驱动",
     "name": "IICMotorDriver",
-    "icon": "fal fa-lightbulb-on",
+    "icon": "fal fa-car-side",
     "introduction": "Openjumper多功能电机驱动扩展板的驱动库",
     "colour": "#FF0000",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "K2L",
     "compatibility": {
         "core": [
@@ -19,7 +19,7 @@
             "inputsInline": true,
             "message0": "电机驱动初始化 小车 %1",
             "type": "IICMotorDriver_begin",
-            "colour": "#4db6ac",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type": "field_variable",
@@ -44,7 +44,7 @@
             "inputsInline": true,
             "message0": "小车%1电机参考方向设置 M1%2 M2%3 M3%4 M4%5",
             "type": "IICMotorDriver_DIR_begin",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -87,7 +87,7 @@
             "inputsInline": true,
             "message0": "小车%1电机 %2 转动 速度(-4096-4095)%3",
             "type": "IICMotorDriver_setMotor",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -102,13 +102,22 @@
                     "options":[["电机1","M1"],["电机2","M2"],["电机3","M3"],["电机4","M4"],["全部电机","MALL"]]
                 },
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value"
                 }
             ],
             "toolbox": {
-                "show": true
+                "show": true,
+                "inputs": {
+                    "MD_speed_value": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    }
+                }
             },
             "b4a": {
                 "code": "${I2CMDN}.setMotor(${MD_NAME},${MD_speed_value});"
@@ -120,7 +129,7 @@
             "inputsInline": true,
             "message0": "小车%1全部电机转动 速度(-4096-4095)%2",
             "type": "IICMotorDriver_setAllMotor",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -130,13 +139,22 @@
                     "defaultType":"pwm1"
                 },           
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value_All",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value_All"
                 }
             ],
             "toolbox": {
-                "show": true
+                "show": true,
+                "inputs": {
+                    "MD_speed_value_All": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    }
+                }
             },
             "b4a": {
                 "code": "${I2CMDN}.setAllMotor(${MD_speed_value_All});"
@@ -148,7 +166,7 @@
             "inputsInline": true,
             "message0": "小车%1全部电机转动(-4096-4095) 电机1速度%2 电机2速度%3 电机3速度%4 电机4速度%5",
             "type": "IICMotorDriver_setAllMotor_alone",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -158,28 +176,58 @@
                     "defaultType":"pwm1"
                 },           
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value_All_alone1",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value_All_alone1"
                 },           
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value_All_alone2",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value_All_alone2"
                 },           
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value_All_alone3",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value_All_alone3"
                 },           
                 {
-                    "type": "field_number",
-                    "name": "MD_speed_value_All_alone4",
-                    "value":0
+                    "type": "input_value",
+                    "name": "MD_speed_value_All_alone4"
                 }
             ],
             "toolbox": {
-                "show": true
+                "show": true,
+                "inputs": {
+                    "MD_speed_value_All_alone1": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    },
+                    "MD_speed_value_All_alone2": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    },
+                    "MD_speed_value_All_alone3": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    },
+                    "MD_speed_value_All_alone4": {
+                        "block": {
+                            "type": "math_number",
+                            "fields": {
+                                "NUM": 2000
+                            }
+                        }
+                    }
+                }
             },
             "b4a": {
                 "code": "${I2CMDN}.setAllMotor(${MD_speed_value_All_alone1},${MD_speed_value_All_alone2},${MD_speed_value_All_alone3},${MD_speed_value_All_alone4});"
@@ -191,7 +239,7 @@
             "inputsInline": true,
             "message0": "小车%1电机%2停止",
             "type": "IICMotorDriver_stopMotor",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -219,7 +267,7 @@
             "inputsInline": true,
             "message0": "小车%1控制IO%2输出 %3",
             "type": "IICMotorDriver_digitalWrite",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -253,7 +301,7 @@
             "inputsInline": true,
             "message0": "小车%1控制IO%2驱动舵机（100-400）%3",
             "type": "IICMotorDriver_setServoPulse",
-            "colour": "#4DB6AC",
+            "colour": "#FF0000",
             "args0": [
                 {
                     "type":"field_variable",
@@ -268,13 +316,22 @@
                     "options":[["1号","1"],["2号","2"],["3号","3"],["4号","4"]]
                 },
                 {
-                    "type":"field_number",
-                    "name":"IO_SER_OUT",
-                    "value":100
+                    "type":"input_value",
+                    "name":"IO_SER_OUT"
                     }
             ],
             "toolbox": {
-                "show": true
+                "show": true,
+                "inputs": {
+                    "IO_SER_OUT": {
+                        "block": {
+                            "type": "math_number",
+                             "fields": {
+                                "NUM": 200
+                            }
+                        }
+                    }
+                }
             },
             "b4a": {
                 "code": "${I2CMDN}.setServoPulse(${IO_SER_NAM},${IO_SER_OUT});"

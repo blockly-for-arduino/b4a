@@ -11,7 +11,7 @@ export class CustomCategory extends Blockly.ToolboxCategory {
     }
 
     createIconDom_() {
-        console.log(this.cssConfig_['icon']);
+        // console.log(this.cssConfig_['icon']);
         let toolboxIcon
         if (this.cssConfig_['icon'].includes('http://') || this.cssConfig_['icon'].includes('https://')) {
             toolboxIcon = document.createElement('img');

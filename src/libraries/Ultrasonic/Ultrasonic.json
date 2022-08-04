@@ -1,1 +1,79 @@
-{"category":"超声波","name":"servo","icon":"fal fa-signal-stream","introduction":"舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板","colour":"#48c2c4","version":"0.0.1","author":"奈何col","source":[{"name":"Ultrasonic","type":"ArduinoLib","url":"https://b4a.clz.me/libraries/Ultrasonic.zip"}],"blocks":[{"inputsInline":true,"message0":"超声波传感器%1连接到引脚TRIG%2ECHO%3","type":"ultrasonic","colour":"#1e88e5","args0":[{"type":"field_variable","name":"OBJECT","variable":"ultrasonic","variableTypes":["Ultrasonic"],"defaultType":"Ultrasonic"},{"type":"field_dropdown","name":"TRIG","options":"${board.digitalPins}"},{"type":"field_dropdown","name":"ECHO","options":"${board.digitalPins}"}],"toolbox":{"show":true},"b4a":{"object":"Ultrasonic ${OBJECT}(${TRIG}, ${ECHO});","library":"#include <Ultrasonic.h>"},"previousStatement":null,"nextStatement":null},{"inputsInline":true,"message0":"超声波传感器 %1 读取距离","type":"ultrasonic_read","colour":"#1E88E5","args0":[{"type":"field_variable","name":"OBJECT","variable":"ultrasonic","variableTypes":["Ultrasonic"],"defaultType":"Ultrasonic"}],"toolbox":{"show":true,"inputs":null},"b4a":{"code":"${OBJECT}.read()"},"output":"Any"}]}
+{
+    "category": "超声波",
+    "name": "servo",
+    "icon": "iconfont icon-sr04",
+    "introduction": "舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "author": "奈何col",
+    "source": [
+        {
+            "name": "Ultrasonic",
+            "type": "ArduinoLib",
+            "url": "https://b4a.clz.me/libraries/Ultrasonic.zip"
+        }
+    ],
+    "blocks": [
+        {
+            "inputsInline": true,
+            "message0": "超声波传感器%1连接到引脚TRIG%2ECHO%3",
+            "type": "ultrasonic",
+            "colour": "#1e88e5",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "ultrasonic",
+                    "variableTypes": [
+                        "Ultrasonic"
+                    ],
+                    "defaultType": "Ultrasonic"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "TRIG",
+                    "options": "${board.digitalPins}"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "ECHO",
+                    "options": "${board.digitalPins}"
+                }
+            ],
+            "toolbox": {
+                "show": true
+            },
+            "b4a": {
+                "object": "Ultrasonic ${OBJECT}(${TRIG}, ${ECHO});",
+                "library": "#include <Ultrasonic.h>"
+            },
+            "previousStatement": null,
+            "nextStatement": null
+        },
+        {
+            "inputsInline": true,
+            "message0": "超声波传感器 %1 读取距离",
+            "type": "ultrasonic_read",
+            "colour": "#1E88E5",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "ultrasonic",
+                    "variableTypes": [
+                        "Ultrasonic"
+                    ],
+                    "defaultType": "Ultrasonic"
+                }
+            ],
+            "toolbox": {
+                "show": true,
+                "inputs": null
+            },
+            "b4a": {
+                "code": "${OBJECT}.read()"
+            },
+            "output": "Any"
+        }
+    ]
+}

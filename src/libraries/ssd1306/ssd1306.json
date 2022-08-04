@@ -1,0 +1,100 @@
+{
+    "category": "SSD1306显示屏",
+    "name": "ssd1306",
+    "icon": "iconfont icon-oled12864",
+    "introduction": "舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板",
+    "colour": "#48c2c4",
+    "version": "0.0.1",
+    "author": "奈何col",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "colour": "#0288d1",
+            "message0": "初始化SSD1306 12864显示屏 %1 CS引脚 %2 DC引脚 %3 RESET引脚 %4",
+            "type": "u8g2_begin",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "u8g2",
+                    "variableTypes": [
+                        "u8g2"
+                    ],
+                    "defaultType": "u8g2"
+                },
+                {
+                    "type": "input_value",
+                    "name": "CS"
+                },
+                {
+                    "type": "input_value",
+                    "name": "DC"
+                },
+                {
+                    "type": "input_value",
+                    "name": "RESET"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "b4a": {
+                "library": "#include <Arduino.h>\r\n#include <U8g2lib.h>\r\n\r\n#ifdef U8X8_HAVE_HW_SPI\r\n#include <SPI.h>\r\n#endif\r\n#ifdef U8X8_HAVE_HW_I2C\r\n#include <Wire.h>\r\n#endif",
+                "object": "U8G2_SSD1306_128X64_F_4W_HW_SPI ${OBJECT}(U8G2_R0,${CS},${DC},${RESET});",
+                "code": "${OBJECT}.begin();"
+            },
+            "toolbox": {
+                "show": true,
+                "category": "U8g2",
+                "icon": "fal fa-tablet-android"
+            }
+        },
+        {
+            "inputsInline": true,
+            "colour": "#0288d1",
+            "message0": "显示屏%1 坐标X%2 Y%3 输出字符%4",
+            "type": "u8g2_drawStr",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "OBJECT",
+                    "variable": "u8g2",
+                    "variableTypes": [
+                        "u8g2"
+                    ],
+                    "defaultType": "u8g2"
+                },
+                {
+                    "type": "input_value",
+                    "name": "X"
+                },
+                {
+                    "type": "input_value",
+                    "name": "Y"
+                },
+                {
+                    "type": "input_value",
+                    "name": "TEXT"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "b4a": {
+                "library": "#include <Arduino.h>\r\n#include <U8g2lib.h>\r\n\r\n#ifdef U8X8_HAVE_HW_SPI\r\n#include <SPI.h>\r\n#endif\r\n#ifdef U8X8_HAVE_HW_I2C\r\n#include <Wire.h>\r\n#endif",
+                "object": "U8G2_GU800_128X64_F_4W_HW_SPI ${OBJECT}(U8G2_R0,${CS},${DC},${RESET});",
+                "code": "${OBJECT}.drawStr(${X},${Y},${TEXT});"
+            },
+            "toolbox": {
+                "show": true,
+                "category": "U8g2"
+            }
+        }
+    ]
+}

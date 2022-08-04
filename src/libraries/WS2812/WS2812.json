@@ -1,0 +1,248 @@
+{
+    "category": "WS2812彩灯",
+    "name": "WS2812LIGHT",
+    "icon": "fal fa-lightbulb-on",
+    "introduction": "WS2812单线RGB灯的驱动库",
+    "colour": "#FF0000",
+    "version": "0.0.1",
+    "author": "K2L",
+    "compatibility": {
+        "core": [
+            "arduino:avr",
+            "esp32:esp32",
+            "esp8266:esp8266"
+        ],
+        "voltage": []
+    },
+    "blocks": [
+        {
+            "inputsInline": true,
+            "type": "RGB_begin",
+            "colour": "#ffca28",
+            "message0": "RGB灯初始化 管脚%1 类型为%2 灯数%3",                      
+            "args0": [
+            {
+               "type": "field_dropdown",
+               "name":"RGB_PIN",
+               "options":"${board.digitalPins}",
+               "value": 0
+            },
+            {
+                "type": "field_dropdown",
+                "name":"RGB_TYPE",
+                "options":[["NEO_GRB","NEO_GRB"],["NEO_RGB","NEO_RGB"],["NEO_RGBW","NEO_RGBW"]]
+            },
+            {
+                "type": "field_input",
+                "name":"RGB_amount",
+                "text":"3"
+            }
+            ],                                  
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <Adafruit_NeoPixel.h>",
+              "object": "Adafruit_NeoPixel rgb_display_${RGB_PIN} = Adafruit_NeoPixel(${RGB_amount},${PIN_IR_IN},${RGB_TYPE} + NEO_KHZ800);",
+              "setup": "rgb_display_${RGB_PIN}.begin();"                                                                                                                                                       
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_lightintensity_CTRL",
+            "colour": "#ffca28",
+            "message0": "RGB灯管脚%1 亮度%2",                      
+            "args0": [
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}",
+                "value": 20
+            },
+            {
+                "type": "field_input",
+                "name":"RGB_lightintensity_value",
+                "text": 20
+            }
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "library": "#include <Adafruit_NeoPixel.h>",
+              "object": "rgb_display_${RGB_PIN}.begin();",
+              "code":  "rgb_display_${RGB_PIN}.setBrightness(20);"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_colour_ctrl",
+            "colour": "#ffca28",
+            "message0": "RGB灯 管脚%1 灯号%2 颜色 R值%3 G值%4 B值%5",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}",
+                "value": 2
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_number",
+              "text": 1
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_Rcolour_value",
+              "text": 125
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_Gcolour_value",
+              "text": 125
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_Bcolour_value",
+              "text": 125
+            }  
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "code":  "rgb_display_${RGB_PIN}.setPixelColor((${RGB_number})-1, (((${RGB_Rcolour_value} & 0xffffff) << 16) | ((${RGB_Gcolour_value} & 0xffffff) << 8) | ${RGB_Bcolour_value}));"                                                                                                                                                            
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_parameter",
+            "colour": "#ffca28",
+            "message0": "RGB灯 管脚%1 灯号%2 色调%3 饱和度%4 亮度%5",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}",
+                "value": 2
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_number",
+              "text": 1
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_tone",
+              "text": 0
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_saturation",
+              "text": 255
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_lightintensity_value",
+              "text": 30
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "code":  "rgb_display_${RGB_PIN}.setPixelColor((${RGB_number})-1, rgb_display_0.ColorHSV(${RGB_tone},${RGB_saturation},${RGB_lightintensity_value}));"                                                                                                                                                                    
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_update",
+            "colour": "#ffca28",
+            "message0": "RGB灯设置生效 管脚%1",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}"
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {            
+              "code":  "rgb_display_${RGB_PIN}.show();"                                                                                                                                                                  
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_demo",
+            "colour": "#ffca28",
+            "message0": "RGB 管脚%1七彩变换切换时间%2",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}"
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_demo1_time",
+              "text": 20
+            } 
+            ],                                 
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {     
+              "setup":"rgb_display_${RGB_PIN}.begin();",
+              "object":"uint32_t Wheel(byte WheelPos){\nif(WheelPos < 85){\n  return rgb_display_${RGB_PIN}.Color(WheelPos * 3, 255 - WheelPos * 3, 0);\n}\nelse if(WheelPos < 170){\n  WheelPos -= 85;\n  return rgb_display_${RGB_PIN}.Color(255 - WheelPos * 3, 0, WheelPos * 3);\n }\nelse{\nWheelPos -= 170;\nreturn rgb_display_${RGB_PIN}.Color(0, WheelPos * 3, 255 - WheelPos * 3);\n  }\n}",       
+              "function":"void rainbow(uint8_t wait){\nuint16_t i, j;\nfor(j=0; j<256; j++){\n  for(i=0; i<rgb_display_${RGB_PIN}.numPixels(); i++){\n    rgb_display_${RGB_PIN}.setPixelColor(i, Wheel((i+j) & 255));\n  }\n  rgb_display_${RGB_PIN}.show();\n  delay(wait);\n  }\n}",
+              "code":  "rainbow(${RGB_demo1_time});"                                                                                                                                                                  
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          },
+          {
+            "inputsInline": true,
+            "type": "RGB_demo2",
+            "colour": "#ffca28",
+            "message0": "RGB灯 管脚%1 %2彩虹值%3",                      
+            "args0": [            
+            {
+                "type": "field_dropdown",
+                "name":"RGB_PIN",
+                "options":"${board.digitalPins}"
+            },
+            {
+              "type": "field_dropdown",
+              "name":"RGB_dem02_mode",
+              "options":[["普通","${RGB_dem02_value} & 255"],["渐变","((RGB_RAINBOW_i * 256 / rgb_display_${RGB_PIN}.numPixels()) + ${RGB_dem02_value}) & 255"]]
+            },
+            {
+              "type": "field_input",
+              "name":"RGB_dem02_value",
+              "text": 20
+            }  
+            ],
+            "toolbox": {
+              "show": true
+            },
+            "b4a": {
+              "function":"uint32_t Wheel(byte WheelPos){\n  if(WheelPos < 85){\n    return rgb_display_${RGB_PIN}.Color(WheelPos * 3, 255 - WheelPos * 3, 0);\n  }\n  else if(WheelPos < 170){\n    WheelPos -= 85;\n    return rgb_display_${RGB_PIN}.Color(255 - WheelPos * 3, 0, WheelPos * 3);\n  }\n  else{\n      WheelPos -= 170;return rgb_display_${RGB_PIN}.Color(0, WheelPos * 3, 255 - WheelPos * 3);\n  }\n}",
+              "code":  "for(int RGB_RAINBOW_i = 0; RGB_RAINBOW_i < rgb_display_${RGB_PIN}.numPixels(); RGB_RAINBOW_i++){\n  rgb_display_${RGB_PIN}.setPixelColor(RGB_RAINBOW_i, Wheel(${RGB_dem02_mode}));\n}\nrgb_display_${RGB_PIN}.show();"                                                                                                                                                                  
+            },
+            "previousStatement": null,
+            "nextStatement": null
+          }
+    ]
+}
