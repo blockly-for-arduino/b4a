@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1659600337116') format('truetype');
+  src: url('iconfont.ttf?t=1659682043227') format('truetype');
 }
 
 .iconfont {
@@ -15,7 +15,7 @@
   content: "\e634";
 }
 
-.icon-irtemp:before {
+.icon-ir-temp:before {
   content: "\e635";
 }
 
@@ -61,5 +61,21 @@
 
 .icon-key4x4:before {
   content: "\e640";
+}
+
+.icon-blinker:before {
+  content: "\e641";
+}
+
+.icon-motor:before {
+  content: "\e642";
+}
+
+.icon-motor-iic:before {
+  content: "\e643";
+}
+
+.icon-a-8-bitnixietube:before {
+  content: "\e644";
 }
 

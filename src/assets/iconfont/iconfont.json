@@ -14,8 +14,8 @@
     },
     {
       "icon_id": "31028069",
-      "name": "irtemp",
-      "font_class": "irtemp",
+      "name": "ir-temp",
+      "font_class": "ir-temp",
       "unicode": "e635",
       "unicode_decimal": 58933
     },
@@ -95,6 +95,34 @@
       "font_class": "key4x4",
       "unicode": "e640",
       "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "31075357",
+      "name": "blinker",
+      "font_class": "blinker",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "31075372",
+      "name": "motor",
+      "font_class": "motor",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "31075396",
+      "name": "motor-iic",
+      "font_class": "motor-iic",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "31076973",
+      "name": "digital-tube",
+      "font_class": "a-8-bitnixietube",
+      "unicode": "e644",
+      "unicode_decimal": 58948
     }
   ]
 }
