@@ -1,7 +1,7 @@
 {
     "category": "蜂鸣器",
     "name": "Buzzer",
-    "icon": "far fa-bell-on",
+    "icon": "iconfont icon-buzzer",
     "introduction": "蜂鸣器的驱动库",
     "colour": "#FF0000",
     "version": "0.0.1",

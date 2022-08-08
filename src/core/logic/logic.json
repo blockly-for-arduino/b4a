@@ -1,6 +1,6 @@
 {
     "category": "逻辑",
-    "icon": "fal fa-code-branch",
+    "icon": "fa-light fa-code-branch",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

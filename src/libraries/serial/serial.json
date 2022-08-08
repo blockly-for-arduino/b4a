@@ -1,6 +1,6 @@
 {
     "category": "串口",
-    "icon": "fal fa-exchange-alt",
+    "icon": "fa-light fa-arrow-right-arrow-left",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

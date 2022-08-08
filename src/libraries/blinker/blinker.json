@@ -1,7 +1,7 @@
 {
     "category": "点灯·blinker",
     "name": "blinker",
-    "icon": "https://diandeng.tech/favicon.ico",
+    "icon": "iconfont icon-blinker",
     "introduction": "点灯·blinker物联网支持库",
     "colour": "#48c2c4",
     "version": "0.0.1",

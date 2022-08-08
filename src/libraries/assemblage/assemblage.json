@@ -1,6 +1,6 @@
 {
   "category": "集合",
-  "icon": "fal fa-cubes",
+  "icon": "fa-light fa-list-tree",
   "colour": "#48c2c4",
   "version": "0.0.1",
   "blocks": [

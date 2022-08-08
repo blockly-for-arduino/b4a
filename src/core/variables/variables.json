@@ -1,6 +1,6 @@
 {
     "category": "变量",
-    "icon": "fal fa-subscript",
+    "icon": "fa-light fa-value-absolute",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

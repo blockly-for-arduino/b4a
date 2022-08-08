@@ -1,7 +1,7 @@
 {
     "category": "PS2手柄",
     "name": "PS2X_lib",
-    "icon": "far fa-gamepad-alt",
+    "icon": "fa-light fa-gamepad",
     "introduction": "PS2手柄的驱动库",
     "colour": "#FF0000",
     "version": "0.0.1",

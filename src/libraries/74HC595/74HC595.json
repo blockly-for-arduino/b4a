@@ -1,7 +1,7 @@
 {
     "category": "74HC595移位寄存器",
     "name": "74HC595",
-    "icon": "fal fa-abacus",
+    "icon": "fa-light fa-diagram-sankey",
     "introduction": "74HC595移位寄存器的驱动库",
     "colour": "#FF0000",
     "version": "0.0.1",

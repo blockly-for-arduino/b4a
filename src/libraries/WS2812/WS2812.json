@@ -1,7 +1,7 @@
 {
     "category": "WS2812彩灯",
     "name": "WS2812LIGHT",
-    "icon": "fal fa-lightbulb-on",
+    "icon": "iconfont icon-ws2812",
     "introduction": "WS2812单线RGB灯的驱动库",
     "colour": "#FF0000",
     "version": "0.0.1",

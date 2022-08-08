@@ -1,6 +1,6 @@
 {
     "category": "列表",
-    "icon": "fal fa-brackets",
+    "icon": "fa-light fa-brackets-square",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

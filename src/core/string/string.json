@@ -1,6 +1,6 @@
 {
     "category": "字符串",
-    "icon": "fal fa-text",
+    "icon": "fa-light fa-input-text",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

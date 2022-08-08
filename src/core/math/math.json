@@ -1,6 +1,6 @@
 {
     "category": "数学",
-    "icon": "fal fa-calculator-alt",
+    "icon": "fa-light fa-calculator-simple",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

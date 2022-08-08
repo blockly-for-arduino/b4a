@@ -1,6 +1,6 @@
 {
     "category": "循环",
-    "icon": "fal fa-repeat-alt",
+    "icon": "fa-light fa-arrows-repeat",
     "colour": "#48c2c4",
     "version": "0.0.1",
     "blocks": [

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as remote from '@electron/remote/main';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -27,9 +27,6 @@ function createWindow(): BrowserWindow {
       contextIsolation: false,  // false if you want to run e2e test with Spectron
     },
   });
-
-  remote.initialize();
-  remote.enable(win.webContents);
 
   process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -62,6 +59,17 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  remote.initialize();
+  remote.enable(win.webContents);
+  ipcMain.on('newWindow', (event, arg) => {
+    console.log('win id:', arg);
+    BrowserWindow.getAllWindows().forEach((win_child) => {
+      if (win_child.id == arg) {
+        remote.enable(win_child.webContents);
+      }
+    });
+  })
 
   return win;
 }
