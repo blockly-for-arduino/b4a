@@ -84,12 +84,12 @@ function checkBoardCore() {
         })
         child_arduinoCoreList.on('close', code => {
             console.log('已安装核心列表:', arduinoCoreList);
+            console.log('需要安装核心:', boardJson.core);
             if (arduinoCoreList.includes(boardJson.core)) {
                 resolve(true)
             } else {
                 arduinoCoreList.forEach(core => {
-                    let coreName = core.split('@')[0]
-                    if (coreName == boardJson.core.split('@')[0]) {
+                    if (coreName == core.split('@')[0]) {
                         console.log('UNINSTALL_OLD_BOARD_CORE');
                         uninstalBoardCore(boardJson.core.split('@')[0])
                     }
