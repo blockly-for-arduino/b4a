@@ -1,6 +1,7 @@
 {
     "category": "DHT温湿度传感器",
     "name": "DHT-sensor",
+    "parent": "传感器",
     "icon": "iconfont icon-dht22",
     "introduction": "单总线温湿度传感器库，适用于DHT11/DHT21/DHT22/AM2302/AM2321/AM2301。",
     "colour": "#48c2c4",

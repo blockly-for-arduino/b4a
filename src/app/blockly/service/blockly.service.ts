@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LibInfo } from '../../core/interfaces';
 import { compareList } from '../../func/func';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CustomCategory } from '../customCategory';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,19 @@ export class BlocklyService {
   libDict_show = {}
   blockList = []
 
-  toolbox: Blockly.utils.toolbox.ToolboxDefinition = {
+  toolbox: any = {
     "kind": "categoryToolbox",
     "contents": [
     ]
   }
+  // toolbox: Blockly.utils.toolbox.ToolboxDefinition 
 
+  get theme() {
+    let theme = localStorage.getItem('theme')
+    if (theme == null)
+      theme = 'geras'
+    return theme
+  }
 
   loaded = new BehaviorSubject(false)
 
@@ -45,6 +53,41 @@ export class BlocklyService {
   }
 
   async init() {
+    this.changeLanguage('zhHans')
+
+    Blockly.registry.register(
+      Blockly.registry.Type.TOOLBOX_ITEM,
+      Blockly.ToolboxCategory.registrationName,
+      CustomCategory, true);
+
+    this.workspace = Blockly.inject('blocklyDiv', {
+      // @ts-ignore
+      readOnly: false,
+      media: 'media/',
+      trashcan: true,
+      theme: 'zelos',
+      renderer: this.theme,
+      move: {
+        scrollbars: true,
+        drag: true,
+        wheel: false
+      },
+      zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.5,
+        scaleSpeed: 1.05,
+        pinch: true
+      },
+      toolbox: {
+        "kind": "categoryToolbox",
+        "contents": [
+        ]
+      }
+    });
+
     // 加载库
     this.blockList = []
     this.toolbox = {
@@ -56,10 +99,1129 @@ export class BlocklyService {
     this.processLibs(libs)
     await this.loadLibs()
     Blockly.defineBlocksWithJsonArray(this.blockList);
+    // if (typeof this.workspace != 'undefined') {
+    //   if (this.workspace.getToolbox() != null)
+    //     this.workspace.updateToolbox(this.toolbox);
+    // }
+    this.toolbox = {
+      "kind": "categoryToolbox",
+      "contents": [
+        {
+          "kind": "category",
+          "name": "列表",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "category",
+              "name": "逻辑",
+              "colour": "#48c2c4",
+              "contents": [
+                {
+                  "kind": "block",
+                  "type": "controls_if"
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_ifelse"
+                },
+                {
+                  "kind": "block",
+                  "type": "logic_compare"
+                },
+                {
+                  "kind": "block",
+                  "type": "logic_operation"
+                },
+                {
+                  "kind": "block",
+                  "type": "logic_negate"
+                },
+                {
+                  "kind": "block",
+                  "type": "logic_boolean"
+                },
+                {
+                  "kind": "block",
+                  "type": "logic_ternary"
+                }
+              ],
+              "cssConfig": {
+                "icon": "fa-light fa-code-branch"
+              }
+            },
+            {
+              "kind": "category",
+              "name": "循环",
+              "colour": "#48c2c4",
+              "contents": [
+                {
+                  "kind": "block",
+                  "type": "arduino_setup"
+                },
+                {
+                  "kind": "block",
+                  "type": "arduino_loop"
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_repeat_ext",
+                  "inputs": {
+                    "TIMES": {
+                      "block": {
+                        "type": "math_number",
+                        "fields": {
+                          "NUM": 10
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_repeat"
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_whileUntil"
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_for",
+                  "inputs": {
+                    "FROM": {
+                      "block": {
+                        "type": "math_number",
+                        "fields": {
+                          "NUM": 1
+                        }
+                      }
+                    },
+                    "TO": {
+                      "block": {
+                        "type": "math_number",
+                        "fields": {
+                          "NUM": 10
+                        }
+                      }
+                    },
+                    "BY": {
+                      "block": {
+                        "type": "math_number",
+                        "fields": {
+                          "NUM": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "kind": "block",
+                  "type": "controls_flow_statements"
+                }
+              ],
+              "cssConfig": {
+                "icon": "fa-light fa-arrows-repeat"
+              }
+            },
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-brackets-square"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "数学",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "math_number"
+            },
+            {
+              "kind": "block",
+              "type": "math_random",
+              "inputs": {
+                "MIN": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                },
+                "MAX": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 100
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "math_map"
+            },
+            {
+              "kind": "block",
+              "type": "math_abs"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-calculator-simple"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "字符串",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "text_multiline"
+            },
+            {
+              "kind": "block",
+              "type": "text_length"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-input-text"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "变量",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "button",
+              "text": "创建 变量",
+              "callbackKey": "CREATE_VARIABLE"
+            },
+            {
+              "kind": "block",
+              "type": "variable_define",
+              "inputs": {
+                "VALUE": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "variables_set"
+            },
+            {
+              "kind": "block",
+              "type": "variables_get"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-value-absolute"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "74HC595移位寄存器",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "74hc595_begin",
+              "inputs": {
+                "74hc595_amount": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "74hc595_out_all"
+            },
+            {
+              "kind": "block",
+              "type": "74hc595_out_one"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-diagram-sankey"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "集合",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "variable_var_type"
+            },
+            {
+              "kind": "block",
+              "type": "variable_var_name",
+              "inputs": {
+                "VALUE": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_var_type"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_add"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_add_range"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_insert"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_insert_range"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_replace"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_replace_range"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_remove"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_remove_range"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_indexOf"
+            },
+            {
+              "kind": "block",
+              "type": "assemblage_trim"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-list-tree"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "点灯·blinker",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "blinker_begin_wifi"
+            },
+            {
+              "kind": "block",
+              "type": "blinker_begin_ble"
+            },
+            {
+              "kind": "block",
+              "type": "blinker_button_callback"
+            },
+            {
+              "kind": "block",
+              "type": "blinker_button_callback"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-blinker"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "蜂鸣器",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "Buzzer_ON"
+            },
+            {
+              "kind": "block",
+              "type": "Buzzer_OFF"
+            },
+            {
+              "kind": "block",
+              "type": "Buzzer_ON_noTimer"
+            },
+            {
+              "kind": "block",
+              "type": "Buzzer_OFF_noTimer"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-buzzer"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "DHT温湿度传感器",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "dht_init"
+            },
+            {
+              "kind": "block",
+              "type": "dht_readtemperature"
+            },
+            {
+              "kind": "block",
+              "type": "dht_readhumidity"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-dht22"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "EEPROM",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "eeprom_read",
+              "inputs": {
+                "ADDRESS": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "eeprom_length"
+            },
+            {
+              "kind": "block",
+              "type": "eeprom_write"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fal fa-database"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "多功能电机驱动",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_begin"
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_DIR_begin"
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_setMotor",
+              "inputs": {
+                "MD_speed_value": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_setAllMotor",
+              "inputs": {
+                "MD_speed_value_All": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_setAllMotor_alone",
+              "inputs": {
+                "MD_speed_value_All_alone1": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                },
+                "MD_speed_value_All_alone2": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                },
+                "MD_speed_value_All_alone3": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                },
+                "MD_speed_value_All_alone4": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2000
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_stopMotor"
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_digitalWrite"
+            },
+            {
+              "kind": "block",
+              "type": "IICMotorDriver_setServoPulse",
+              "inputs": {
+                "IO_SER_OUT": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 200
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-motor"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "I/O",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "io_pinmode",
+              "inputs": {
+                "PIN": {
+                  "block": {
+                    "type": "io_pin_digi",
+                    "fields": {
+                      "PIN": "0"
+                    }
+                  }
+                },
+                "MODE": {
+                  "block": {
+                    "type": "io_mode",
+                    "fields": {
+                      "MODE": "INPUT"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "io_digitalwrite",
+              "inputs": {
+                "PIN": {
+                  "block": {
+                    "type": "io_pin_digi",
+                    "fields": {
+                      "PIN": "0"
+                    }
+                  }
+                },
+                "STATE": {
+                  "block": {
+                    "type": "io_state",
+                    "fields": {
+                      "STATE": "LOW"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "io_digitalread",
+              "inputs": {
+                "PIN": {
+                  "block": {
+                    "type": "io_pin_digi",
+                    "fields": {
+                      "PIN": "0"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "io_analogwrite",
+              "inputs": {
+                "PIN": {
+                  "block": {
+                    "type": "io_pin_pwm",
+                    "fields": {
+                      "PIN": "3"
+                    }
+                  }
+                },
+                "PWM": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 255
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "io_analogread",
+              "inputs": {
+                "PIN": {
+                  "block": {
+                    "type": "io_pin_adc",
+                    "fields": {
+                      "PIN": "A0"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "io_pin_digi"
+            },
+            {
+              "kind": "block",
+              "type": "io_pin_adc"
+            },
+            {
+              "kind": "block",
+              "type": "io_pin_pwm"
+            },
+            {
+              "kind": "block",
+              "type": "io_mode"
+            },
+            {
+              "kind": "block",
+              "type": "io_state"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fal fa-microchip"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "红外通信",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "IRremote_begin"
+            },
+            {
+              "kind": "block",
+              "type": "IRremote_Send"
+            },
+            {
+              "kind": "block",
+              "type": "IRremote_receive_EN"
+            },
+            {
+              "kind": "block",
+              "type": "IRremote_data_receive_print"
+            },
+            {
+              "kind": "block",
+              "type": "IRremote_Send_array"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-ir-temp"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "IIC液晶显示屏",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "lcd_init"
+            },
+            {
+              "kind": "block",
+              "type": "lcd_setcursor",
+              "inputs": {
+                "NUM0": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                },
+                "NUM1": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lcd_print",
+              "inputs": {
+                "TEXT0": {
+                  "block": {
+                    "type": "text_multiline",
+                    "fields": {
+                      "TEXT": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lcd_write",
+              "inputs": {
+                "CHAR": {
+                  "block": {
+                    "type": "text",
+                    "fields": {
+                      "TEXT": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lcd_backlight"
+            },
+            {
+              "kind": "block",
+              "type": "lcd_nobacklight"
+            },
+            {
+              "kind": "block",
+              "type": "lcd_clear"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-lcd1602"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "PS2手柄",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "PS2X_begin"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-gamepad"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "时钟模块",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "rtc_begin"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_setdatetime_system"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_setdatetime",
+              "inputs": {
+                "DATE": {
+                  "block": {
+                    "type": "rtc_date",
+                    "inputs": {
+                      "YEAR": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 2020
+                          }
+                        }
+                      },
+                      "MONTH": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 1
+                          }
+                        }
+                      },
+                      "DAY": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "TIME": {
+                  "block": {
+                    "type": "rtc_time",
+                    "inputs": {
+                      "HOUR": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 0
+                          }
+                        }
+                      },
+                      "MINUTE": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 0
+                          }
+                        }
+                      },
+                      "SECOND": {
+                        "block": {
+                          "type": "math_number",
+                          "fields": {
+                            "NUM": 0
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_year"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_month"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_day"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_hour"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_minute"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_getdatetime_second"
+            },
+            {
+              "kind": "block",
+              "type": "rtc_date",
+              "inputs": {
+                "YEAR": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 2020
+                    }
+                  }
+                },
+                "MONTH": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1
+                    }
+                  }
+                },
+                "DAY": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "rtc_time",
+              "inputs": {
+                "HOUR": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                },
+                "MINUTE": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                },
+                "SECOND": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 0
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "cssConfig": {
+            "icon": "fal fa-clock"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "串口",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "serial_begin"
+            },
+            {
+              "kind": "block",
+              "type": "serial_available"
+            },
+            {
+              "kind": "block",
+              "type": "serial_read"
+            },
+            {
+              "kind": "block",
+              "type": "serial_print"
+            },
+            {
+              "kind": "block",
+              "type": "serial_println"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-arrow-right-arrow-left"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "舵机",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "servo1_write"
+            },
+            {
+              "kind": "block",
+              "type": "servo1_attach"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-servo"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "SSD1306显示屏",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "u8g2_begin"
+            },
+            {
+              "kind": "block",
+              "type": "u8g2_drawStr"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-oled12864"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "时间控制",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "time_delay",
+              "inputs": {
+                "TIME": {
+                  "block": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1000
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "time_millis"
+            },
+            {
+              "kind": "block",
+              "type": "system_time"
+            },
+            {
+              "kind": "block",
+              "type": "system_date"
+            }
+          ],
+          "cssConfig": {
+            "icon": "fa-light fa-clock"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "超声波",
+          "colour": "#48c2c4",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "ultrasonic"
+            },
+            {
+              "kind": "block",
+              "type": "ultrasonic_read"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-sr04"
+          }
+        },
+        {
+          "kind": "category",
+          "name": "WS2812彩灯",
+          "colour": "#FF0000",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "RGB_begin"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_lightintensity_CTRL"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_colour_ctrl"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_parameter"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_update"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_demo"
+            },
+            {
+              "kind": "block",
+              "type": "RGB_demo2"
+            }
+          ],
+          "cssConfig": {
+            "icon": "iconfont icon-ws2812"
+          }
+        }
+      ]
+    }
     if (typeof this.workspace != 'undefined') {
       if (this.workspace.getToolbox() != null)
         this.workspace.updateToolbox(this.toolbox);
     }
+
     this.loaded.next(true)
   }
 
@@ -130,7 +1292,7 @@ export class BlocklyService {
         this.message.error(`加载库 ${name} 失败`)
         this.message.error(error)
         console.log(error);
-        
+
         resolve(false)
       }
     })
@@ -221,7 +1383,7 @@ export class BlocklyService {
       this.message.error(`加载库 ${libName} 失败`)
       this.message.error(error)
       console.log(error);
-      
+
     }
   }
 

@@ -7,9 +7,8 @@ import { initArduinoGenerator } from './arduino/arduino';
 import { PromptComponent } from './prompt/prompt.component';
 import { NewVarModalComponent } from './new-var-modal/new-var-modal.component';
 import { BlocklyService } from './service/blockly.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
+// import { NzMessageService } from 'ng-zorro-antd/message';
 import { VAR_TYPE } from './arduino/var.types';
-import { CustomCategory } from './customCategory';
 
 @Component({
   selector: 'clz-blockly',
@@ -19,15 +18,10 @@ import { CustomCategory } from './customCategory';
 export class BlocklyComponent implements OnInit {
 
   code: string;
-
-  workspace;
   generator: Blockly.Generator;
 
-  get theme() {
-    let theme = localStorage.getItem('theme')
-    if (theme == null)
-      theme = 'geras'
-    return theme
+  get workspace() {
+    return this.blocklyService.workspace;
   }
 
   @Output() public codeChange: EventEmitter<string> = new EventEmitter<string>();
@@ -47,7 +41,7 @@ export class BlocklyComponent implements OnInit {
     private blocklyService: BlocklyService,
     private configService: ConfigService,
     private modal: NzModalService,
-    private message: NzMessageService
+    // private message: NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -71,40 +65,8 @@ export class BlocklyComponent implements OnInit {
   }
 
   async init() {
-    const blocklyDiv = document.getElementById('blocklyDiv');
-    this.blocklyService.changeLanguage('zhHans')
     // 加载block和toolbox
     await this.blocklyService.init()
-
-    Blockly.registry.register(
-      Blockly.registry.Type.TOOLBOX_ITEM,
-      Blockly.ToolboxCategory.registrationName,
-      CustomCategory, true);
-    // @ts-ignore
-    this.workspace = Blockly.inject(blocklyDiv, {
-      // @ts-ignore
-      readOnly: false,
-      media: 'media/',
-      trashcan: true,
-      theme: 'zelos',
-      renderer: this.theme,
-      move: {
-        scrollbars: true,
-        drag: true,
-        wheel: false
-      },
-      zoom: {
-        controls: true,
-        wheel: true,
-        startScale: 1.0,
-        maxScale: 3,
-        minScale: 0.5,
-        scaleSpeed: 1.05,
-        pinch: true
-      },
-      toolbox: this.blocklyService.toolbox,
-    });
-    this.blocklyService.workspace = this.workspace
 
     this.workspace.addChangeListener(event => this.onWorkspaceChange(event))
     this.rewtireFunc()

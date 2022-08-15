@@ -1,5 +1,6 @@
 {
     "category": "超声波",
+    "parent": "传感器",
     "name": "servo",
     "icon": "iconfont icon-sr04",
     "introduction": "舵机控制支持库，支持Arduino UNO、MEGA、ESP8266、ESP32等开发板",
