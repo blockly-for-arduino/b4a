@@ -88,9 +88,12 @@ function checkBoardCore() {
                 resolve(true)
             } else {
                 arduinoCoreList.forEach(core => {
-
+                    let coreName = core.split('@')[0]
+                    if (coreName == boardJson.core.split('@')[0]) {
+                        console.log('UNINSTALL_OLD_BOARD_CORE');
+                        uninstalBoardCore(boardJson.core.split('@')[0])
+                    }
                 })
-                uninstalBoardCore(boardJson.core.split('@')[0])
                 resolve(false)
             }
         })
@@ -122,16 +125,9 @@ function downloadBoardCore() {
             noTags: true,
             onProgress: event => {
                 console.log('Progress', event);
-            },
-            // onMessage: event => {
-            //     console.log('Message', event);
-            // },
+            }
         })
         console.log('git clone done');
-        // console.log(result);
-        // rmdir(gitPath + '/.git', error => {
-        //     if (error != null) console.log(error);
-        // })
         var files = fs.readdirSync(gitPath)
         var filetype;
         if (files.length > 2) {
