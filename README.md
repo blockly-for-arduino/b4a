@@ -1,5 +1,6 @@
 # Blockly For Arduino  
-![](https://github.com/coloz/b4a/blob/master/doc/img/icon.png?raw=true)
+
+<img src="https://github.com/coloz/b4a/blob/master/doc/img/icon.png" width="80" height="80"/>  
 
 开发中...
 
@@ -7,8 +8,10 @@
 
 [官网](https://b4a.clz.me)  
 [B4A 库创建器](https://github.com/coloz/b4a-creator)  
-[开发板/类库/示例资源](https://github.com/coloz/b4a-cloud)  
+[类库](https://github.com/blockly-for-arduino/b4a-libraries)  
+[开发板](https://github.com/blockly-for-arduino/b4a-boards)  
 
+软件截图  
 ![](https://github.com/coloz/b4a/blob/master/doc/img/pic1.jpg?raw=true)
 
 ## 开发  
