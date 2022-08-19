@@ -31,8 +31,8 @@ export class BlocklyComponent implements OnInit {
     },
     "blocks": {
       "languageVersion": 0, "blocks": [
-        { "type": "arduino_setup", "id": "w%;fYz[)G_;{].azfgeM", "x": 30, "y": 30 },
-        { "type": "arduino_loop", "id": "RBk!NG-d?N5UZD3=Fkjd", "x": 330, "y": 30 }
+        { "type": "arduino_setup", "id": "arduino_setup_id0", "x": 30, "y": 30 },
+        { "type": "arduino_loop", "id": "arduino_loop_id0", "x": 330, "y": 30 }
       ]
     }
   }`
@@ -93,9 +93,11 @@ export class BlocklyComponent implements OnInit {
 
   loadTempData() {
     let temp = localStorage.getItem('temp');
-    let tempJson = JSON.parse(temp);
+    let tempJson;
     if (temp == null)
       tempJson = JSON.parse(this.defaultJsonStr)
+    else
+      tempJson = JSON.parse(temp);
     this.loadJson(tempJson);
   }
 
@@ -173,36 +175,37 @@ export class BlocklyComponent implements OnInit {
       })
       modal.triggerOk
     };
-    Blockly.Variables.flyoutCategoryBlocks = function (workspace) {
-      let variableModelList = []
-      VAR_TYPE.forEach(item => {
-        variableModelList = variableModelList.concat(workspace.getVariablesOfType(item.value))
-      })
 
-      let xmlList: any[] = [];
-      if (variableModelList.length > 0) {
-        // New variables are added to the end of the variableModelList.
-        const mostRecentVariable = variableModelList[variableModelList.length - 1];
-        // if (Blocks['variables_set']) {
-        const block = Blockly.utils.xml.createElement('block');
-        block.setAttribute('type', 'variables_set');
-        block.setAttribute('gap', '8');
-        block.appendChild(Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
-        xmlList.push(block);
-        // }
-        // if (Blocks['variables_get']) {
-        variableModelList.sort(Blockly.VariableModel.compareByName);
-        for (let i = 0, variable; (variable = variableModelList[i]); i++) {
-          const block = Blockly.utils.xml.createElement('block');
-          block.setAttribute('type', 'variables_get');
-          block.setAttribute('gap', '8');
-          block.appendChild(Blockly.Variables.generateVariableFieldDom(variable));
-          xmlList.push(block);
-        }
-        // }
-      }
-      return xmlList;
-    };
+    // Blockly.Variables.flyoutCategoryBlocks = function (workspace) {
+    //   let variableModelList = []
+    //   VAR_TYPE.forEach(item => {
+    //     variableModelList = variableModelList.concat(workspace.getVariablesOfType(item.value))
+    //   })
+
+    //   let xmlList: any[] = [];
+    //   if (variableModelList.length > 0) {
+    //     // New variables are added to the end of the variableModelList.
+    //     const mostRecentVariable = variableModelList[variableModelList.length - 1];
+    //     // if (Blocks['variables_set']) {
+    //     const block = Blockly.utils.xml.createElement('block');
+    //     block.setAttribute('type', 'variables_set');
+    //     block.setAttribute('gap', '8');
+    //     block.appendChild(Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
+    //     xmlList.push(block);
+    //     // }
+    //     // if (Blocks['variables_get']) {
+    //     variableModelList.sort(Blockly.VariableModel.compareByName);
+    //     for (let i = 0, variable; (variable = variableModelList[i]); i++) {
+    //       const block = Blockly.utils.xml.createElement('block');
+    //       block.setAttribute('type', 'variables_get');
+    //       block.setAttribute('gap', '8');
+    //       block.appendChild(Blockly.Variables.generateVariableFieldDom(variable));
+    //       xmlList.push(block);
+    //     }
+    //     // }
+    //   }
+    //   return xmlList;
+    // };
 
     Blockly.FieldVariable.dropdownCreate = function () {
       if (!this.variable_) {
@@ -211,8 +214,6 @@ export class BlocklyComponent implements OnInit {
           ' variable selected.');
       }
       const name = this.getText();
-      // downey 2022-6-17
-      // const TYPE = this.sourceBlock_?.parentBlock_?.getFieldValue('TYPE') || this.sourceBlock_.getFieldValue('TYPE');
       let variableModelList: any[] = [];
       if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         const variableTypes = this.getVariableTypes_();
@@ -230,8 +231,6 @@ export class BlocklyComponent implements OnInit {
       for (let i = 0; i < variableModelList.length; i++) {
         // Set the UUID as the internal representation of the variable.
         options[i] = [variableModelList[i].name, variableModelList[i].getId()];
-        // downey 2022-6-17
-        // if (!TYPE || (TYPE && (!variableModelList[i].type || TYPE === variableModelList[i].type))) options.push([variableModelList[i].name, variableModelList[i].getId()]);
       }
       options.push([Blockly.Msg['RENAME_VARIABLE'], 'RENAME_VARIABLE_ID']);
       if (Blockly.Msg['DELETE_VARIABLE']) {

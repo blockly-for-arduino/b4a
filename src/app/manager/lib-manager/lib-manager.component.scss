@@ -8,18 +8,20 @@
 }
 
 .left-box {
-    width: 300px;
+    width: 320px;
     height: calc(100% - 30px);
-    padding: 15px;
+    padding: 15px 0 15px 15px;
     margin-top: 15px;
     border-radius: 0 15px 15px 0;
     box-shadow: 0 0 10px #CCC;
     position: relative;
+    overflow: hidden;
 
     .table-header {
         width: 100%;
         position: relative;
         display: flex;
+        padding-right: 15px;
 
         span {
             color: #999;
@@ -27,7 +29,7 @@
 
         .version {
             position: absolute;
-            right: 50px;
+            right: 65px;
             width: 50px;
             display: flex;
             justify-content: center;
@@ -35,7 +37,7 @@
 
         .show {
             position: absolute;
-            right: 0;
+            right: 15px;
             width: 30px;
             display: flex;
             justify-content: center;
@@ -55,6 +57,13 @@
     box-shadow: 0 0 10px #CCC;
     position: relative;
     padding: 15px 0 15px 15px;
+}
+
+
+.scroll-box {
+    position: relative;
+    height: calc(100% - 7px);
+    padding-right: 15px;
 }
 
 .lib-list {

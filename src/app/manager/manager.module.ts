@@ -16,6 +16,14 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { InstallShellComponent } from './board-manager/install-shell/install-shell.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 @NgModule({
   declarations: [
     ManagerComponent,
@@ -35,10 +43,17 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
     NzRadioModule,
     NzInputModule,
     NzTagModule,
-    NzModalModule
+    NzModalModule,
+    PerfectScrollbarModule
   ],
   exports: [
     ManagerComponent
+  ],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ]
 })
 export class ManagerModule { }
