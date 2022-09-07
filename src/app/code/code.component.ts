@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import * as monaco from 'monaco-editor';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-code',
@@ -8,28 +7,14 @@ import * as monaco from 'monaco-editor';
 })
 export class CodeComponent implements OnInit {
 
-  editorOptions = { theme: 'vs-dark', language: 'cpp', lineNumbers: 'on', };
+  // editorOptions = { theme: 'vs-dark', language: 'cpp', lineNumbers: 'on', };
+  
   editor;
   @Input() code: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.editor = monaco.editor.create(document.getElementById('container'), {
-      value: this.code,
-      language: 'cpp',
-      theme: 'vs-dark',
-      lineNumbers: 'on'
-    });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['code'] && this.editor) {
-      this.editor.setValue(this.code)
-    }
   }
 
 }

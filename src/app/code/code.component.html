@@ -1,3 +1,5 @@
 <div class="code-box">
-  <div class="inner" id="container"></div>
+  <nz-code-editor class="editor" [ngModel]="code"
+    [nzEditorOption]="{ language: 'cpp',theme: 'vs-dark',lineNumbers: 'on' }">
+  </nz-code-editor>
 </div>

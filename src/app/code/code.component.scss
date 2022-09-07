@@ -1,3 +1,5 @@
+@import "~ng-zorro-antd/code-editor/style/index.css";
+
 :host {
     height: 100%;
     width: 100%;
@@ -11,9 +13,8 @@
     position: relative;
     overflow: hidden;
 
-    .inner {
+    nz-code-editor {
         height: 100%;
         width: 100%;
-        position: relative;
     }
 }
