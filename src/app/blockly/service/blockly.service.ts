@@ -221,6 +221,19 @@ export class BlocklyService {
                   b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
               });
             }
+            if (blockJson.args2) {
+              blockJson.args2.forEach(arg => {
+                if (arg.name)
+                  b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+              });
+            }
+            if (blockJson.args3) {
+              blockJson.args3.forEach(arg => {
+                if (arg.name)
+                  b4aVars['${' + arg.name + '}'] = getValue(block, arg.name, arg.type)
+              });
+            }
+            
 
             if (blockJson.b4a.object) {
               let primary

@@ -8,8 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CodeComponent implements OnInit {
 
   // editorOptions = { theme: 'vs-dark', language: 'cpp', lineNumbers: 'on', };
-  
-  editor;
+
   @Input() code: string = '';
 
   constructor() { }

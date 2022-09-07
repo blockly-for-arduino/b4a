@@ -26,6 +26,9 @@
             "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
             "suppressPrefixSuffix": true,
             "mutator": "controls_if_mutator",
+            "b4a":{
+                "code":"if(${IF0}) {\n  ${DO0}}\n"
+            },
             "extensions": [
                 "controls_if_tooltip"
             ],
@@ -62,6 +65,9 @@
             "tooltip": "%{BKYCONTROLS_IF_TOOLTIP_2}",
             "helpUrl": "%{BKY_CONTROLS_IF_HELPURL}",
             "suppressPrefixSuffix": true,
+            "b4a":{
+                "code":"if(${IF0}) {\n  ${DO0}} else {\n  ${ELSE}}\n"
+            },
             "extensions": [
                 "controls_if_tooltip"
             ],
@@ -118,6 +124,9 @@
             "helpUrl": "%{BKY_LOGIC_COMPARE_HELPURL}",
             "toolbox": {
                 "show": true
+            },
+            "b4a":{
+                "code":"${A} ${OP} ${B}"
             }
         },
         {
@@ -127,26 +136,26 @@
                 {
                     "type": "input_value",
                     "name": "A",
-                    "check": "Boolean"
+                    "check": "Any"
                 },
                 {
                     "type": "field_dropdown",
                     "name": "OP",
                     "options": [
                         [
-                            "%{BKY_LOGIC_OPERATION_AND}",
-                            "AND"
+                            "与",
+                            "&&"
                         ],
                         [
-                            "%{BKY_LOGIC_OPERATION_OR}",
-                            "OR"
+                            "或",
+                            "||"
                         ]
                     ]
                 },
                 {
                     "type": "input_value",
                     "name": "B",
-                    "check": "Boolean"
+                    "check": "Any"
                 }
             ],
             "inputsInline": true,
@@ -158,6 +167,9 @@
             ],
             "toolbox": {
                 "show": true
+            },
+            "b4a":{
+                "code":"${A} ${OP} ${B}"
             }
         },
         {
@@ -176,6 +188,9 @@
             "helpUrl": "%{BKY_LOGIC_NEGATE_HELPURL}",
             "toolbox": {
                 "show": true
+            },
+            "b4a":{
+                "code":"!${BOOL}"
             }
         },
         {
@@ -188,11 +203,11 @@
                     "options": [
                         [
                             "%{BKY_LOGIC_BOOLEAN_TRUE}",
-                            "TRUE"
+                            "true"
                         ],
                         [
                             "%{BKY_LOGIC_BOOLEAN_FALSE}",
-                            "FALSE"
+                            "false"
                         ]
                     ]
                 }
@@ -203,6 +218,9 @@
             "helpUrl": "%{BKY_LOGIC_BOOLEAN_HELPURL}",
             "toolbox": {
                 "show": true
+            },
+            "b4a":{
+                "code":"${BOOL}"
             }
         },
         {
@@ -238,6 +256,9 @@
             ],
             "toolbox": {
                 "show": true
+            },
+            "b4a":{
+                "code":"${IF}?${THEN}:${ELSE}"
             }
         }
     ]

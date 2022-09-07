@@ -114,7 +114,7 @@
                 }
             },
             "b4a": {
-                "code": "digitalRead(${PIN});"
+                "code": "digitalRead(${PIN})"
             },
             "output": "Any"
         },
@@ -185,7 +185,7 @@
                 }
             },
             "b4a": {
-                "code": "analogRead(${PIN});"
+                "code": "analogRead(${PIN})"
             },
             "output": "Any"
         },
