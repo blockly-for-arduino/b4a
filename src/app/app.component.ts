@@ -7,6 +7,7 @@ import { BlocklyService } from './blockly/service/blockly.service';
 import { ArduinoCliService } from './core/services/arduino-cli.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SerialService } from './core/services/serial.service';
+import { UpdateService } from './core/services/update.service';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,23 @@ export class AppComponent {
 
   libManagerWidth;
 
+
+  get newVersion() {
+    return this.updateService.newVersion
+  }
+
+  get progress() {
+    return this.updateService.progress.percent
+  }
+
+  get percent() {
+    return this.updateService.percent
+  }
+
+  get isDownloading() {
+    return this.updateService.isDownloading
+  }
+
   constructor(
     private electronService: ElectronService,
     private translate: TranslateService,
@@ -39,7 +57,9 @@ export class AppComponent {
     private blocklyService: BlocklyService,
     private arduinoCli: ArduinoCliService,
     private modal: NzModalService,
-    private serialService: SerialService
+    private serialService: SerialService,
+    private updateService: UpdateService,
+    private cd: ChangeDetectorRef
   ) {
     this.translate.setDefaultLang('en');
     if (electronService.isElectron) {
@@ -69,6 +89,12 @@ export class AppComponent {
           this.boardSelected = this.configService.config.board.name;
       }
     })
+    setTimeout(() => {
+      this.updateService.init()
+      setTimeout(() => {
+        this.cd.detectChanges()
+      }, 3000);
+    }, 3000);
   }
 
   showGuide = false;
@@ -86,7 +112,7 @@ export class AppComponent {
 
 
   ngAfterViewInit(): void {
-    this.getSerialPortList()
+    this.getSerialPortList();
   }
 
   codeChange(code) {
@@ -188,4 +214,12 @@ export class AppComponent {
     this.showManager = true
   }
 
+
+  downloadUpdate() {
+    this.updateService.download()
+  }
+
+  installUpdate() {
+    this.updateService.install()
+  }
 }

@@ -35,7 +35,7 @@ npm start
 
 ### 编译
 ```sh
-npm run electron:build
+npm run release
 ```
  
 ## 资源路径设计  

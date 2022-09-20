@@ -1,4 +1,7 @@
 {
+  "appId": "b4a.clz.me",
+  "copyright": "lvzhou",
+  "productName": "b4a",
   "asar": false,
   "directories": {
     "output": "release/"
@@ -36,8 +39,12 @@
   "win": {
     "icon": "dist/assets/icons",
     "target": [
-      "portable"
-    ]
+      "nsis"
+    ],
+    "publish": {
+      "provider": "generic",
+      "url": "https://b4a.clz.me/update"
+    }
   },
   "portable": {
     "splashImage": "dist/assets/icons/electron.bmp"

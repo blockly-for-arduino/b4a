@@ -143,3 +143,22 @@ header {
     background: #fff;
     z-index: 999;
 }
+
+
+.update-box {
+    width: 360px;
+    height: 120px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background: #FFF;
+    box-shadow: 0 0 10px #CCC;
+    z-index: 9999;
+    padding: 15px;
+
+    .btn-box {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+    }
+}

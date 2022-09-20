@@ -3,6 +3,8 @@ import * as remote from '@electron/remote/main';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+import * as electronLog from 'electron-log';
+import { autoUpdater } from "electron-updater"
 
 let win: BrowserWindow = null;
 
@@ -81,7 +83,8 @@ try {
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
   app.on('ready', () => {
     setTimeout(() => {
-      createWindow()
+      createWindow();
+      initUpdater();
     }, 400)
   });
 
@@ -106,3 +109,50 @@ try {
   // Catch Error
   // throw e;
 }
+
+function initUpdater() {
+  autoUpdater.logger = electronLog;
+  autoUpdater.logger['transports'].file.level = "info";
+  autoUpdater.autoDownload = false;
+  autoUpdater.on('checking-for-update', () => {
+    console.log('checking-for-update');
+    win.webContents.send('update', 'checking for update');
+  })
+  autoUpdater.on('update-available', (info) => {
+    win.webContents.send('update-available', info);
+  })
+  // autoUpdater.on('update-not-available', (info) => {
+  //   win.webContents.send('update', 'Update not available', info);
+  // })
+  autoUpdater.on('error', (err) => {
+    win.webContents.send('update-error', 'Error in auto-updater' + err);
+  })
+  autoUpdater.on('download-progress', (progressObj) => {
+    let log_message = "Download speed: " + progressObj.bytesPerSecond;
+    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+    log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+    console.log(log_message);
+    win.webContents.send('update-download-progress', progressObj);
+  })
+  autoUpdater.on('update-downloaded', (info) => {
+    win.webContents.send('update-downloaded', info);
+  });
+
+  ipcMain.on('update', (event, arg) => {
+    electronLog.info(JSON.stringify(arg))
+    switch (arg) {
+      case 'check':
+        autoUpdater.checkForUpdatesAndNotify()
+        break;
+      case 'download':
+        autoUpdater.downloadUpdate();
+        break;
+      case 'install':
+        autoUpdater.quitAndInstall();
+        break;
+      default:
+        break;
+    }
+  })
+}
+

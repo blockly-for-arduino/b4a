@@ -15,6 +15,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {
   CheckOutline, DownloadOutline, CodeOutline, FileAddOutline,
@@ -66,7 +67,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     NzModalModule,
     NzToolTipModule,
     ManagerModule,
-    NzMessageModule
+    NzMessageModule,
+    NzProgressModule
   ],
   providers: [],
   bootstrap: [AppComponent]

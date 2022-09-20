@@ -93,3 +93,19 @@
 <ng-template #guide>
     <app-guide></app-guide>
 </ng-template>
+
+
+<ng-container *ngIf="newVersion">
+    <div class="update-box animate__animated animate__fadeIn animate__faster">
+        <ng-container *ngIf="!isDownloading">
+            <div>有新的版本{{newVersion}}可用,是否要更新</div>
+            <div class="btn-box">
+                <button nz-button nzType="primary" (click)="downloadUpdate()">下载并安装</button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isDownloading">
+            <div>更新下载中，下载完成将自动安装</div>
+            <nz-progress [nzPercent]="percent"></nz-progress>
+        </ng-container>
+    </div>
+</ng-container>

@@ -26,7 +26,8 @@
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
-    "electron:build": "npm run build:prod && electron-builder build --publish=never",
+    "electron:build": "npm run build:prod && electron-builder build --publish always",
+    "release": "npm run build:prod && electron-builder build --publish always",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
     "e2e": "npm run build:prod && playwright test -c e2e/playwright.config.ts e2e/",
@@ -103,7 +104,9 @@
     "ts-node": "10.7.0",
     "typescript": "~4.5.5",
     "wait-on": "6.0.1",
-    "webdriver-manager": "12.1.8"
+    "webdriver-manager": "12.1.8",
+    "electron-updater": "5.2.1",
+    "electron-log": "4.4.8"
   },
   "engines": {
     "node": ">=14.0.0"
