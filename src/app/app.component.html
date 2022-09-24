@@ -95,11 +95,12 @@
 </ng-template>
 
 
-<ng-container *ngIf="newVersion">
+<ng-container *ngIf="newVersion && !skipVersion">
     <div class="update-box animate__animated animate__fadeIn animate__faster">
         <ng-container *ngIf="!isDownloading">
             <div>有新的版本{{newVersion}}可用,是否要更新</div>
             <div class="btn-box">
+                <button nz-button (click)="skipUpdate()">暂不更新</button>
                 <button nz-button nzType="primary" (click)="downloadUpdate()">下载并安装</button>
             </div>
         </ng-container>

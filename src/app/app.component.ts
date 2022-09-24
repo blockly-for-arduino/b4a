@@ -214,9 +214,16 @@ export class AppComponent {
     this.showManager = true
   }
 
+  skipVersion = false;
+  skipUpdate() {
+    this.skipVersion = true
+  }
 
   downloadUpdate() {
     this.updateService.download()
+    setInterval(() => {
+      this.cd.detectChanges();
+    }, 1000)
   }
 
   installUpdate() {

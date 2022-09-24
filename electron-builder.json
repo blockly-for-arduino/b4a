@@ -43,7 +43,7 @@
     ],
     "publish": {
       "provider": "generic",
-      "url": "https://b4a.clz.me/update"
+      "url": "https://b4a.diandeng.tech/update"
     }
   },
   "portable": {

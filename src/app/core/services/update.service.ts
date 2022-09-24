@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ipcRenderer, webFrame, shell } from 'electron';
+import { ipcRenderer } from 'electron';
 // import * as childProcess from 'child_process';
 // import * as fs from 'fs';
 // import * as os from 'os';
@@ -47,7 +47,7 @@ export class UpdateService {
       this.ipcRenderer.on('update-download-progress', (event, arg) => {
         console.log(arg);
         this.progress = arg;
-        this.percent = arg.percent;
+        this.percent = Math.trunc(arg.percent);
       })
       this.ipcRenderer.on('update-downloaded', (event, arg) => {
         console.log(arg);
