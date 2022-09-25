@@ -60,17 +60,15 @@ npm run release
 
 ## 联合发布  
 本软件由 奈何col 和 以下组织联合发布  
-![](https://github.com/coloz/b4a/blob/master/doc/img/openjumper.png?raw=true)
+![Arduino中文社区](https://github.com/coloz/b4a/blob/master/src/assets/logo/arduinocn.png?raw=true)  ![OpenJumper](https://github.com/coloz/b4a/blob/master/src/assets/logo/openjumper.png?raw=true)  
 
-## 深度合作  
-本软件正在和以下组织开展深度合作：  
-![](https://github.com/coloz/b4a/blob/master/doc/img/idealab.png?raw=true)
+## 合作伙伴  
+本软件正在和以下组织开展合作  
+![idealab](https://github.com/coloz/b4a/blob/master/src/assets/logo/idealab.png?raw=true)  
 
 ## TODO LIST  
-1. monaco-editor样式bug解决。
-2. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组（设计变量添加方式）  
-3. 多语言支持  
-4. 移除lib时，检查当前程序中是否已经使用该lib，如果正在使用，不允许移除该lib。  
-5. 移除board时，检查当前程序中是否已经使用该board，如果正在使用，不允许移除该board。  
-6. 添加自动更新功能  
-7. 安装开发板时，检查是否安装了其他版本的core，如果安装了，则移除后再重新安装指定版本  
+1. 使用[Arduino-List](https://github.com/luisllamasbinaburo/Arduino-List)做动态数组（设计变量添加方式）  
+2. 多语言支持  
+3. 移除lib时，检查当前程序中是否已经使用该lib，如果正在使用，不允许移除该lib  
+4. 移除board时，检查当前程序中是否已经使用该board，如果正在使用，不允许移除该board  
+5. 安装开发板时，检查是否安装了其他版本的core，如果安装了，则移除后再重新安装指定版本  
