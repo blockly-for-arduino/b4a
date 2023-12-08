@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "target": "es5",
+    "target": "es2020",
     "skipLibCheck": true,
     "strict": false,
     "typeRoots": [
