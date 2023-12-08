@@ -150,21 +150,21 @@ export function initArduinoGenerator() {
 
     Arduino.finish = function (code) {
         // 宏定义
-        let macros = Blockly.utils.object.values(Arduino.macros_)
+        let macros = Object.values(Arduino.macros_)
         // 库引用
-        let libraries = Blockly.utils.object.values(Arduino.libraries_)
+        let libraries = Object.values(Arduino.libraries_)
         // 变量
-        let variables = Blockly.utils.object.values(Arduino.variables_)
+        let variables = Object.values(Arduino.variables_)
         // 对象
-        let objects = Blockly.utils.object.values(Arduino.objects_)
+        let objects = Object.values(Arduino.objects_)
         // 函数
-        let functions = Blockly.utils.object.values(Arduino.functions_)
+        let functions = Object.values(Arduino.functions_)
         // setup
-        let setups = Blockly.utils.object.values(Arduino.setups_)
+        let setups = Object.values(Arduino.setups_)
         // 用户自定义setup
-        let userSetups = Blockly.utils.object.values(Arduino.userSetups_)
+        let userSetups = Object.values(Arduino.userSetups_)
         // loop
-        let loops = Blockly.utils.object.values(Arduino.loops_)
+        let loops = Object.values(Arduino.loops_)
 
         this.isInitialized = false;
 

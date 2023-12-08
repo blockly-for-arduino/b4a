@@ -12,6 +12,7 @@
     "allowJs": true,
     "target": "es5",
     "skipLibCheck": true,
+    "strict": false,
     "typeRoots": [
       "node_modules/@types"
     ],
