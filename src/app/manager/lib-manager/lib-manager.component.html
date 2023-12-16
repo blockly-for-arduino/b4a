@@ -6,7 +6,8 @@
             <div class="show">可用</div>
         </div>
         <!-- 已安装的库 -->
-        <div class="scroll-box" [perfectScrollbar]="{}">
+        <!-- <div class="scroll-box" [perfectScrollbar]="{}"> -->
+        <div class="scroll-box">
             <div class="lib-list" #libListBox *ngIf="libManagerLoaded">
                 <ng-container *ngFor="let libName of libList;trackBy:trackBylibName">
                     <ng-container *ngIf="libDict[libName]">

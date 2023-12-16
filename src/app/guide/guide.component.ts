@@ -80,9 +80,9 @@ export class GuideComponent implements OnInit {
       nzClosable: false,
       nzFooter: null,
       nzMaskClosable: false,
-      nzComponentParams: {
-        boardJson_cloud: boardJson_cloud
-      }
+      // nzComponentParams: {
+      //   boardJson_cloud: boardJson_cloud
+      // }
     })
   }
 

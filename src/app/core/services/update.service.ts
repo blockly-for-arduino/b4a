@@ -57,16 +57,16 @@ export class UpdateService {
   }
 
   init() {
-    this.ipcRenderer.send('update', 'check');
+    // this.ipcRenderer.send('update', 'check');
   }
 
   download() {
-    this.ipcRenderer.send('update', 'download');
+    // this.ipcRenderer.send('update', 'download');
     this.isDownloading = true
   }
 
   install() {
-    this.ipcRenderer.send('update', 'install');
+    // this.ipcRenderer.send('update', 'install');
   }
 
 }

@@ -137,9 +137,9 @@ export class BlocklyComponent implements OnInit {
         nzTitle: message,
         nzWidth: '300px',
         nzContent: PromptComponent,
-        nzComponentParams: {
-          value: defaultValue
-        },
+        // nzComponentParams: {
+        //   value: defaultValue
+        // },
         nzOnOk: e => {
           callback(e.value)
         }
@@ -165,9 +165,9 @@ export class BlocklyComponent implements OnInit {
         nzTitle: '添加变量',
         nzWidth: '350px',
         nzContent: NewVarModalComponent,
-        nzComponentParams: {
-          varType: opt_type
-        },
+        // nzComponentParams: {
+        //   varType: opt_type
+        // },
         nzOnOk: (e) => {
           if (opt_callback)
             opt_callback(e.varName);
@@ -207,38 +207,38 @@ export class BlocklyComponent implements OnInit {
     //   return xmlList;
     // };
 
-    Blockly.FieldVariable.dropdownCreate = function () {
-      if (!this.variable_) {
-        throw Error(
-          'Tried to call dropdownCreate on a variable field with no' +
-          ' variable selected.');
-      }
-      const name = this.getText();
-      let variableModelList: any[] = [];
-      if (this.sourceBlock_ && this.sourceBlock_.workspace) {
-        const variableTypes = this.getVariableTypes_();
-        // Get a copy of the list, so that adding rename and new variable options
-        // doesn't modify the workspace's list.
-        for (let i = 0; i < variableTypes.length; i++) {
-          const variableType = variableTypes[i];
-          const variables = this.sourceBlock_.workspace.getVariablesOfType(variableType);
-          variableModelList = variableModelList.concat(variables);
-        }
-      }
-      variableModelList.sort(Blockly.VariableModel.compareByName);
+    // Blockly.FieldVariable.dropdownCreate = function () {
+    //   if (!this.variable_) {
+    //     throw Error(
+    //       'Tried to call dropdownCreate on a variable field with no' +
+    //       ' variable selected.');
+    //   }
+    //   const name = this.getText();
+    //   let variableModelList: any[] = [];
+    //   if (this.sourceBlock_ && this.sourceBlock_.workspace) {
+    //     const variableTypes = this.getVariableTypes_();
+    //     // Get a copy of the list, so that adding rename and new variable options
+    //     // doesn't modify the workspace's list.
+    //     for (let i = 0; i < variableTypes.length; i++) {
+    //       const variableType = variableTypes[i];
+    //       const variables = this.sourceBlock_.workspace.getVariablesOfType(variableType);
+    //       variableModelList = variableModelList.concat(variables);
+    //     }
+    //   }
+    //   variableModelList.sort(Blockly.VariableModel.compareByName);
 
-      const options: any[] = [];
-      for (let i = 0; i < variableModelList.length; i++) {
-        // Set the UUID as the internal representation of the variable.
-        options[i] = [variableModelList[i].name, variableModelList[i].getId()];
-      }
-      options.push([Blockly.Msg['RENAME_VARIABLE'], 'RENAME_VARIABLE_ID']);
-      if (Blockly.Msg['DELETE_VARIABLE']) {
-        options.push([Blockly.Msg['DELETE_VARIABLE'].replace('%1', name), 'DELETE_VARIABLE_ID']);
-      }
-      options.push(['新建变量', 'CREATE_VARIABLE_ID']);
-      return options;
-    };
+    //   const options: any[] = [];
+    //   for (let i = 0; i < variableModelList.length; i++) {
+    //     // Set the UUID as the internal representation of the variable.
+    //     options[i] = [variableModelList[i].name, variableModelList[i].getId()];
+    //   }
+    //   options.push([Blockly.Msg['RENAME_VARIABLE'], 'RENAME_VARIABLE_ID']);
+    //   if (Blockly.Msg['DELETE_VARIABLE']) {
+    //     options.push([Blockly.Msg['DELETE_VARIABLE'].replace('%1', name), 'DELETE_VARIABLE_ID']);
+    //   }
+    //   options.push(['新建变量', 'CREATE_VARIABLE_ID']);
+    //   return options;
+    // };
 
     // @ts-ignore
     Blockly.FieldVariable.prototype.onItemSelected_ = function (menu, menuItem) {
