@@ -1,3 +1,6 @@
+该项目已废弃，推荐使用全新的blockly IDE，见这里：
+[https://github.com/ailyProject/aily-blockly](https://github.com/ailyProject/aily-blockly)
+
 # Blockly For Arduino  
 
 <img src="https://github.com/coloz/b4a/blob/master/doc/img/icon.png" width="80" height="80"/>  
